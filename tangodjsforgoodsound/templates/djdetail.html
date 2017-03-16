@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <p>
+    <b>{{ dj.name }}</b>
+  </p>
+
+  <p class="detail">Personal
+  <ul>
+    <li>Country: {{ dj.country.name }}</li>
+    <li>Email: <a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></li>
+    <li>Website: <a href="{{ dj.website }}" target="_new">{{ dj.website }}</a></li>
+    {% if dj.since %}
+    {% if dj.number_of_milongas %}
+    {% if dj.gender == "MAL" %}
+    <li>{{ dj.get_style_display }} Tango DJ since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</li>
+    {% else %}
+    <li>{{ dj.get_style_display }} Tango DJane since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</li>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+  </ul>
+
+  <p class="detail">Musica
+  <ul>
+    <li>Style: {{ dj.get_style_display }}</li>
+    <li>Tandas and cortinas: {{ dj.get_cortinas_display }} </li>
+    <li>Audio format: {{ dj.get_audioformat_display }}</li>
+    <li>Alternative audio format: {{ dj.get_audiofromat2_display }}</li>
+    <li>Sources/Labels: {{ dj.sources }}</li>
+    <li>Personal favorites and decades: {{ dj.favorites }}</li>
+  </ul>
+
+  <p class="detail">Equipment
+  <ul>
+    <li>Computer: {{ dj.get_computer_display }}</li>
+    <li>Model: {{ dj.computermodel }}</li>
+    <li>Player: {{ dj.player }}</li>
+    <li>AudioInterface/DAC: {{ dj.audiointerface }}</li>
+    <li>Soundprocessor: {{ dj.soundprocessor }}</li>
+    <li>Other equipment: {{ dj.other_equipment }}</li>
+    <li>Compression: {{ dj.get_compression_display }}</li>
+    <li>Equalization: {{ dj.get_equalization_display }}</li>
+    <li>Remarks: {{ dj.music_remarks }}</li>
+  </ul>
+  </p>
+
+  <p class="detail">Backup equipment
+  <ul>
+    <li>Computer: {{ dj.get_backup_computer_display }}</li>
+    <li>Model: {{ dj.backup_computermodel }}</li>
+    <li>Player: {{ dj.backup_player }}</li>
+    <li>AudioInterface/DAC: {{ dj.backup_audiointerface }}</li>
+    <li>Soundprocessor: {{ dj.backup_soundprocessor }}</li>
+    <li>Other equipment: {{ dj.backup_other_equipment }}</li>
+  </ul>
+
+  <p class="detail">
+    <b><a href="/admin/tangodjsforgoodsound/dj/{{ dj.id }}/change">Edit</a> | <a href="/">Home</a></b>
+  </p>
+{% endblock %}

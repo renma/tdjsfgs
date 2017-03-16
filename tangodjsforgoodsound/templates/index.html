@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <p>
+    <b>Hello and welcome at tango djs for good sound</b>
+  </p>
+  {% if djList %}
+  <ul>
+    {% for dj in djList %}
+    {% if dj.gender == "MAL" %}
+    <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
+  {% else %}
+    <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
+  {% endif %}
+  {% endfor %}
+  </ul>
+  {% else %}
+  <p>
+    No djs are available.
+  </p>
+  {% endif %}
+
+{% endblock %}
