@@ -55,13 +55,15 @@ body {
     font-size: 90%;
     font-family: 'Open Sans', sans-serif !important;
     margin: 10px;
-    background-color: #000;
-    color: #f8f8f8;
+    /* background-color: #000; */
+    /* color: #f8f8f8; */
+    background-color: #fcfcff;
+    color: #000;
 }
 
 a {
-    color: #fff380;
-    /* color: #33c; */
+    /* color: #fff380; */
+    color: #33c;
     text-decoration:none;
     font-weight: bold;
 }
@@ -80,7 +82,18 @@ li.index {
   margin-left: 0;
 }
 
-p.detail {
+p.title {
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+
+p.titlenom {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+
+p.smalltitle {
     font-style: italic;
     margin-top: 22px;
     margin-bottom: 2px;

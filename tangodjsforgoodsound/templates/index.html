@@ -1,23 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <p>
-    <b>Hello and welcome at tango djs for good sound</b>
-  </p>
-  {% if djList %}
-  <ul>
-    {% for dj in djList %}
-    {% if dj.gender == "MAL" %}
-    <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
+<p class="titlenom">
+  Hello and welcome at tango djs for good sound
+</p>
+
+{% if djList %}
+<ul>
+  {% for dj in djList %}
+  {% if dj.gender == "MAL" %}
+  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
   {% else %}
-    <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
+  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
   {% endif %}
   {% endfor %}
-  </ul>
-  {% else %}
-  <p>
-    No djs are available.
-  </p>
-  {% endif %}
+</ul>
+{% else %}
+<p>
+  No djs are available.
+</p>
+{% endif %}
+
+<p class="smalltitle">
+ {% if user.is_authenticated %}
+   You are logged in as {{ user.get_username }}  | 
+   <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>   
+ {% else %}
+   Click here to 
+   <a href="{% url 'login'%}?next={{request.path}}">login</a>   
+ {% endif %}
+ | <a href="admin">admin</a>   
+
+   
+
+</p>
 
 {% endblock %}

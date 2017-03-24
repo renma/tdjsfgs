@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <p>
-    <b>{{ dj.name }}</b>
+
+  <p class="titlenom">
+    {{ dj.name }}
   </p>
 
-  <p class="detail">Personal
+  <p class="smalltitle">Personal
   <ul>
     <li>Country: {{ dj.country.name }}</li>
     <li>Email: <a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></li>
@@ -21,7 +22,7 @@
     {% endif %}
   </ul>
 
-  <p class="detail">Musica
+  <p class="smalltitle">Musica
   <ul>
     <li>Style: {{ dj.get_style_display }}</li>
     <li>Tandas and cortinas: {{ dj.get_cortinas_display }} </li>
@@ -31,7 +32,7 @@
     <li>Personal favorites and decades: {{ dj.favorites }}</li>
   </ul>
 
-  <p class="detail">Equipment
+  <p class="smalltitle">Equipment
   <ul>
     <li>Computer: {{ dj.get_computer_display }}</li>
     <li>Model: {{ dj.computermodel }}</li>
@@ -45,7 +46,7 @@
   </ul>
   </p>
 
-  <p class="detail">Backup equipment
+  <p class="smalltitle">Backup equipment
   <ul>
     <li>Computer: {{ dj.get_backup_computer_display }}</li>
     <li>Model: {{ dj.backup_computermodel }}</li>
@@ -55,7 +56,7 @@
     <li>Other equipment: {{ dj.backup_other_equipment }}</li>
   </ul>
 
-  <p class="detail">
+  <p class="smalltitle">
     <b><a href="/admin/tangodjsforgoodsound/dj/{{ dj.id }}/change">Edit</a> | <a href="/">Home</a></b>
   </p>
 {% endblock %}
