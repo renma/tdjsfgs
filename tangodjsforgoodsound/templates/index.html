@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p class="titlenom">
-  Hello and welcome at tango djs for good sound
-</p>
+<h1>We provide good sound!</h1>
+<h3>We use the best available recordings in the best available
+  quality. For audio playback we apply
+  well-proven external sound cards. Enjoy!</h3>
 
 {% if djList %}
 <ul>
   {% for dj in djList %}
+  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a>
   {% if dj.gender == "MAL" %}
-  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
+    <br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
   {% else %}
-  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a><br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
+    <br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
   {% endif %}
   {% endfor %}
 </ul>
@@ -20,19 +22,5 @@
   No djs are available.
 </p>
 {% endif %}
-
-<p class="smalltitle">
- {% if user.is_authenticated %}
-   You are logged in as {{ user.get_username }}  | 
-   <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>   
- {% else %}
-   Click here to 
-   <a href="{% url 'login'%}?next={{request.path}}">login</a>   
- {% endif %}
- | <a href="admin">admin</a>   
-
-   
-
-</p>
 
 {% endblock %}

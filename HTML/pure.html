@@ -1,9 +1,9 @@
-{% load static %}
+<!DOCTYPE HTML>
 <html>
 <head>
-  <title>tango djs for good sound</title>
+  <title>tangodjsforgoodsound</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="author" content="René Maurer, Albertz Alt" />
+  <meta name="author" content="René Maurer" />
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
@@ -46,7 +46,7 @@
     }
 
     #banner {
-    background: #ccb url("{% static 'tangodjsforgoodsound/banner.png' %}");
+    background: #ccb url(banner.png);
     height: 128px;
     margin: 0;
     padding: 0;
@@ -114,9 +114,9 @@
     }
 
     #content h2 {
-    font-weight: bold;
-    font-size: 22px;
-    padding: 20px 0 0 0;
+    font-weight: normal;
+    font-size: 24px;
+    padding: 30px 0 0 0;
     color: #444;
     }
 
@@ -135,70 +135,85 @@
     font-size: 14px;
     }
 
-    p {
-    margin: 0;
-    padding: 0;
-    }
-
-    #footer {
-    margin: 0;
-    padding: 80px 0 20px 0;
-    }
-
-    p.mid {
-    text-align: center
-    }
-
-    p.padbottom {
-    padding-bottom: 20px;
-    }
-
-    th, td {
-    font-weight: normal;
-    text-align: left;
-    padding-right: 10px;
-    }
-
-    .small {
-    font-size: 20px;
-    }
-
+    
   </style>
 </head>
 
 <body>
 
-  <div id="banner"></div>
+<div id="banner"></div>
 
-  <div id="menubar">
-    <ul id="menu">
-      <li><a href="/" target="_self">Home</a>
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout ({{ user.get_username }})</a></li>
-        <li><a href="/admin/tangodjsforgoodsound/dj/{{ dj.id }}/change">Edit</a></li>
-      {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-        <li><a href ="{% url 'contact' %}">Contact</a></li>
-      {% endif %}
-      <li><a href ="{% url 'about' %}">About</a></li>
-      {% if user.is_authenticated %}
-      {% if user.get_username == "rene" or user.get_username == "alberto" %}
-      <li><a href ="admin"}">Admin</a></li>
-      {% endif %}
-      {% endif %}
-    </ul>
-  </div>
-  <div align="right"><font size="2" color="#999"><b>Version 2017-09-14 beta4 </b></font></div>
 
-  <div id="content">
-    {% block content %}
-    {% endblock %}
-  </div>
+<div id="menubar">
+  <ul id="menu"><li><a href="a.html" target="_self">Home</a>
+    <li><a href="b.html" target="_self">Login</a>
+    <li><a href="c.html" target="_self">Contact</a>
+    <li><a href="d.html" target="_self">About</a>
+  </ul>
+</div>
+
+<div id="content">
+  <h1>We provide good sound!</h1>
+  <h3>We use the best available recordings in the best available quality. Indeed we never play lossy formats. For playback only good quality and well-proven Sound Cards are applied!</h2>
+
+<ul>
+
+  <li class="index"><a href="/4/">Adelina</a><br />Alternative Tango DJane since 2011 (Albania)</li>
+  
+  
+  
+  <li class="index"><a href="/1/">DJ René</a><br />Traditional Tango DJ since 2003 (Switzerland)</li>
+  
+  
+  
+  <li class="index"><a href="/2/">DJ Alberto</a><br />Traditional Tango DJ since 2010 (Switzerland)</li>
+  
+  <li class="index"><a href="/3/">DJ El Zorro</a><br />Traditional Tango DJ since 2015 (Spain)</li>
+</ul>
+
+  <h1>Adelina</h1>
+
+  <table>
+    <tr>
+      <td>Country:</td><td>Albania</td>
+    </tr>
+    <tr>
+      <td>Email:</td><td><a href="mailto:adelina@cumparsita.ch" target="_top">adelina@cumparsita.ch</a></td>
+    </tr>
+    <tr>
+      <td>Website:</td><td><a href="None" target="_new">---</a></td>
+    </tr>
+    <tr>
+      <td colspan=2>Alternative Tango DJane since 2011 with about 80 milongas so far</td>
+    </tr>
+  </table>
+  <p>
+  <table>
+    <tr>
+      <td>Country:</td><td>Albania</td>
+    </tr>
+    <tr>
+      <td>Email:</td><td><a href="mailto:adelina@cumparsita.ch" target="_top">adelina@cumparsita.ch</a></td>
+    </tr>
+    <tr>
+      <td>Website:</td><td><a href="None" target="_new">---</a></td>
+    </tr>
+    <tr>
+      <td colspan=2>Alternative Tango DJane since 2011 with about 80 milongas so far</td>
+    </tr>
+  </table>
+
+  
+  <h2>LOCOTANGO</h3>
+  <p>
+    Paragrapph.
+  </p>
+</div>
 
 <div id="footer">
-  <p class="mid">
-  © 2017 René Maurer & Albert Alt<br />
+  <p>
+  Footer
 </div>
 
 </body>
-<html>
+</html>

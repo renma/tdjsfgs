@@ -92,9 +92,23 @@ p.titlenom {
     margin-bottom: 2px;
 }
 
-
 p.smalltitle {
     font-style: italic;
     margin-top: 22px;
     margin-bottom: 2px;
+}
+
+p.titlecontact {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+p.titlecontactmid {
+    font-weight: bold;
+    margin-bottom: 6px;
+    margin-top: 22px;
+}
+
+p.contact {
+    width: 65%;
 }

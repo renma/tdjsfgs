@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-03-09 11:30:38 rene>
+# Time-stamp: <2017-09-12 14:52:51 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 #
@@ -42,7 +42,8 @@ help() {
     echo "             kill    -> kill server"
     echo "             restart -> restart server"
     echo "             getdb   -> get database from remote"
-    echo "             dist    -> rsync sources (if local)"
+    echo "             dist    -> rsync sources (if local without database)"
+    echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo
     exit 1
@@ -58,14 +59,16 @@ info() {
 
 
 startserver() {
+    cd $WORKDIR
     if [ -d $remotedir ]; then
 	X=$(netstat -tulpen | grep 63763)
 	if [ "$X" ]; then
 	    exit 0
 	fi
+        $PYTHON manage.py runserver $PORT &
+    else
+        $PYTHON manage.py runserver $PORT
     fi
-    cd $WORKDIR
-    $PYTHON manage.py runserver $PORT &
     info "Server started"
 }
 
@@ -117,19 +120,22 @@ if [ "$1" = "getdb" ]; then
 fi
 
 
-if [ "$1" = "dist" ]; then
-
+if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
     if [ -d $localdir ]; then
 	ssh uberspace "$remotedir/tdjs kill"
 	echo "ssh uberspace $remotedir/tdjs kill DONE"
 	echo "rsync $localdir/* => uberspace:$remotedir"
-	rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	      --exclude *db.sqlite3.1* $localdir/* uberspace:$remotedir
-	echo
-	echo "Server is started every minute with cron"
+        if [ "$1" = "distall" ] ; then
+            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
+	          --exclude *db.sqlite3.1* $localdir/* uberspace:$remotedir
+        else
+            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
+	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* $localdir/* uberspace:$remotedir
+        fi
+        echo
 	date +"%Y-%m-%d %H:%M:%S"
-	# ssh uberspace "$remotedir/tdjs start"
-	# echo "ssh uberspace $remotedir/tdjs start DONE"
+        echo "login to uberspace and start the server"
+        ssh uberspace
 	echo
     fi
     exit 0

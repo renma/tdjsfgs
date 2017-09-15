@@ -8,4 +8,7 @@ urlpatterns = [
 
     # example: /5/
     url(r"^(?P<dj_id>[0-9]+)/$", views.djdetail, name="djdetail"),
+    url(r"^contact/$", views.contact, name="contact"),
+    url(r"^contactfeedback/$", views.contactfeedback, name="contactfeedback"),
+    url(r"^about/$", views.about, name="about"),
 ]

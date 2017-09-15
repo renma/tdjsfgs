@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import datetime
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django_countries.fields import CountryField
 from choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
@@ -12,6 +13,9 @@ from choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
 class DJ(models.Model):
 
     # Person Data
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True,
+                                blank=True)
+
     name = models.CharField(_("Name"),
                             max_length=200)
 

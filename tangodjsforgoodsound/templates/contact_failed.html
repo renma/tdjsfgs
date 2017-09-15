@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Your message wasn't sent :-( </h1>
+
+<h2>
+  Do you really have entered one of the big four orchestras.
+  <br />Remember: Juan D'Arienzo, Carlos Di Sarli, Aníbal Troilo, Osvaldo Pugliese.
+  <br ><br>Is your email address correct?
+  
+<p>
+  <br /><br /><a href ="{% url 'contact' %}">Please try again</a>
+
+
+{% endblock %}

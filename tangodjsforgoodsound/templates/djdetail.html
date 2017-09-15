@@ -2,61 +2,84 @@
 {% block content %}
 
 
-  <p class="titlenom">
-    {{ dj.name }}
-  </p>
-
-  <p class="smalltitle">Personal
-  <ul>
-    <li>Country: {{ dj.country.name }}</li>
-    <li>Email: <a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></li>
-    <li>Website: <a href="{{ dj.website }}" target="_new">{{ dj.website }}</a></li>
+  <h1>{{ dj.name }}</h1>
+  <p>
+  <table>
+    <tr>
+    </tr><tr>
     {% if dj.since %}
     {% if dj.number_of_milongas %}
     {% if dj.gender == "MAL" %}
-    <li>{{ dj.get_style_display }} Tango DJ since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</li>
+      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</td>
     {% else %}
-    <li>{{ dj.get_style_display }} Tango DJane since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</li>
+      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJane since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas so far</td>
     {% endif %}
     {% endif %}
     {% endif %}
-  </ul>
-
-  <p class="smalltitle">Musica
-  <ul>
-    <li>Style: {{ dj.get_style_display }}</li>
-    <li>Tandas and cortinas: {{ dj.get_cortinas_display }} </li>
-    <li>Audio format: {{ dj.get_audioformat_display }}</li>
-    <li>Alternative audio format: {{ dj.get_audiofromat2_display }}</li>
-    <li>Sources/Labels: {{ dj.sources }}</li>
-    <li>Personal favorites and decades: {{ dj.favorites }}</li>
-  </ul>
-
-  <p class="smalltitle">Equipment
-  <ul>
-    <li>Computer: {{ dj.get_computer_display }}</li>
-    <li>Model: {{ dj.computermodel }}</li>
-    <li>Player: {{ dj.player }}</li>
-    <li>AudioInterface/DAC: {{ dj.audiointerface }}</li>
-    <li>Soundprocessor: {{ dj.soundprocessor }}</li>
-    <li>Other equipment: {{ dj.other_equipment }}</li>
-    <li>Compression: {{ dj.get_compression_display }}</li>
-    <li>Equalization: {{ dj.get_equalization_display }}</li>
-    <li>Remarks: {{ dj.music_remarks }}</li>
-  </ul>
-  </p>
-
-  <p class="smalltitle">Backup equipment
-  <ul>
-    <li>Computer: {{ dj.get_backup_computer_display }}</li>
-    <li>Model: {{ dj.backup_computermodel }}</li>
-    <li>Player: {{ dj.backup_player }}</li>
-    <li>AudioInterface/DAC: {{ dj.backup_audiointerface }}</li>
-    <li>Soundprocessor: {{ dj.backup_soundprocessor }}</li>
-    <li>Other equipment: {{ dj.backup_other_equipment }}</li>
-  </ul>
-
-  <p class="smalltitle">
-    <b><a href="/admin/tangodjsforgoodsound/dj/{{ dj.id }}/change">Edit</a> | <a href="/">Home</a></b>
-  </p>
+    </tr><tr>
+      <td>Country:</td><td>{{ dj.country.name }}</td>
+    </tr><tr>
+      <td>Email::</td><td><a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></td>
+    </tr><tr>
+      {% if dj.website %}
+        {% if dj.website == "None" %}
+          <td>Website:</td><td>-</a></td>
+        {% else %}
+          <td>Website:</td><td><a href="{{ dj.website }}" target="_new">{{ dj.website }}</a></td>
+        {% endif %}
+      {% else %}
+        <td>Website:</td><td>-</a></td>
+      {% endif %}
+    </tr><tr>
+      <td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td><b>Musica<b></td><td></td>
+    </tr><tr>
+      <td>Style:</td><td>{{ dj.get_style_display }}</td>
+    </tr><tr>
+      <td>Tandas and cortinas:</td><td>{{ dj.get_cortinas_display }} </td>
+    </tr><tr>
+      <td>Audio format:</td><td>{{ dj.get_audioformat_display }}</td>
+    </tr><tr>
+      <td>Alternative audio format:</td><td>{{ dj.get_audiofromat2_display }}</td>
+    </tr><tr>
+      <td>Sources/Labels:</td><td>{{ dj.sources }}</td>
+    </tr><tr>
+      <td>Personal favorites:</td><td>{{ dj.favorites }}</td>
+    </tr><tr>
+      <td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td><b>Equipment<b></td><td></td>
+    </tr></tr>
+      <td>Computer:</td><td>{{ dj.get_computer_display }}</td>
+    </tr></tr>
+      <td>Model:</td><td>{{ dj.computermodel }}</td>
+    </tr></tr>
+      <td>Player:</td><td>{{ dj.player }}</td>
+    </tr></tr>
+      <td>AudioInterface/DAC:</td><td>{{ dj.audiointerface }}</td>
+    </tr></tr>
+      <td>Soundprocessor:</td><td>{{ dj.soundprocessor }}</td>
+    </tr></tr>
+      <td>Other equipment:</td><td>{{ dj.other_equipment }}</td>
+    </tr></tr>
+      <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
+    </tr></tr>
+      <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
+    </tr><tr>
+      <td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td><b>Backup equipment<b></td><td></td>
+    </tr></tr>
+      <td>Computer:</td><td>{{ dj.get_backup_computer_display }}</td>
+    </tr></tr>
+      <td>Model:</td><td>{{ dj.backup_computermodel }}</td>
+    </tr></tr>
+      <td>Player:</td><td>{{ dj.backup_player }}</td>
+    </tr></tr>
+      <td>AudioInterface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
+    </tr></tr>
+      <td>Soundprocessor:</td><td>{{ dj.backup_soundprocessor }}</td>
+    </tr>
+  </table>
 {% endblock %}

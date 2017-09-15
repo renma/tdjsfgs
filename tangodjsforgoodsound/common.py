@@ -1,6 +1,30 @@
 import unicodedata
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.mail import EmailMessage
+
+
+def sendContactEmail(first, last, emailFrom, emailTo, content, magic,
+                     lossless, scard):
+    emailContent = [
+        "", "A new contact request was entered on the website:", "",
+        "    First name : %s" % first,
+        "    Last name  : %s" % last,
+        "    Email      : %s" % emailFrom,
+        "    Orquesta   : %s" % magic,
+        "    Checkboxes : %s %s" % (lossless, scard), ""]
+    if content:
+        emailContent.extend([content, ""])
+    emailContent.append("This message was sent to: %s" % emailTo)
+
+    replyTo = emailFrom
+    emailFrom = "website@tangodjsforgoodsound.cumparsita.ch"
+    email = EmailMessage("New contact request",
+                         "\n".join(emailContent),
+                         emailFrom,
+                         emailTo,
+                         reply_to=[replyTo])
+    email.send()
+    print "Email sent to: %s" % emailTo
 
 
 class TrickyField(forms.Field):
@@ -8,7 +32,7 @@ class TrickyField(forms.Field):
     _artists = [
         "anibaltroilo",
         "carlosdisarli",
-        "darienzo"
+        "darienzo",
         "disarli",
         "juandarienzo",
         "osvaldopugliese",
@@ -32,7 +56,8 @@ class TrickyField(forms.Field):
         return val.strip()
 
     def validate(self, value):
-        super(forms.Field, self).validate(value)
+        super(TrickyField, self).validate(value)
         val = self._createAz(value.lower())
-        if not val or val not in self._artists:
-            raise ValidationError("Artist not valid")
+        if value and val not in self._artists:
+            print "This artist isn't valid: %s" % val
+            raise forms.ValidationError(("Artist not valid"), code="invalid")

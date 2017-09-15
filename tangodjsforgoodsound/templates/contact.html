@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Get in touch with us</h1>
+
+<p>
+  We love to hear from engaged Tango DJs and DJanes providing good
+  sound for their audience.<br />We really appreciate you taking the time
+  to get in touch. Please fill in the form below.
+
+<p>
+  We will get back to you shortly, usually within 2-3 days.
+
+<p>
+  By submitting your email address as well as your real name,
+  you acknowledge that<br />you have read the Minimal Sound Requirement
+  Statement below.
+
+<h2>Please enter your data</h2>
+  <form role="form" action="" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br />
+  <button type="submit">Submit</button>
+</form>
+
+<h2>Minimal Sound Requirement Statement</h2>
+<p>
+  DJs and DJanes listed on this side meet the following targets:
+  <ul>
+    <li> - We don't play lossy formats (e.g. mp3)
+    <li> - We use good quality external sound cards
+  </ul>
+      
+{% endblock %}
