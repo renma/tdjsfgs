@@ -60,3 +60,7 @@ def contactfeedback(request):
 
 def about(request):
     return render(request, "about.html")
+
+
+def about(request):
+    return render(request, "todo.html")

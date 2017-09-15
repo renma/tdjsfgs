@@ -96,6 +96,10 @@
     display: none;
     }
 
+    ul#small a {
+    font-size: 14
+    }
+
     #content {
     margin: 0 0 0 50px;
     width: 1000px;
@@ -174,7 +178,7 @@
     <ul id="menu">
       <li><a href="/" target="_self">Home</a>
       {% if user.is_authenticated %}
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout ({{ user.get_username }})</a></li>
+        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout/{{ user.get_username }}</a></li>
         <li><a href="/admin/tangodjsforgoodsound/dj/{{ dj.id }}/change">Edit</a></li>
       {% else %}
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
@@ -183,12 +187,12 @@
       <li><a href ="{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
       {% if user.get_username == "rene" or user.get_username == "alberto" %}
-      <li><a href ="admin"}">Admin</a></li>
+      <li><a href ="{% url 'todo' %}">TODO</a></li>
       {% endif %}
       {% endif %}
     </ul>
   </div>
-  <div align="right"><font size="2" color="#999"><b>Version 2017-09-14 beta4 </b></font></div>
+  <div align="right"><font size="2" color="#999"><b>Version 2017-09-15 beta5 </b></font></div>
 
   <div id="content">
     {% block content %}
