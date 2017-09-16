@@ -62,5 +62,5 @@ def about(request):
     return render(request, "about.html")
 
 
-def about(request):
+def todo(request):
     return render(request, "todo.html")
