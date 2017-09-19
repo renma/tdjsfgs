@@ -24,10 +24,18 @@ def djdetail(request, dj_id):
 
 def djedit(request):
     if request.user.is_authenticated():
+        html = "djedit.html"
         user = request.user
         data = DJ.objects.get(user=user)
-        djform = DJEditForm(instance=data)
-        return render(request, "djedit.html", {"form": djform, "user": user})
+        if request.method == 'POST':
+            djform = DJEditForm(request.POST, instance=data)
+            if djform.is_valid():
+                djform.save()
+                html = "djedit_saved.html"
+        else:
+            data = DJ.objects.get(user=user)
+            djform = DJEditForm(instance=data)
+        return render(request, html, {"form": djform, "user": user})
     # This should not happen!
     return index(request)
 
@@ -49,8 +57,6 @@ def contact(request):
             email = request.POST.get("contact_email", '')
             content = request.POST.get("contact_content", '')
             magic = request.POST.get("contact_magic", '')
-            # lossless = request.POST.get("contact_lossless", '')
-            # scard = request.POST.get("contact_scard", '')
             emailTo = createEmailTo()
             email = sendContactEmail(firstName, lastName, email, emailTo,
                                      content, magic)
