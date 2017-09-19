@@ -30,7 +30,6 @@ MOSTLY_CHOICES = (
 
 
 AUDIO_FORMAT_CHOICES = (
-    ("", ""),
     ("AIFF", _("AIFF Audio Interchange File Format (.aiff, aif)")),
     ("WAV", _("WAV Resource Interchange File Format (.wav)")),
     ("ADA", _("ADA Advanced Digital Audio (.ada)")),
@@ -45,7 +44,6 @@ AUDIO_FORMAT_CHOICES = (
 
 
 COMPUTER_CHOICES = (
-    ("", ""),
     ("PCW", _("PC Windows")),
     ("PCL", _("PC Linux")),
     ("MAC", _("MAC")),

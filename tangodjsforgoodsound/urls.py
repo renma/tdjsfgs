@@ -10,6 +10,7 @@ urlpatterns = [
     url(r"^(?P<dj_id>[0-9]+)/$", views.djdetail, name="djdetail"),
     url(r"^contact/$", views.contact, name="contact"),
     url(r"^contactfeedback/$", views.contactfeedback, name="contactfeedback"),
+    url(r"^djedit/$", views.djedit, name="djedit"),
     url(r"^about/$", views.about, name="about"),
-    url(r"^todo/$", views.about, name="todo"),
+    url(r"^todo/$", views.todo, name="todo"),
 ]

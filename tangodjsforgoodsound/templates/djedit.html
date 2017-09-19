@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Please enter your data</h1>
+
+<p>
+  Please remember the Minimal Sound Requirement Statement below.
+
+<h2></h2>
+  <form role="form" action="" method="post">
+  {% csrf_token %}
+  <table id="djedit">
+    {{ form.as_table }}
+  </table>
+  <br />
+  <button type="submit">Submit</button>
+</form>
+
+<h2>Minimal Sound Requirement Statement</h2>
+<p>
+  DJs and DJanes listed on this side meet the following targets:
+  <ul>
+    <li> - We don't play lossy formats (e.g. mp3)
+    <li> - We use good quality external sound cards
+  </ul>
+      
+{% endblock %}
