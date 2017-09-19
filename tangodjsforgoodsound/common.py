@@ -3,15 +3,13 @@ from django import forms
 from django.core.mail import EmailMessage
 
 
-def sendContactEmail(first, last, emailFrom, emailTo, content, magic,
-                     lossless, scard):
+def sendContactEmail(first, last, emailFrom, emailTo, content, magic):
     emailContent = [
         "", "A new contact request was entered on the website:", "",
         "    First name : %s" % first,
         "    Last name  : %s" % last,
         "    Email      : %s" % emailFrom,
-        "    Orquesta   : %s" % magic,
-        "    Checkboxes : %s %s" % (lossless, scard), ""]
+        "    Orquesta   : %s" % magic, ""]
     if content:
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)

@@ -49,11 +49,11 @@ def contact(request):
             email = request.POST.get("contact_email", '')
             content = request.POST.get("contact_content", '')
             magic = request.POST.get("contact_magic", '')
-            lossless = request.POST.get("contact_lossless", '')
-            scard = request.POST.get("contact_scard", '')
+            # lossless = request.POST.get("contact_lossless", '')
+            # scard = request.POST.get("contact_scard", '')
             emailTo = createEmailTo()
             email = sendContactEmail(firstName, lastName, email, emailTo,
-                                     content, magic, lossless, scard)
+                                     content, magic)
             return redirect("contactfeedback")
         else:
             return render(request, "contact_failed.html")

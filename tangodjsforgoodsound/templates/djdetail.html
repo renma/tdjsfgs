@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
   <h1>{{ dj.name }}</h1>
   <p>
   <table>
@@ -41,11 +40,21 @@
     </tr><tr>
       <td>Audio format:</td><td>{{ dj.get_audioformat_display }}</td>
     </tr><tr>
+    {% if dj.audiofromat2 %}
       <td>Alternative audio format:</td><td>{{ dj.get_audiofromat2_display }}</td>
+    {% else %}
+      <td>Alternative audio format:</td><td>-</td>
+    {% endif %}
     </tr><tr>
       <td>Sources/Labels:</td><td>{{ dj.sources }}</td>
     </tr><tr>
       <td>Personal favorites:</td><td>{{ dj.favorites }}</td>
+    </tr><tr>
+    {% if dj.music_remark %}
+      <td>Remarks:</td><td>{{ dj.music_remark }}</td>
+    {% else %}
+      <td>Remarks:</td><td>-</td>
+    {% endif %}
     </tr><tr>
       <td>&nbsp;</td><td></td>
     </tr><tr>
@@ -59,13 +68,27 @@
     </tr></tr>
       <td>AudioInterface/DAC:</td><td>{{ dj.audiointerface }}</td>
     </tr></tr>
+    {% if dj.soundprocessor %}
       <td>Soundprocessor:</td><td>{{ dj.soundprocessor }}</td>
+    {% else %}
+      <td>Soundprocessor:</td><td>-</td>
+    {% endif %}
     </tr></tr>
+    {% if dj.other_equipment %}
       <td>Other equipment:</td><td>{{ dj.other_equipment }}</td>
+    {% else %}
+      <td>Other equipment:</td><td>-</td>
+    {% endif %}
     </tr></tr>
       <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
     </tr></tr>
       <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
+    </tr><tr>
+    {% if dj.equipment_remark %}
+      <td>Remarks:</td><td>{{ dj.equipment_remark }}</td>
+    {% else %}
+      <td>Remarks:</td><td>-</td>
+    {% endif %}
     </tr><tr>
       <td>&nbsp;</td><td></td>
     </tr><tr>
@@ -77,9 +100,23 @@
     </tr></tr>
       <td>Player:</td><td>{{ dj.backup_player }}</td>
     </tr></tr>
+    {% if dj.backup_audiointerface %}
       <td>AudioInterface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
+    {% else %}
+      <td>AudioInterface/DAC:</td><td>-</td>
+    {% endif %}
     </tr></tr>
+    {% if dj.backup_soundprocessor %}
       <td>Soundprocessor:</td><td>{{ dj.backup_soundprocessor }}</td>
+    {% else %}
+      <td>Soundprocessor:</td><td>-</td>
+    {% endif %}
+    </tr></tr>
+    {% if dj.backup_other_equipment %}
+      <td>Other equipment:</td><td>{{ dj.backup_other_equipment }}</td>
+    {% else %}
+      <td>Other equipment:</td><td>-</td>
+    {% endif %}
     </tr>
   </table>
 {% endblock %}

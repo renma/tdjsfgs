@@ -77,6 +77,10 @@ class DJ(models.Model):
                                  max_length=LENGTH_1,
                                  default='', blank=True)
 
+    music_remark = models.CharField(_("Remarks"),
+                                    max_length=LENGTH_1,
+                                    default='', blank=True)
+
     # Tech Data ---------------------------------------------------------------
     computer = models.CharField(_("Computer"),
                                 max_length=LENGTH_CHOICES,
@@ -113,9 +117,9 @@ class DJ(models.Model):
                                     choices=MOSTLY_CHOICES,
                                     default='', blank=True)
 
-    music_remarks = models.CharField(_("Remarks"),
-                                     max_length=LENGTH_1,
-                                     default='', blank=True)
+    equipment_remark = models.CharField(_("Remarks"),
+                                        max_length=LENGTH_1,
+                                        default='', blank=True)
 
     # Tech Data backup --------------------------------------------------------
     backup_computer = models.CharField(_("Computer"),

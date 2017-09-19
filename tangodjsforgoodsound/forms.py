@@ -12,8 +12,8 @@ class ContactForm(forms.Form):
     contact_content = forms.CharField(required=False,
                                       widget=forms.Textarea(attrs=attrs))
     contact_magic = TrickyField(required=True)
-    contact_lossless = forms.BooleanField(required=True)
-    contact_scard = forms.BooleanField(required=True)
+    # contact_lossless = forms.BooleanField(required=True)
+    # contact_scard = forms.BooleanField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
@@ -22,8 +22,8 @@ class ContactForm(forms.Form):
         self.fields['contact_email'].label = "Your email address"
         self.fields['contact_content'].label = "Your message"
         self.fields['contact_magic'].label = "One of the big four orchestras"
-        self.fields['contact_lossless'].label = "I don't play lossy formats"
-        self.fields['contact_scard'].label = "I use good quality soundcards"
+        # self.fields['contact_lossless'].label = "I don't play lossy formats"
+        # self.fields['contact_scard'].label = "Sound Requirement Statement "
 
 
 class DJEditForm(forms.ModelForm):
@@ -45,6 +45,7 @@ class DJEditForm(forms.ModelForm):
             "audioformatmat2",
             "sources",
             "favorites",
+            "music_remark",
             "computer",
             "computermodel",
             "player",
@@ -53,7 +54,7 @@ class DJEditForm(forms.ModelForm):
             "other_equipment",
             "compression",
             "equalization",
-            "music_remarks",
+            "equipment_remark",
             "backup_computer",
             "backup_computermodel",
             "backup_player",
@@ -67,12 +68,10 @@ class DJEditForm(forms.ModelForm):
             "website",
             "soundprocessor",
             "audioformatmat2",
+            "music_remark",
             "other_equipment",
-            "compression",
-            "equalization",
-            "backup_computer",
-            "backup_computermodel",
-            "backup_player",
+            "equipment_remark",
+            "backup_audiointerface",
             "backup_soundprocessor",
             "backup_other_equipment"]
         for field in self.fields:
