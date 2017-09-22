@@ -4,10 +4,12 @@ from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
 from .models import DJ
-from .common import sendContactEmail
+from .common import sendContactEmail as sendEmail
 
 
 def createEmailTo():
+    if os.path.exists("/home/tdjsfgs"):
+        return ["contact@tangodjsforgoodsound"]
     if os.path.exists("/home/rene"):
         return ["rm@cumparsita.ch"]
     return ["rm@cumparsita.ch", "saludos@bluewin.ch"]
@@ -51,18 +53,23 @@ def contact(request):
     form_class = ContactForm
     if request.method == 'POST':
         form = form_class(data=request.POST)
+        firstname = request.POST.get("contact_firstname", '')
+        lastname = request.POST.get("contact_lastname", '')
+        email = request.POST.get("contact_email", '')
+        content = request.POST.get("contact_content", '')
+        magic = request.POST.get("contact_magic", '')
         if form.is_valid():
-            firstName = request.POST.get("contact_firstname", '')
-            lastName = request.POST.get("contact_lastname", '')
-            email = request.POST.get("contact_email", '')
-            content = request.POST.get("contact_content", '')
-            magic = request.POST.get("contact_magic", '')
             emailTo = createEmailTo()
-            email = sendContactEmail(firstName, lastName, email, emailTo,
-                                     content, magic)
+            a, b, c = firstname, lastname, email
+            email = sendEmail(a, b, c, emailTo, content, magic)
             return redirect("contactfeedback")
-        else:
-            return render(request, "contact_failed.html")
+        form = form_class()
+        form.fields["contact_firstname"].initial = firstname
+        form.fields["contact_lastname"].initial = lastname
+        form.fields["contact_email"].initial = email
+        form.fields["contact_content"].initial = content
+        form.fields["contact_magic"].initial = magic
+        return render(request, "contact_failed.html", {"form": form, })
     return render(request, "contact.html", {"form": form_class, })
 
 

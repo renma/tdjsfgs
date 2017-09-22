@@ -6,10 +6,16 @@
 <h2>
   Do you really have entered one of the big four orchestras.
   <br />Remember: Juan D'Arienzo, Carlos Di Sarli, Aníbal Troilo, Osvaldo Pugliese.
-  <br ><br>Is your email address correct?
+  <br >Is your email address correct?
   
-<p>
-  <br /><br /><a href ="{% url 'contact' %}">Please try again</a>
-
+<h2>Please try again</h2>
+  <form role="form" action="" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br />
+  <button type="submit">Submit</button>
+</form>
 
 {% endblock %}
