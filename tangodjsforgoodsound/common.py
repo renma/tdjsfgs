@@ -3,7 +3,15 @@ from django import forms
 from django.core.mail import EmailMessage
 
 
-def sendContactEmail(first, last, emailFrom, emailTo, content, magic):
+def createEmailTo():
+    if os.path.exists("/home/tdjsfgs"):
+        return ["contact@tangodjsforgoodsound"]
+    if os.path.exists("/home/rene"):
+        return ["rm@cumparsita.ch"]
+    return ["rm@cumparsita.ch", "saludos@bluewin.ch"]
+
+
+def sendContactEmail(first, last, emailFrom, content, magic):
     emailContent = [
         "", "A new contact request was entered on the website:", "",
         "    First name : %s" % first,
@@ -12,14 +20,14 @@ def sendContactEmail(first, last, emailFrom, emailTo, content, magic):
         "    Orquesta   : %s" % magic, ""]
     if content:
         emailContent.extend([content, ""])
-    emailContent.append("This message was sent to: %s" % emailTo)
+    emailContent.append("This message was sent to: %s" % createEmailTo())
 
     replyTo = emailFrom
     emailFrom = "website@tangodjsforgoodsound.cumparsita.ch"
     email = EmailMessage("New contact request",
                          "\n".join(emailContent),
                          emailFrom,
-                         emailTo,
+                         createEmailTo(),
                          reply_to=[replyTo])
     email.send()
     print "Email sent to: %s" % emailTo

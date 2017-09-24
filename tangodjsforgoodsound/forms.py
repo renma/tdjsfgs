@@ -15,11 +15,11 @@ class ContactForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
-        self.fields['contact_firstname'].label = "Your first name"
-        self.fields['contact_lastname'].label = "Your family name"
-        self.fields['contact_email'].label = "Your email address"
-        self.fields['contact_content'].label = "Your message"
-        self.fields['contact_magic'].label = "One of the big four orchestras"
+        self.fields["contact_firstname"].label = "Your first name"
+        self.fields["contact_lastname"].label = "Your family name"
+        self.fields["contact_email"].label = "Your email address"
+        self.fields["contact_content"].label = "Your message"
+        self.fields["contact_magic"].label = "One of the big four orchestras"
 
 
 class DJEditForm(forms.ModelForm):
@@ -33,8 +33,8 @@ class DJEditForm(forms.ModelForm):
             "country",
             "since",
             "number_of_milongas",
-            "website",
             "email",
+            "website",
             "style",
             "cortinas",
             "audioformat",
@@ -73,3 +73,5 @@ class DJEditForm(forms.ModelForm):
         for field in self.fields:
             if field not in nonRequiredFields:
                 self.fields[field].required = True
+        for field in ["email", "music_remark", "equipment_remark"]:
+            self.fields[field].widget.attrs["class"] = "djedit-margin-bottom"

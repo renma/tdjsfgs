@@ -7,16 +7,45 @@ from .models import DJ
 from .common import sendContactEmail as sendEmail
 
 
-def createEmailTo():
-    if os.path.exists("/home/tdjsfgs"):
-        return ["contact@tangodjsforgoodsound"]
-    if os.path.exists("/home/rene"):
-        return ["rm@cumparsita.ch"]
-    return ["rm@cumparsita.ch", "saludos@bluewin.ch"]
+def index(request):
+    orderBy = ["country", "name"]
+    djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
+    context = {"djList": djList}
+    return render(request, "index.html", context)
 
 
-def createval(x):
-    return x if x else ""
+def contact(request):
+    form_class = ContactForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        firstname = request.POST.get("contact_firstname", '')
+        lastname = request.POST.get("contact_lastname", '')
+        email = request.POST.get("contact_email", '')
+        content = request.POST.get("contact_content", '')
+        magic = request.POST.get("contact_magic", '')
+        if form.is_valid():
+            email = sendEmail(firstname, lastname, email, content, magic)
+            return redirect("contactfeedback")
+        form = form_class()
+        form.fields["contact_firstname"].initial = firstname
+        form.fields["contact_lastname"].initial = lastname
+        form.fields["contact_email"].initial = email
+        form.fields["contact_content"].initial = content
+        form.fields["contact_magic"].initial = magic
+        return render(request, "contact_failed.html", {"form": form, })
+    return render(request, "contact.html", {"form": form_class, })
+
+
+def contactfeedback(request):
+    return render(request, "contactfeedback.html")
+
+
+def about(request):
+    return render(request, "about.html")
+
+
+def todo(request):
+    return render(request, "todo.html")
 
 
 def djdetail(request, dj_id):
@@ -40,46 +69,3 @@ def djedit(request):
         return render(request, html, {"form": djform, "user": user})
     # This should not happen!
     return index(request)
-
-
-def index(request):
-    orderBy = ["country", "style", "since", "name"]
-    djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
-    context = {"djList": djList}
-    return render(request, "index.html", context)
-
-
-def contact(request):
-    form_class = ContactForm
-    if request.method == 'POST':
-        form = form_class(data=request.POST)
-        firstname = request.POST.get("contact_firstname", '')
-        lastname = request.POST.get("contact_lastname", '')
-        email = request.POST.get("contact_email", '')
-        content = request.POST.get("contact_content", '')
-        magic = request.POST.get("contact_magic", '')
-        if form.is_valid():
-            emailTo = createEmailTo()
-            a, b, c = firstname, lastname, email
-            email = sendEmail(a, b, c, emailTo, content, magic)
-            return redirect("contactfeedback")
-        form = form_class()
-        form.fields["contact_firstname"].initial = firstname
-        form.fields["contact_lastname"].initial = lastname
-        form.fields["contact_email"].initial = email
-        form.fields["contact_content"].initial = content
-        form.fields["contact_magic"].initial = magic
-        return render(request, "contact_failed.html", {"form": form, })
-    return render(request, "contact.html", {"form": form_class, })
-
-
-def contactfeedback(request):
-    return render(request, "contactfeedback.html")
-
-
-def about(request):
-    return render(request, "about.html")
-
-
-def todo(request):
-    return render(request, "todo.html")

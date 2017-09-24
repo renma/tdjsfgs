@@ -40,11 +40,11 @@ class DJ(models.Model):
     number_of_milongas = models.IntegerField(_("Number of milongas"),
                                              default=0, blank=True)
 
-    website = models.URLField(_("Website"),
+    email = models.EmailField(_("Email"),
                               max_length=LENGTH_1,
                               default='', blank=True)
 
-    email = models.EmailField(_("Email"),
+    website = models.URLField(_("Website"),
                               max_length=LENGTH_1,
                               default='', blank=True)
 
