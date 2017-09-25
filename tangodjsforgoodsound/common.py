@@ -1,3 +1,4 @@
+import os
 import unicodedata
 from django import forms
 from django.core.mail import EmailMessage
@@ -12,6 +13,7 @@ def createEmailTo():
 
 
 def sendContactEmail(first, last, emailFrom, content, magic):
+    emailTo = createEmailTo()
     emailContent = [
         "", "A new contact request was entered on the website:", "",
         "    First name : %s" % first,
@@ -20,14 +22,13 @@ def sendContactEmail(first, last, emailFrom, content, magic):
         "    Orquesta   : %s" % magic, ""]
     if content:
         emailContent.extend([content, ""])
-    emailContent.append("This message was sent to: %s" % createEmailTo())
-
+    emailContent.append("This message was sent to: %s" % emailTo)
     replyTo = emailFrom
     emailFrom = "website@tangodjsforgoodsound.cumparsita.ch"
     email = EmailMessage("New contact request",
                          "\n".join(emailContent),
                          emailFrom,
-                         createEmailTo(),
+                         emailTo,
                          reply_to=[replyTo])
     email.send()
     print "Email sent to: %s" % emailTo

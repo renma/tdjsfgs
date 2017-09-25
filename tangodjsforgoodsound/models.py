@@ -20,6 +20,10 @@ class DJ(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL,
                                 null=True, blank=False)
 
+    namesort = models.CharField(_("Hidden namesort"),
+                                max_length=LENGTH_1,
+                                default='', blank=True)
+
     name = models.CharField(_("Name"),
                             max_length=LENGTH_1,
                             default='', blank=True)

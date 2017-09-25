@@ -28,6 +28,7 @@ class DJEditForm(forms.ModelForm):
         model = DJ
         fields = [
             # "user",
+            "namesort",
             "name",
             "gender",
             "country",
@@ -61,6 +62,7 @@ class DJEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DJEditForm, self).__init__(*args, **kwargs)
         nonRequiredFields = [
+            "namesort",
             "website",
             "soundprocessor",
             "audioformatmat2",
@@ -73,5 +75,10 @@ class DJEditForm(forms.ModelForm):
         for field in self.fields:
             if field not in nonRequiredFields:
                 self.fields[field].required = True
-        for field in ["email", "music_remark", "equipment_remark"]:
-            self.fields[field].widget.attrs["class"] = "djedit-margin-bottom"
+
+    def set_namesort(self, request):
+        mutable = request.POST._mutable
+        request.POST._mutable = True
+        self.data["namesort"] = self.data["name"].split()[-1].lower()
+        print "namesort = ", self.data["namesort"]
+        request.POST._mutable = mutable

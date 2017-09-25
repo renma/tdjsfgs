@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+{% block djeditbase %}
+{% endblock %}
+<p>
+  Please remember the Minimal Sound Requirement Statement below.
+<p>
+  <form role="form" action="" method="post">
+  {% csrf_token %}
+  <table>
+    <tr>
+    </tr><tr>
+      <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
+    </tr><tr>
+      <td><b>Personal<b></td><td>&nbsp;</td>
+    </tr><tr>
+      <td>Name:</td><td>{{ form.name }}</td>
+    </tr><tr>
+      <td>Gender:</td><td>{{ form.gender }}</td>
+    </tr><tr>
+      <td>Country:</td><td>{{ form.country }}</td>
+    </tr><tr>
+      <td>Since:</td><td>{{ form.since }}</td>
+    </tr><tr>
+      <td>Number of Milongas:</td><td>{{ form.number_of_milongas }}</td>
+    </tr><tr>
+      <td>Email:</td><td>{{ form.email }}</td>
+    </tr><tr>
+      <td>Website:</td><td>{{ form.website }}</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    </tr><tr>
+      <td><b>Musica<b></td><td>&nbsp;</td>
+    </tr><tr>
+      <td>Style:</td><td>{{ form.style }}</td>
+    </tr><tr>
+      <td>Tandas and cortinas:</td><td>{{ form.cortinas }}</td>
+    </tr><tr>
+      <td>Audio format:</td><td>{{ form.audioformat }}</td>
+    </tr><tr>
+      <td>Alternative audio format:</td><td>{{ form.audioformat2 }}</td>
+    </tr><tr>
+      <td>Sources/Labels:</td><td>{{ form.sources }}</td>
+    </tr><tr>
+      <td>Personal favorites:</td><td>{{ form.favorites }}</td>
+    </tr><tr>
+      <td>Remarks:</td><td>{{ form.music_remark }}</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    </tr><tr>
+      <td><b>Equipment<b></td><td>&nbsp;</td>
+    </tr><tr>
+      <td>Computer:</td><td>{{ form.computer }}</td>
+    </tr><tr>
+      <td>Model:</td><td>{{ form.computermodel }}</td>
+    </tr><tr>
+      <td>Player:</td><td>{{ form.player }}</td>
+    </tr><tr>
+      <td>AudioInterface/DAC:</td><td>{{ form.audiointerface }}</td>
+    </tr><tr>
+      <td>Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
+    </tr><tr>
+      <td>Other equipment:</td><td>{{ form.other_equipment }}</td>
+    </tr><tr>
+      <td>Compression:</td><td>{{ form.compression }}</td>
+    </tr><tr>
+      <td>Equalization:</td><td>{{ form.equalization }}</td>
+   </tr><tr>
+      <td>Remarks:</td><td>{{ form.equipment_remark }}</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    </tr><tr>
+      <td><b>Backup equipment<b></td><td>&nbsp;</td>
+    </tr><tr>
+      <td>Computer:</td><td>{{ form.backup_computer }}</td>
+    </tr><tr>
+      <td>Model:</td><td>{{ form.backup_computermodel }}</td>
+    </tr><tr>
+      <td>Player:</td><td>{{ form.backup_player }}</td>
+    </tr><tr>
+      <td>AudioInterface/DAC:</td><td>{{ form.backup_audiointerface }}</td>
+    </tr><tr>
+      <td>Soundprocessor:</td><td>{{ form.backup_soundprocessor }}</td>
+    </tr><tr>
+      <td>Other equipment:</td><td>{{ form.backup_other_equipment }}</td>
+    </tr><tr>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+  </table>
+  <button type="submit">Save</button>
+</form>
+<h2>Minimal Sound Requirement Statement</h2>
+<p>
+  <ul>
+    <li>- We use the best available recordings in the best available quality.
+    <li>- We use good quality soundcards, audio tools and software.
+    <li>- We don't play lossy formats (e.g. mp3, aac ...).
+  </ul>
+{% endblock %}

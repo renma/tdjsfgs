@@ -191,7 +191,8 @@
         {% if user.get_username == "admin" %}
           <li><a href ="/admin">Admin</a></li>
         {% else %}
-          <li><a href ="{% url 'djedit' %}">{{ user.get_username|title }}</a></li>
+          {# <li><a href ="{% url 'djedit' %}">{{ user.get_username|title }}</a></li> #}
+          <li><a href ="{% url 'djedit' %}">Edit</a></li>
         {% endif %}
       {% else %}
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
@@ -205,7 +206,7 @@
       {% endif %}
     </ul>
   </div>
-  <div align="right"><font size="2" color="#999"><b>Version 2017-09-24 beta13 </b></font></div>
+  <div align="right"><font size="2" color="#999"><b>Version 2017-09-25 beta14 </b></font></div>
 
   <div id="content">
     {% block content %}

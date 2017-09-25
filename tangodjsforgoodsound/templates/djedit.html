@@ -1,28 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
-
+{% extends 'djeditbase.html' %}
+{% block djeditbase %}
 <h1>Please enter your data</h1>
-
-<p>
-  Please remember the Minimal Sound Requirement Statement below.
-
-<h4></h4>
-<p>
-  <form role="form" action="" method="post">
-  {% csrf_token %}
-  <table id="djedit">
-    {{ form.as_table }}
-  </table>
-  <br />
-  <button type="submit">Save</button>
-</form>
-
-<h2>Minimal Sound Requirement Statement</h2>
-<p>
-  <ul>
-    <li>- We use the best available recordings in the best available quality.
-    <li>- We use good quality soundcards, audio tools and software.
-    <li>- We don't play lossy formats (e.g. mp3, aac ...).
-  </ul>
-      
 {% endblock %}

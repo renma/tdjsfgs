@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
@@ -8,7 +7,7 @@ from .common import sendContactEmail as sendEmail
 
 
 def index(request):
-    orderBy = ["country", "name"]
+    orderBy = ["country", "namesort"]
     djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
     context = {"djList": djList}
     return render(request, "index.html", context)
@@ -60,6 +59,7 @@ def djedit(request):
         data = DJ.objects.get(user=user)
         if request.method == 'POST':
             djform = DJEditForm(request.POST, instance=data)
+            djform.set_namesort(request)
             if djform.is_valid():
                 djform.save()
                 html = "djedit_saved.html"
