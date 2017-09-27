@@ -1,0 +1,164 @@
+#!/bin/bash
+#
+# Time-stamp: <2017-09-26 18:03:34 rene>
+#
+# Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# ----------------------------------------------------------------------
+#
+
+
+localdir=/home/rene/mysite
+remotedir=/home/tdjsfgs/ALL/mysite
+if [ -d $remotedir ]; then
+    PYTHON=/usr/local/bin/python2.7
+    WORKDIR=$remotedir
+    PORT=63763
+else
+    PYTHON=python2.7
+    WORKDIR=$localdir
+    PORT=8000
+fi
+
+
+help() {
+    echo
+    echo "restart server or rsync sources and restart server"
+    echo
+    echo "Parameter 1: start   -> start server"
+    echo "             kill    -> kill server"
+    echo "             restart -> restart server"
+    echo "             getdb   -> get database from remote"
+    echo "             dist    -> rsync sources (if local without database)"
+    echo "             distall -> rsync sources (if local with database)"
+    echo "             newcss  -> creatre new css"
+    echo
+    exit 1
+}
+
+
+info() {
+    date "+%Y-%m-%d %H:%M:%S $1"
+    if [ -d $remotedir ]; then
+	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/info.log
+    fi
+}
+
+
+startserver() {
+    cd $WORKDIR
+    if [ -d $remotedir ]; then
+	X=$(netstat -tulpen | grep 63763)
+	if [ "$X" ]; then
+	    exit 0
+	fi
+        $PYTHON manage.py runserver $PORT &
+    else
+        $PYTHON manage.py runserver $PORT
+    fi
+    info "Server started"
+}
+
+
+killserver() {
+    pkill -f runserver
+    info "Server killed"
+    sleep 2
+}
+
+
+if [ "$1" = "kill" ]; then
+
+    killserver
+    exit 0
+
+fi
+
+
+if [ "$1" = "start" ]; then
+
+    startserver
+    exit 0
+
+fi
+
+
+if [ "$1" = "restart" ]; then
+
+    killserver
+    startserver
+    exit 0
+
+fi
+
+
+if [ "$1" = "getdb" ]; then
+
+    if [ -d $localdir ]; then
+	DBF=db.sqlite3
+	now=$(date +"%y%m%d%H%M%S")
+	cp $localdir/$DBF $localdir/$DBF.$now
+	scp uberspace2:$remotedir/$DBF $localdir/$DBF
+	echo "backup created: $localdir/$DBF.$now"
+	echo "$localdir/$DBF ready"
+    fi
+    exit 0
+
+fi
+
+
+if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
+    if [ -d $localdir ]; then
+	ssh uberspace2 "$remotedir/tdjs kill"
+	echo "ssh uberspace2 $remotedir/tdjs kill DONE"
+	echo "rsync $localdir/* => uberspace2:$remotedir"
+        if [ "$1" = "distall" ] ; then
+            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
+	          --exclude *db.sqlite3.1* $localdir/* uberspace2:$remotedir
+        else
+            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
+	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* $localdir/* uberspace2:$remotedir
+        fi
+        echo
+	date +"%Y-%m-%d %H:%M:%S"
+        echo "login to uberspace2 and start the server"
+        ssh uberspace2
+	echo
+    fi
+    exit 0
+
+fi
+
+
+if [ "$1" = "newcss" ]; then
+
+    if [ -d $localdir ]; then
+	rm -f $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_1*.css
+	now=$(date +"%y%m%d%H%M%S")
+	newcss=$WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_$now.css
+	cp $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style.css $newcss
+
+	F=$WORKDIR/tangodjsforgoodsound/templates/base.html
+
+	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'tangodjsforgoodsound/style_$now.css\' %}\" type=\"text/css\">" $F
+    fi
+    exit 0
+
+fi
+
+
+help
+exit 1

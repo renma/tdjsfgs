@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
@@ -7,6 +8,9 @@ from .common import sendContactEmail as sendEmail
 
 
 def index(request):
+    home = os.path.expanduser("~")
+    if os.path.exists(os.path.join(home, "DJANGO_SHOW_EMPTY")):
+        return render(request, "index_empty.html")
     orderBy = ["country", "namesort"]
     djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
     context = {"djList": djList}
