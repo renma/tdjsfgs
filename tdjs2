@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-09-26 18:03:34 rene>
+# Time-stamp: <2017-09-28 23:21:48 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 #
@@ -127,10 +127,12 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
 	echo "rsync $localdir/* => uberspace2:$remotedir"
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* $localdir/* uberspace2:$remotedir
+	          --exclude *db.sqlite3.1* --exclude *style.css \
+                  $localdir/*  uberspace2:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* $localdir/* uberspace2:$remotedir
+	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
+                  $localdir/* uberspace2:$remotedir
         fi
         echo
 	date +"%Y-%m-%d %H:%M:%S"
@@ -146,14 +148,15 @@ fi
 if [ "$1" = "newcss" ]; then
 
     if [ -d $localdir ]; then
-	rm -f $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_1*.css
-	now=$(date +"%y%m%d%H%M%S")
-	newcss=$WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_$now.css
-	cp $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style.css $newcss
-
+        STYLE_DIR=$WORKDIR/tangodjsforgoodsound/static
+        rm -f $STYLE_DIR/style_20*.css
+        now=$(date +"%Y%m%d%H%M%S")
+	newcss=$STYLE_DIR/style_$now.css
+	cp $STYLE_DIR/style.css $newcss
+        echo "$newcss created"
 	F=$WORKDIR/tangodjsforgoodsound/templates/base.html
-
-	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'tangodjsforgoodsound/style_$now.css\' %}\" type=\"text/css\">" $F
+	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'style_$now.css\' %}\" type=\"text/css\">" $F
+        echo "$F adjusted"
     fi
     exit 0
 

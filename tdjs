@@ -1,9 +1,8 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-09-12 14:52:51 rene>
+# Time-stamp: <2017-09-28 23:22:01 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
-#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -121,16 +120,19 @@ fi
 
 
 if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
+
     if [ -d $localdir ]; then
 	ssh uberspace "$remotedir/tdjs kill"
 	echo "ssh uberspace $remotedir/tdjs kill DONE"
 	echo "rsync $localdir/* => uberspace:$remotedir"
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* $localdir/* uberspace:$remotedir
+	          --exclude *db.sqlite3.1* --exclude *style.css \
+                  $localdir/* uberspace:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* $localdir/* uberspace:$remotedir
+	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
+                  $localdir/* uberspace:$remotedir
         fi
         echo
 	date +"%Y-%m-%d %H:%M:%S"
@@ -146,14 +148,15 @@ fi
 if [ "$1" = "newcss" ]; then
 
     if [ -d $localdir ]; then
-	rm -f $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_1*.css
-	now=$(date +"%y%m%d%H%M%S")
-	newcss=$WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style_$now.css
-	cp $WORKDIR/tangodjsforgoodsound/static/tangodjsforgoodsound/style.css $newcss
-
+        STYLE_DIR=$WORKDIR/tangodjsforgoodsound/static
+        rm -f $STYLE_DIR/style_20*.css
+        now=$(date +"%Y%m%d%H%M%S")
+	newcss=$STYLE_DIR/style_$now.css
+	cp $STYLE_DIR/style.css $newcss
+        echo "$newcss created"
 	F=$WORKDIR/tangodjsforgoodsound/templates/base.html
-
-	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'tangodjsforgoodsound/style_$now.css\' %}\" type=\"text/css\">" $F
+	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'style_$now.css\' %}\" type=\"text/css\">" $F
+        echo "$F adjusted"
     fi
     exit 0
 
