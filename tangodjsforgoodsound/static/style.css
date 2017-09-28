@@ -1,0 +1,213 @@
+/* -----------------------------------------------------------------*/
+/* tango djs for good sound                                         */
+/* reset everything                                                 */
+/* -----------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+:focus {
+  outline: 0;
+}
+
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* -----------------------------------------------------------------*/
+/* tango djs for good sound                                         */
+/* styles                                                           */
+/* -----------------------------------------------------------------*/
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Helvetica", sans-serif;
+    font-size: 16px;
+}
+
+a {
+    color: #444;
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: None;
+}
+
+a:hover {
+    text-decoration:underline;
+}
+
+ol, ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#banner {
+    background: #ccb url(banner.png);
+    height: 128px;
+    margin: 0;
+    padding: 0;
+    }
+
+#menubar {
+    font: normal 15px arial, sans-serif;
+    background: #ccc;
+    margin: 0;
+    padding: 0;
+}
+
+ul#menu {
+    list-style: none;
+    overflow: hidden;
+    margin: 0 0 0 50px;
+    padding: 0;
+}
+
+ul#menu li {
+    float: left;
+}
+
+ul#menu li a {
+    background-color: #ccc;
+    border-bottom: 2px solid #ccc;
+    display: block;
+    padding: 4px 0 2px 0;
+    text-align: center;
+    width: 130px;
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+ul#menu li.current a {
+    border-bottom: 2px solid #ccc;
+}
+
+ul#menu li a:hover {
+      border-bottom: 2px solid #000;
+      text-decoration: none;
+}
+
+ul#menu li ul {
+    display: none;
+}
+
+ul#small a {
+    font-size: 14
+}
+
+#content {
+    margin: 0 0 0 50px;
+    width: 1000px;
+    min-height: 600px;
+}
+
+#content ul#menu li.current a, ul#menu li a:hover {
+      color: #444;
+}
+
+#content h1 {
+    font-weight: bold;
+    font-size: 52px;
+    padding: 20px 0 0 0;
+    color: #444;
+}
+
+#content h2 {
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px 0 0 0;
+    color: #444;
+}
+
+#content h3 {
+    font-weight: normal;
+    font-size: 24px;
+    padding: 0 0 30px 0;
+    color: #444;
+}
+
+li.index {
+    margin-bottom: 30px;
+}
+
+table a {
+    font-size: 14px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+#footer {
+    margin: 0;
+    padding: 80px 0 20px 0;
+}
+
+p.mid {
+    text-align: center
+}
+
+p.padbottom {
+    padding-bottom: 20px;
+}
+
+th, td {
+    font-weight: normal;
+    text-align: left;
+    padding-right: 10px;
+}
+
+#djedit input[type="text"] {
+    width: 350;
+    border: 1px solid #ccc;
+}
+
+#djedit input[type="email"] {
+    width: 350;
+    border: 1px solid #ccc;
+}
+
+#djedit input[type="url"] {
+    width: 350;
+    border: 1px solid #ccc;
+}
+
+.small {
+    font-size: 20px;
+}
