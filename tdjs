@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-09-28 23:22:01 rene>
+# Time-stamp: <2017-10-15 07:21:09 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 # This program is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ help() {
 info() {
     date "+%Y-%m-%d %H:%M:%S $1"
     if [ -d $remotedir ]; then
-	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/info.log
+	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/INFO.log
     fi
 }
 
@@ -62,9 +62,10 @@ startserver() {
     if [ -d $remotedir ]; then
 	X=$(netstat -tulpen | grep 63763)
 	if [ "$X" ]; then
+	    echo "Server already started"
 	    exit 0
 	fi
-        $PYTHON manage.py runserver $PORT &
+        $PYTHON manage.py runserver $PORT --noreload &
     else
         $PYTHON manage.py runserver $PORT
     fi

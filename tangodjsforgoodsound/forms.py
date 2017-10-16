@@ -77,6 +77,11 @@ class DJEditForm(forms.ModelForm):
                 self.fields[field].required = True
 
     def set_namesort(self, request):
+        """
+        Carlos Di Sarli => sarli
+        Maurer => maurer
+        roo daa dii DOO => doo
+        """
         mutable = request.POST._mutable
         request.POST._mutable = True
         self.data["namesort"] = self.data["name"].split()[-1].lower()

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-09-28 23:21:48 rene>
+# Time-stamp: <2017-10-15 07:16:55 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 #
@@ -27,6 +27,7 @@ if [ -d $remotedir ]; then
     PYTHON=/usr/local/bin/python2.7
     WORKDIR=$remotedir
     PORT=63763
+    LOGFILE_RESTART=$remotedir/restart.log
 else
     PYTHON=python2.7
     WORKDIR=$localdir
@@ -53,7 +54,7 @@ help() {
 info() {
     date "+%Y-%m-%d %H:%M:%S $1"
     if [ -d $remotedir ]; then
-	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/info.log
+	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/INFO.log
     fi
 }
 
@@ -63,9 +64,10 @@ startserver() {
     if [ -d $remotedir ]; then
 	X=$(netstat -tulpen | grep 63763)
 	if [ "$X" ]; then
+	    echo "Server already started"
 	    exit 0
 	fi
-        $PYTHON manage.py runserver $PORT &
+        $PYTHON manage.py runserver $PORT --noreload &
     else
         $PYTHON manage.py runserver $PORT
     fi

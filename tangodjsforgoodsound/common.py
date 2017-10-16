@@ -5,11 +5,9 @@ from django.core.mail import EmailMessage
 
 
 def createEmailTo():
-    if os.path.exists("/home/tdjsfgs"):
-        return ["contact@tangodjsforgoodsound"]
     if os.path.exists("/home/rene"):
         return ["rm@cumparsita.ch"]
-    return ["rm@cumparsita.ch", "saludos@bluewin.ch"]
+    return ["contact@tangodjsforgoodsound.info"]
 
 
 def sendContactEmail(first, last, emailFrom, content, magic):
@@ -24,7 +22,7 @@ def sendContactEmail(first, last, emailFrom, content, magic):
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
     replyTo = emailFrom
-    emailFrom = "website@tangodjsforgoodsound.cumparsita.ch"
+    emailFrom = "web@tangodjsforgoodsound.info"
     email = EmailMessage("New contact request",
                          "\n".join(emailContent),
                          emailFrom,

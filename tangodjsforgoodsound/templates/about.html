@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1>Our mission</h1>
 <h3>
   We are two Tango-DJs located in Switzerland aiming for a good sound
   in milongas. By creating this website we hope to bring together DJs
   and milonga organizers who share this aim:
-<br /><br /><b>DJs have the opportunity to share or explain their instruments, equipment and ideas.
-<br /><br />Beginning and advanced DJs find inspiration to improve their work concerning sound quality.
-<br /><br />Milonga organizers find support in locating DJs who provide good sound.</b>
+  <ul>
+    <li>DJs have the opportunity to share or explain their instruments, equipment and ideas.
+    <li>Beginning and advanced DJs find inspiration to improve their work concerning sound quality.
+    <li>Milonga organizers find support in locating DJs who provide good sound.
+  </ul>
+</h3>
+
+<h3>
+  <br /><br />Version {{ APP_VERSION }}, {{ APP_DATE_FORMATTED }}
+  <br />© 2017 - {{CURRENT_YEAR}}, DJ Alberto & DJ René
 </h3>
 
 {% endblock %}
