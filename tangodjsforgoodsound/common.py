@@ -4,6 +4,16 @@ from django import forms
 from django.core.mail import EmailMessage
 
 
+def addDjContext(request, DJModel, context):
+    context["dj"] = None
+    if request.user.is_authenticated():
+        try:
+            dj = DJModel.objects.get(user=request.user.id)
+            context["dj"] = dj
+        except Exception:
+            pass
+
+
 def createEmailTo():
     if os.path.exists("/home/rene"):
         return ["rm@cumparsita.ch"]

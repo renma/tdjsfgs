@@ -30,8 +30,10 @@
         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
         {% if user.get_username == "admin" %}
           <li><a href ="/admin">Admin</a></li>
-        {% else %}
-          {# <li><a href ="{% url 'djedit' %}">{{ user.get_username|title }}</a></li> #}
+          {% else %}
+          {% if dj %}
+            <li><a href="{% url 'djdetail' dj.id %}">{{ dj.name }}</a></li>
+          {% endif %}
           <li><a href ="{% url 'djedit' %}">Edit</a></li>
         {% endif %}
       {% else %}

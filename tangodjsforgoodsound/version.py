@@ -1,2 +1,2 @@
-VERSION = "beta19"
-TIMESTAMP = "Time-stamp: <2017-10-16 09:26:07 rene>"
+VERSION = "beta20"
+TIMESTAMP = "Time-stamp: <2017-10-21 15:44:27 rene>"

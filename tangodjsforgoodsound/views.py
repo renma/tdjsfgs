@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
 from .models import DJ
-from .common import sendContactEmail as sendEmail
+from .common import addDjContext, sendContactEmail as sendEmail
 
 
 def index(request):
@@ -14,6 +14,7 @@ def index(request):
     orderBy = ["country", "namesort"]
     djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
     context = {"djList": djList}
+    addDjContext(request, DJ, context)
     return render(request, "index.html", context)
 
 
@@ -40,15 +41,21 @@ def contact(request):
 
 
 def contactfeedback(request):
-    return render(request, "contactfeedback.html")
+    context = {}
+    addDjContext(request, DJ, context)
+    return render(request, "contactfeedback.html", context)
 
 
 def about(request):
-    return render(request, "about.html")
+    context = {}
+    addDjContext(request, DJ, context)
+    return render(request, "about.html", context)
 
 
 def todo(request):
-    return render(request, "todo.html")
+    context = {}
+    addDjContext(request, DJ, context)
+    return render(request, "todo.html", context)
 
 
 def djdetail(request, dj_id):
@@ -66,10 +73,12 @@ def djedit(request):
             djform.set_namesort(request)
             if djform.is_valid():
                 djform.save()
-                html = "djedit_saved.html"
+                html = "djdetail.html"
         else:
             data = DJ.objects.get(user=user)
             djform = DJEditForm(instance=data)
-        return render(request, html, {"form": djform, "user": user})
+        context = {"form": djform, "user": user}
+        addDjContext(request, DJ, context)
+        return render(request, html, context)
     # This should not happen!
     return index(request)
