@@ -193,19 +193,61 @@ th, td {
     padding-right: 10px;
 }
 
-#djedit input[type="text"] {
-    width: 350;
+input[type="text"] {
     border: 1px solid #ccc;
+}
+
+input[type="number"] {
+    border: 1px solid #ccc;
+}
+
+input[type="email"] {
+    border: 1px solid #ccc;
+}
+
+input[type="url"] {
+    border: 1px solid #ccc;
+}
+
+input[type="password"] {
+    border: 1px solid #ccc;
+}
+
+textarea {
+    border: 1px solid #ccc;
+}
+
+#djedit select {
+    width: 370;
+}
+
+#djedit input[type="text"] {
+    width: 370;
+}
+
+#djedit input[type="number"] {
+    width: 370;
 }
 
 #djedit input[type="email"] {
-    width: 350;
-    border: 1px solid #ccc;
+    width: 370;
 }
 
 #djedit input[type="url"] {
-    width: 350;
-    border: 1px solid #ccc;
+    width: 370;
+}
+
+#contact input[type="text"] {
+    width: 250;
+}
+
+#contact input[type="email"] {
+    width: 250;
+}
+
+#contact textarea {
+    width: 250;
+    margin: 4px 0 0 0;
 }
 
 h3 ul {

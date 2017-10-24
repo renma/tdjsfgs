@@ -4,21 +4,21 @@
 <h1>Please login</h1>
 <p>
 {% if form.errors %}
-  Your username and password didn't match. Please try again.
+  Your username and password didn't match. Please try again.<br />&nbsp;
 {% endif %}
 
 {% if next %}
   {% if user.is_authenticated %}
     <h2>Your account doesn't have access to this page.</h2>
   {% else %}
-    &nbsp;
+    &nbsp;<br />
   {% endif %}
 {% endif %}
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<table>
+<table id="login">
   <tr>
   <td>{{ form.username.label_tag }}</td>
   <td>{{ form.username }}</td>
