@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-10-17 13:59:39 rene>
+# Time-stamp: <2017-10-26 11:42:26 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 #
@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNUecho
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -47,12 +47,16 @@ help() {
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo
+    echo "Parameter 2: silent"
+    echo
     exit 1
 }
 
 
 info() {
-    date "+%Y-%m-%d %H:%M:%S $1"
+    if [ ! "$2" ]; then
+        date "+%Y-%m-%d %H:%M:%S $1"
+    fi
     if [ -d $remotedir ]; then
 	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/INFO.log
     fi
@@ -64,7 +68,7 @@ startserver() {
     if [ -d $remotedir ]; then
 	X=$(netstat -tulpen | grep 63763)
 	if [ "$X" ]; then
-	    # info "Server already started"
+            info "Server already started"
 	    exit 0
 	fi
         $PYTHON manage.py runserver $PORT --noreload &
@@ -130,14 +134,16 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *style.css \
-                  $localdir/*  uberspace2:$remotedir
+                  --exclude RESOURCES \
+                 $localdir/*  uberspace2:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
+                  --exclude RESOURCES \
                   $localdir/* uberspace2:$remotedir
         fi
         echo
-	date +"%Y-%m-%d %H:%M:%S"
+        date +"%Y-%m-%d %H:%M:%S"
         echo "login to uberspace2 and start the server"
         ssh uberspace2
 	echo

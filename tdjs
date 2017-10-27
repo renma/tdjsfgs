@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-10-15 07:21:09 rene>
+# Time-stamp: <2017-10-26 11:42:49 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 # This program is free software: you can redistribute it and/or modify
@@ -45,12 +45,16 @@ help() {
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo
+    echo "Parameter 2: silent"
+    echo
     exit 1
 }
 
 
 info() {
-    date "+%Y-%m-%d %H:%M:%S $1"
+    if [ ! "$2" ]; then
+        date "+%Y-%m-%d %H:%M:%S $1"
+    fi
     if [ -d $remotedir ]; then
 	date "+%Y-%m-%d %H:%M:%S $1" >> $remotedir/INFO.log
     fi
@@ -129,14 +133,16 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *style.css \
+                  --exclude RESOURCES \
                   $localdir/* uberspace:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
+                  --exclude RESOURCES \
                   $localdir/* uberspace:$remotedir
         fi
         echo
-	date +"%Y-%m-%d %H:%M:%S"
+        date +"%Y-%m-%d %H:%M:%S"
         echo "login to uberspace and start the server"
         ssh uberspace
 	echo
