@@ -10,6 +10,7 @@ from choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
 
 
 LENGTH_1 = 300
+LENGTH_2 = 50
 LENGTH_CHOICES = 100
 
 
@@ -21,11 +22,11 @@ class DJ(models.Model):
                                 null=True, blank=False)
 
     namesort = models.CharField(_("Hidden namesort"),
-                                max_length=LENGTH_1,
+                                max_length=LENGTH_2,
                                 default='', blank=True)
 
     name = models.CharField(_("Name"),
-                            max_length=LENGTH_1,
+                            max_length=LENGTH_2,
                             default='', blank=True)
 
     gender = models.CharField(_("Gender"),
@@ -37,8 +38,8 @@ class DJ(models.Model):
                            default='', blank=True)
 
     province = models.CharField(_("Province"),
-                            max_length=LENGTH_1,
-                            default='', blank=True)
+                                max_length=LENGTH_2,
+                                default='', blank=True)
 
     since = models.IntegerField(_("Since"),
                                 choices=YEAR_CHOICES,
@@ -72,10 +73,10 @@ class DJ(models.Model):
                                    choices=AUDIO_FORMAT_CHOICES,
                                    default='', blank=True)
 
-    audioformatmat2 = models.CharField(_("Alternative audio format"),
-                                       max_length=LENGTH_CHOICES,
-                                       choices=AUDIO_FORMAT_CHOICES,
-                                       default='', blank=True)
+    audioformat2 = models.CharField(_("Alternative audio format"),
+                                    max_length=LENGTH_CHOICES,
+                                    choices=AUDIO_FORMAT_CHOICES,
+                                    default='', blank=True)
 
     sources = models.CharField(_("Sources"),
                                max_length=LENGTH_1,

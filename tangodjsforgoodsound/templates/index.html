@@ -23,10 +23,10 @@
 <table id="index">
 {% for dj in djList %}
 <tr>
-  <td><a href="/{{ dj.id }}/">{{ dj.name }}</a></td>
+  <td><a href="/{{ dj.id }}/">{{ dj.name|truncatechars:28 }}</a></td>
   <td>&nbsp;&nbsp;</td>
   {% if dj.province.strip %}
-    <td>{{ dj.country.name }}, {{ dj.province }}</td>
+    <td>{{ dj.country.name }}, {{ dj.province|truncatechars:20 }}</td>
   {% else %}
     <td>{{ dj.country.name }}</td>
   {% endif %}

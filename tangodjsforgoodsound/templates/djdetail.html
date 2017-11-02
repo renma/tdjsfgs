@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1>{{ dj.name }}</h1>
-  <p>
+<h1>{{ dj.name|truncatechars:28 }}</h1>
+<p>
   <table id="djview">
     <tr>
     </tr><tr>
@@ -17,6 +17,8 @@
     {% endif %}
     </tr><tr>
       <td>Country:</td><td>{{ dj.country.name }}</td>
+    </tr><tr>
+      <td>Region or City:</td><td>{{ dj.province }}</td>
     </tr><tr>
       <td>Email::</td><td><a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></td>
     </tr><tr>
@@ -92,7 +94,7 @@
     </tr><tr>
       <td>&nbsp;</td><td></td>
     </tr><tr>
-      <td><b>Backup equipment<b></td><td></td>
+      <td><b>Rescue equipment<b></td><td></td>
     </tr></tr>
       <td>Computer:</td><td>{{ dj.get_backup_computer_display }}</td>
     </tr></tr>

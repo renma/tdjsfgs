@@ -14,4 +14,5 @@ urlpatterns = [
     url(r"^about/$", views.about, name="about"),
     url(r"^todo/$", views.todo, name="todo"),
     url(r"^copyright/$", views.copyright, name="copyright"),
+    url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
 ]

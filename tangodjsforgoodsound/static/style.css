@@ -55,12 +55,11 @@ html {
 body {
     font-size: 16px;
     font-family: "Helvetica", sans-serif;
-    margin-bottom: 12px;   /* same as footer */
+    margin-bottom: 52px;   /*more or equal as footer */
 }
 
 #content {
     margin-left: 42px;
-    max-width: 708px;
 }
 
 #banner {
@@ -184,6 +183,10 @@ ul#menu li a:hover {
 /* tango djs for good sound                                         */
 /* paragraphs                                                       */
 /* -----------------------------------------------------------------*/
+
+p {
+    max-width: 708px;
+}
 
 #footer p {
     font-size: 10px;

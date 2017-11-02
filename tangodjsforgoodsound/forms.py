@@ -18,7 +18,7 @@ class ContactForm(forms.Form):
         self.fields["contact_firstname"].label = "Your first name"
         self.fields["contact_lastname"].label = "Your family name"
         self.fields["contact_email"].label = "Your email address"
-        self.fields["contact_content"].label = "Your message"
+        self.fields["contact_content"].label = "Your message (EN/DE)"
         self.fields["contact_magic"].label = "One of the big four orchestras"
 
 
@@ -40,7 +40,7 @@ class DJEditForm(forms.ModelForm):
             "style",
             "cortinas",
             "audioformat",
-            "audioformatmat2",
+            "audioformat2",
             "sources",
             "favorites",
             "music_remark",
@@ -66,7 +66,7 @@ class DJEditForm(forms.ModelForm):
             "namesort",
             "website",
             "soundprocessor",
-            "audioformatmat2",
+            "audioformat2",
             "music_remark",
             "other_equipment",
             "equipment_remark",
@@ -76,6 +76,7 @@ class DJEditForm(forms.ModelForm):
         for field in self.fields:
             if field not in nonRequiredFields:
                 self.fields[field].required = True
+        self.fields["province"].widget.attrs["pattern"] = "\D*"
 
     def set_namesort(self, request):
         """
@@ -87,6 +88,6 @@ class DJEditForm(forms.ModelForm):
         request.POST._mutable = True
         x = self.data["name"].split()
         namesort = x[1] if "dj" in x[0].lower() and len(x) > 1 else x[0]
-        self.data["namesort"] = namesort.lower()
+        self.data["namesort"] = namesort.lower()[:40]
         print "used namesort =", self.data["namesort"]
         request.POST._mutable = mutable

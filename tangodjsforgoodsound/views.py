@@ -62,6 +62,14 @@ def todo(request):
     return render(request, "todo.html", context)
 
 
+def loginredirect(request):
+    if request.user.is_authenticated():
+        user = request.user
+        dj = DJ.objects.get(user=user)
+        return djdetail(request, dj.id)
+    return index(request)
+
+
 def djdetail(request, dj_id):
     dj = get_object_or_404(DJ, pk=dj_id)
     return render(request, "djdetail.html", {"dj": dj})
