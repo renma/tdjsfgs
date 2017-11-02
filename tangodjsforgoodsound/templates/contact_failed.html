@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Your message wasn't sent :-( </h1>
+<h3>Your message wasn't sent :-(</h3>
 
-<h2>
+<p>
   Do you really have entered one of the big four orchestras.
   <br />Remember: Juan D'Arienzo, Carlos Di Sarli, Aníbal Troilo, Osvaldo Pugliese.
-  <br >Is your email address correct?
+  <br />Is your email address correct?
   
 <h2>Please try again</h2>
   <form role="form" action="" method="post">
   {% csrf_token %}
-  <table>
+  <table id="contact">
     {{ form.as_table }}
   </table>
   <br />

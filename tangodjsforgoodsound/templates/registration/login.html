@@ -2,10 +2,14 @@
 {% block content %}
 
 <h1>Please login</h1>
+
 <p>
-{% if form.errors %}
-  Your username and password didn't match. Please try again.<br />&nbsp;
-{% endif %}
+  {% if form.errors %}
+    Your username and password didn't match. Please try again.
+  {% else %}
+    After login you can enter or change your personal data.
+  {% endif %}
+</p>  
 
 {% if next %}
   {% if user.is_authenticated %}
@@ -15,26 +19,36 @@
   {% endif %}
 {% endif %}
 
+
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<table id="login">
-  <tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-  </tr>
-  <tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-  </tr>
-</table>
+<p>
+  <table id="login">
+    <tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+    </tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+    <tr>
+    <td>
+      <input type="submit" value="Login" />
+      <input type="hidden" name="next" value="" />
+    </td>
+    <td>&nbsp;</td>
+    </tr>
+  </table>
 
-<br />
-  <input type="submit" value="Login" />
-  <input type="hidden" name="next" value="" />
 </form>
 
-<p>
-  <br /><a class="small" href="{% url 'password_reset' %}">Lost password?</a></b>
+<p>&nbsp;<p class="margin-top">
+  <a href="{% url 'password_reset' %}">Lost password?</a></b>
 
 {% endblock %}

@@ -4,7 +4,6 @@
 {% endblock %}
 <p>
   Please remember the Minimal Sound Requirement Statement below.
-<p>
   <form role="form" action="" method="post">
   {% csrf_token %}
   <table id="djedit">
@@ -19,6 +18,8 @@
       <td>Gender:</td><td>{{ form.gender }}</td>
     </tr><tr>
       <td>Country:</td><td>{{ form.country }}</td>
+    </tr><tr>
+      <td>Province:</td><td>{{ form.province }}</td>
     </tr><tr>
       <td>Since:</td><td>{{ form.since }}</td>
     </tr><tr>
@@ -90,11 +91,11 @@
   </table>
   <button type="submit">Save</button>
 </form>
-<h2>Minimal Sound Requirement Statement</h2>
+<h2><br />Minimal Sound Requirement Statement</h2>
 <p>
   <ul>
-    <li>- We use the best recordings in the best available quality.
-    <li>- We use good quality audio tools and software (interfaces/soundcards/DACs/soundprocessors).
-    <li>- We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
+    <li class="first">We use the best recordings in the best available quality.
+    <li>We use good quality audio tools and software (interfaces, soundcards, DACs, soundprocessors).
+    <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
   </ul>
 {% endblock %}

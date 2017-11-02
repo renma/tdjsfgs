@@ -36,6 +36,10 @@ class DJ(models.Model):
     country = CountryField(_("Country"),
                            default='', blank=True)
 
+    province = models.CharField(_("Province"),
+                            max_length=LENGTH_1,
+                            default='', blank=True)
+
     since = models.IntegerField(_("Since"),
                                 choices=YEAR_CHOICES,
                                 default=datetime.datetime.now().year,

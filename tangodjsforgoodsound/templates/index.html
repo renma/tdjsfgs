@@ -2,31 +2,45 @@
 {% block content %}
 
 <h1>We provide good sound!</h1>
-<h3>
+<p class="margin-bottom">
+  Out of respect to the Tango Music, the musicians, the orchestras and
+  the cultural heritage of Buenos Aires and Montevideo it is a matter
+  of concern to us to play this music as close as possible to the
+  original recordings.
+
+<p class="margin-bottom">
   We use the best available recordings in the best available quality.
   For audio playback we use good quality soundcards, audio tools and
   software.
-  <br /><br />DJs sharing our ideas are invited to join
-  us.<br />Organizers and dancers may select DJs and enjoy the sound
-  of the music.
-</h3>
-<h2>Registered DJs so far:<br />&nbsp;</h2>
+
+<p class="margin-bottom">
+  DJs sharing our ideas are invited to join us. Organizers and dancers
+  may select DJs and enjoy the sound of the music. As for now, there
+  are {{ djList|length }} DJs and DJanes on the list.
 
 {% if djList %}
-<ul>
-  {% for dj in djList %}
-  <li class="index"><a href="/{{ dj.id }}/">{{ dj.name }}</a>
-  {% if dj.gender == "MAL" %}
-    <br />{{ dj.get_style_display }} Tango DJ since {{ dj.since }} ({{ dj.get_country_display }})</li>
+<h2>Registered DJs:</h2>
+<table id="index">
+{% for dj in djList %}
+<tr>
+  <td><a href="/{{ dj.id }}/">{{ dj.name }}</a></td>
+  <td>&nbsp;&nbsp;</td>
+  {% if dj.province.strip %}
+    <td>{{ dj.country.name }}, {{ dj.province }}</td>
   {% else %}
-    <br />{{ dj.get_style_display }} Tango DJane since {{ dj.since }} ({{ dj.get_country_display }})</li>
+    <td>{{ dj.country.name }}</td>
   {% endif %}
-  {% endfor %}
-</ul>
-{% else %}
-<p>
-  No djs are available.
-</p>
+  <td>&nbsp;&nbsp;</td>
+  <td>{{ dj.get_style_display }}</td>
+  <td>&nbsp;&nbsp;</td>
+  {% if dj.gender == "MAL" %}
+  <td>DJ since {{ dj.since }}</td>
+  {% else %}
+  <td>DJane since {{ dj.since }}</td>
+  {% endif %}
+  </tr>
+{% endfor %}
+</table>
 {% endif %}
 
 {% endblock %}

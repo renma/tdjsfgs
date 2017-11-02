@@ -1,9 +1,6 @@
 from django.conf.urls import url
-# from django.views.generic.base import RedirectView
 from . import views
 
-
-# favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
 
@@ -16,5 +13,5 @@ urlpatterns = [
     url(r"^djedit/$", views.djedit, name="djedit"),
     url(r"^about/$", views.about, name="about"),
     url(r"^todo/$", views.todo, name="todo"),
-#    url(r'^favicon\.ico$', favicon_view),
+    url(r"^copyright/$", views.copyright, name="copyright"),
 ]

@@ -7,6 +7,10 @@ from .models import DJ
 from .common import addDjContext, sendContactEmail as sendEmail
 
 
+def copyright(request):
+    return render(request, "copyright.html")
+
+
 def index(request):
     home = os.path.expanduser("~")
     if os.path.exists(os.path.join(home, "DJANGO_SHOW_EMPTY")):

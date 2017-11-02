@@ -14,7 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 ol, ul {
-  list-style: none;
+    list-style: none;
 }
 
 blockquote, q {
@@ -53,26 +53,32 @@ html {
 }
 
 body {
-    margin: 0;
     font-family: "Helvetica", sans-serif;
     font-size: 16px;
+    margin-bottom: 12px;   /* same as footer */
 }
 
 a {
     color: #444;
-    font-size: 32px;
     font-weight: bold;
-    text-decoration: None;
+    font-size: 22px;
+    text-decoration: none;
 }
 
 a:hover {
     text-decoration:underline;
 }
 
-ol, ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+ul {
+    list-style: disc;
+    list-style-position: inside;
+    padding-left: 20px;
+}
+
+li {
+    padding-top: 15px;
+    list-style-position: outside;
+    max-width: 690px;
 }
 
 #banner {
@@ -82,10 +88,16 @@ ol, ul {
     padding: 0;
     }
 
+#footer {
+  position: fixed;
+  bottom: 12px;  /* same as body */
+  right: 50px;
+}
+
 #menubar {
     font: normal 15px arial, sans-serif;
     background: #ccc;
-    margin: 0;
+    margin: 0 0 35px 0;
     padding: 0;
 }
 
@@ -97,6 +109,8 @@ ul#menu {
 }
 
 ul#menu li {
+    padding: 0;
+    margin: 0;
     float: left;
 }
 
@@ -122,9 +136,9 @@ ul#menu li a:hover {
       text-decoration: none;
 }
 
-ul#menu li ul {
-    display: none;
-}
+/* ul#menu li ul { */
+/*     display: none; */
+/* } */
 
 ul#small a {
     font-size: 14
@@ -132,7 +146,7 @@ ul#small a {
 
 #content {
     margin: 0 0 0 50px;
-    width: 1000px;
+    width: 800px;
     min-height: 600px;
 }
 
@@ -149,8 +163,8 @@ ul#small a {
 
 #content h2 {
     font-weight: bold;
-    font-size: 22px;
-    padding: 20px 0 20px 0;
+    font-size: 28px;
+    padding: 25px 0 15px 0;
     color: #444;
 }
 
@@ -161,22 +175,43 @@ ul#small a {
     color: #444;
 }
 
-li.index {
-    margin-bottom: 30px;
+ul.index {
+    list-style: none;
+    padding: 0;
 }
 
-table a {
+li.index {
+    margin: 0px;
+}
+
+table#djview a {
     font-size: 14px;
 }
+
+table#index td {
+    padding-top: 20px;
+}
+
 
 p {
     margin: 0;
     padding: 0;
 }
 
-#footer {
+p.norm, p.norm-nomargin {
+    margin: 0 0 24px 0;
+    padding: 0;
+    max-width: 690px;
+}
+
+p.norm-nomargin {
     margin: 0;
-    padding: 80px 0 20px 0;
+}
+
+p.footer {
+    font-size: 10px;
+    font-weight: bold;
+    color: #666;
 }
 
 p.padbottom {
@@ -244,17 +279,6 @@ textarea {
 #contact textarea {
     width: 250;
     margin: 4px 0 0 0;
-}
-
-h3 ul {
-    list-style: disc;
-    list-style-position: inside;
-    padding-left: 20px;
-}
-
-h3 li {
-    padding-top: 30px;
-    list-style-position: outside;
 }
 
 .small {

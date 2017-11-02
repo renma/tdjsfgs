@@ -6,7 +6,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="" />
   <meta name="keywords" content="" />
-  <link rel="stylesheet" href="{% static 'style_20171031080706.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20171101101428.css' %}" type="text/css">
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <base target="new"/>
   <script type="text/javascript"> <!--
@@ -48,7 +48,6 @@
       {% endif %}
     </ul>
   </div>
-  <div align="right"><font size="2" color="#999"><b>Version {{ APP_VERSION }}&nbsp;</b></font></div>
 
   <div id="content">
     {% block content %}
@@ -56,8 +55,9 @@
   </div>
 
 <div id="footer">
-  <p class="mid">
-  © {{ CURRENT_YEAR }} m&a<br />
+  <p>© {{ CURRENT_YEAR }} m+a &nbsp;|&nbsp;
+    <a href="{% url 'copyright' %}">V{{ APP_VERSION }}</a>
+  </p>
 </div>
 
 </body>

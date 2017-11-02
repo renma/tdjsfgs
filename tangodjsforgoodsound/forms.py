@@ -32,6 +32,7 @@ class DJEditForm(forms.ModelForm):
             "name",
             "gender",
             "country",
+            "province",
             "since",
             "number_of_milongas",
             "email",
@@ -84,6 +85,8 @@ class DJEditForm(forms.ModelForm):
         """
         mutable = request.POST._mutable
         request.POST._mutable = True
-        self.data["namesort"] = self.data["name"].split()[-1].lower()
-        print "namesort = ", self.data["namesort"]
+        x = self.data["name"].split()
+        namesort = x[1] if "dj" in x[0].lower() and len(x) > 1 else x[0]
+        self.data["namesort"] = namesort.lower()
+        print "used namesort =", self.data["namesort"]
         request.POST._mutable = mutable
