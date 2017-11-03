@@ -18,7 +18,7 @@ class ContactForm(forms.Form):
         self.fields["contact_firstname"].label = "Your first name"
         self.fields["contact_lastname"].label = "Your family name"
         self.fields["contact_email"].label = "Your email address"
-        self.fields["contact_content"].label = "Your message (EN/DE)"
+        self.fields["contact_content"].label = "Your message (E/D)"
         self.fields["contact_magic"].label = "One of the big four orchestras"
 
 

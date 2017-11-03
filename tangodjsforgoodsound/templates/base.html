@@ -6,7 +6,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="" />
   <meta name="keywords" content="" />
-  <link rel="stylesheet" href="{% static 'style_20171102130610.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20171104093551.css' %}" type="text/css">
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <script type="text/javascript"> <!--
       function gugus(usr, srvr, txt) {
@@ -52,12 +52,16 @@
   <div id="content">
     {% block content %}
     {% endblock %}
+    {# don't change: this is the only way safari accept end of site margin #}
+    <p>
+      &nbsp;
+    <p>
+      &nbsp;
   </div>
 
 <div id="footer">
-  <p>© {{ CURRENT_YEAR }} m+a &nbsp;|&nbsp;
-    <a href="{% url 'copyright' %}">V{{ APP_VERSION }}</a>
-  </p>
+  <p>
+    <a href="{% url 'copyright' %}">© {{ CURRENT_YEAR }} m+a &nbsp;|&nbsp; V{{ APP_VERSION }}</a>
 </div>
 
 </body>
