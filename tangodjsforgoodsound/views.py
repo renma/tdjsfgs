@@ -67,6 +67,7 @@ def loginredirect(request):
         user = request.user
         dj = DJ.objects.get(user=user)
         return djdetail(request, dj.id)
+    # This should not happen
     return index(request)
 
 
