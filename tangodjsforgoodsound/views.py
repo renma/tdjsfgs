@@ -66,7 +66,9 @@ def loginredirect(request):
     if request.user.is_authenticated():
         user = request.user
         dj = DJ.objects.get(user=user)
-        return djdetail(request, dj.id)
+        if dj and dj.number_of_milongas and dj.name:
+            return djdetail(request, dj.id)
+        return djedit(request)
     # This should not happen
     return index(request)
 

@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django_countries.fields import CountryField
 from choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
-    MOSTLY_CHOICES, STYLE_CHOICES, YEAR_CHOICES, YESNO_CHOICES
+    MOSTLY_CHOICES, STYLE_CHOICES, YEAR_CHOICES, YESNO_CHOICES, \
+    NUM_MILONGA_CHOICES
 
 
 LENGTH_1 = 300
@@ -47,6 +48,7 @@ class DJ(models.Model):
                                 blank=True)
 
     number_of_milongas = models.IntegerField(_("Number of milongas"),
+                                             choices=NUM_MILONGA_CHOICES,
                                              default=0, blank=True)
 
     email = models.EmailField(_("Email"),

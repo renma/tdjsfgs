@@ -55,3 +55,15 @@ YEAR_CHOICES = []
 for r in range(1980, (datetime.datetime.now().year + 1)):
     YEAR_CHOICES.append((r, r))
 YEAR_CHOICES.reverse()
+
+
+NUM_MILONGA_CHOICES = []
+for i in range(30):
+    r = (i + 1) * 10
+    NUM_MILONGA_CHOICES.append((r, r))
+for i in range(14):
+    r = 300 + ((i + 1) * 50)
+    NUM_MILONGA_CHOICES.append((r, r))
+for i in range(5):
+    r = 1000 + ((i + 1) * 200)
+    NUM_MILONGA_CHOICES.append((r, r))

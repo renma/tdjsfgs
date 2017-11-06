@@ -32,7 +32,7 @@ def sendContactEmail(first, last, emailFrom, content, magic):
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
     replyTo = emailFrom
-    emailFrom = "web@tangodjsforgoodsound.info"
+    emailFrom = "contact@tangodjsforgoodsound.info"
     email = EmailMessage("New contact request",
                          "\n".join(emailContent),
                          emailFrom,
