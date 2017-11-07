@@ -75,14 +75,14 @@ body {
 
 h1 {
     font-weight: bold;
-    font-size: 50px;
+    font-size: 3.125em;
     padding-bottom: 28px;
     color: #444;
 }
 
 h2 {
     font-weight: bold;
-    font-size: 28px;
+    font-size: 1.75em;
     padding-top: 25px;
     padding-bottom: 15px;
     color: #444;
@@ -90,7 +90,7 @@ h2 {
 
 h3 {  /* Use this as h1 but with smaller font */
     font-weight: bold;
-    font-size: 28px;
+    font-size: 1.75em;
     padding-bottom: 28px;
     color: #444;
 }
@@ -130,13 +130,21 @@ th, td {
 }
 
 #index a {
-    font-size: 18px;
+    font-size: 1.125em;
 }
 
 #index td {
-    font-size: 18px;
+    font-size: 1.125em;
     padding-top: 8px;
 }
+
+
+.errorcell {
+    background: #ff9;
+    font-weight: bold;
+    font-style: italic;
+}
+
 
 /* -----------------------------------------------------------------*/
 /* tango djs for good sound                                         */
@@ -167,7 +175,7 @@ ul#menu li a {
     text-decoration: none;
     color: #444;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 0.875em;
 }
 
 ul#menu li.current a {
@@ -189,7 +197,7 @@ p {
 }
 
 #footer p {
-    font-size: 10px;
+    font-size: 0.625em;
     font-weight: bold;
     color: #666;
 }

@@ -78,6 +78,14 @@ class DJEditForm(forms.ModelForm):
                 self.fields[field].required = True
         self.fields["province"].widget.attrs["pattern"] = "\D*"
 
+    def clean(self):
+        cleaned_data = super(DJEditForm, self).clean()
+        if (not cleaned_data.get("compression") == "NEV"
+                or not cleaned_data.get("equalization") == "NEV") and \
+                not cleaned_data.get("soundprocessor"):
+            self.add_error("soundprocessor", "Cannot be empty")
+        return cleaned_data
+
     def set_namesort(self, request):
         """
         Carlos Di Sarli => sarli
@@ -89,5 +97,5 @@ class DJEditForm(forms.ModelForm):
         x = self.data["name"].split()
         namesort = x[1] if "dj" in x[0].lower() and len(x) > 1 else x[0]
         self.data["namesort"] = namesort.lower()[:40]
-        print "used namesort =", self.data["namesort"]
+        # print "used namesort =", self.data["namesort"]
         request.POST._mutable = mutable

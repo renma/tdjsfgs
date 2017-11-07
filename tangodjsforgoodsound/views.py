@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
@@ -73,6 +74,13 @@ def loginredirect(request):
     return index(request)
 
 
+def customlogout(request):
+    model_changed = False
+    if not model_changed:
+        logout(request)
+        return index(request)
+
+
 def djdetail(request, dj_id):
     dj = get_object_or_404(DJ, pk=dj_id)
     return render(request, "djdetail.html", {"dj": dj})
@@ -80,20 +88,30 @@ def djdetail(request, dj_id):
 
 def djedit(request):
     if request.user.is_authenticated():
+        # print ">>> djedit called"
         html = "djedit.html"
         user = request.user
         data = DJ.objects.get(user=user)
+        # print ">>> get data from  DB"
         if request.method == 'POST':
+            # print ">>> djedit POST"
             djform = DJEditForm(request.POST, instance=data)
             djform.set_namesort(request)
             if djform.is_valid():
                 djform.save()
                 html = "djdetail.html"
+                # print ">>> dj data saved"
+            else:
+                pass  # print ">>> di data NOT valid"
         else:
+            # print ">>> djedit GET"
             data = DJ.objects.get(user=user)
             djform = DJEditForm(instance=data)
+            # print ">>> get data from FORM"
+
         context = {"form": djform, "user": user}
         addDjContext(request, DJ, context)
         return render(request, html, context)
+
     # This should not happen!
     return index(request)

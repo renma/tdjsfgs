@@ -10,6 +10,12 @@
     <tr>
     </tr><tr>
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
+      {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %} 
+    </tr><tr>
+      <td clospan="2">Please correct the <span class="errorcell">wrong data</span> in your input.</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+{% endif %}
     </tr><tr>
       <td><b>Personal<b></td><td>&nbsp;</td>
     </tr><tr>
@@ -25,9 +31,17 @@
     </tr><tr>
       <td>Number of Milongas:</td><td>{{ form.number_of_milongas }}</td>
     </tr><tr>
+      {% if form.email.errors.as_text %} 
+      <td class="errorcell">! Email:</td><td>{{ form.email }}</td>
+      {% else %}
       <td>Email:</td><td>{{ form.email }}</td>
+      {% endif %}
     </tr><tr>
+      {% if form.website.errors.as_text %} 
+      <td class="errorcell">! Website:</td><td>{{ form.website }}</td>
+      {% else %}
       <td>Website:</td><td>{{ form.website }}</td>
+      {% endif %}
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>
@@ -59,7 +73,11 @@
     </tr><tr>
       <td>AudioInterface/DAC:</td><td>{{ form.audiointerface }}</td>
     </tr><tr>
+      {% if form.soundprocessor.errors.as_text %} 
+      <td class="errorcell">! Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
+      {% else %}
       <td>Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
+      {% endif %}
     </tr><tr>
       <td>Other equipment:</td><td>{{ form.other_equipment }}</td>
     </tr><tr>
@@ -94,7 +112,7 @@
 <h2><br />Minimal Sound Requirement Statement</h2>
 <p>
   <ul>
-    <li class="first">We use the best recordings in the best available quality.
+    <li class="first">We use the best available transfers of the orignal recordings.
     <li>We use good quality audio tools and software (interfaces, soundcards, DACs, soundprocessors).
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
   </ul>

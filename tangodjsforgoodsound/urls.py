@@ -15,4 +15,5 @@ urlpatterns = [
     url(r"^todo/$", views.todo, name="todo"),
     url(r"^copyright/$", views.copyright, name="copyright"),
     url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
+    url(r"^customlogout/$", views.customlogout, name="customlogout"),
 ]
