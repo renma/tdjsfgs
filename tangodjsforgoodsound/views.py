@@ -8,6 +8,11 @@ from .models import DJ
 from .common import addDjContext, sendContactEmail as sendEmail
 
 
+def debug(s):
+    if False:
+        print ">>>>", s
+
+
 def copyright(request):
     return render(request, "copyright.html")
 
@@ -66,10 +71,14 @@ def todo(request):
 def loginredirect(request):
     if request.user.is_authenticated():
         user = request.user
-        dj = DJ.objects.get(user=user)
-        if dj and dj.number_of_milongas and dj.name:
-            return djdetail(request, dj.id)
-        return djedit(request)
+        if user.id == 1:  # admin MUST use admin URL
+            # return HttpResponseRedirect(reverse("admin:index"))
+            return contact(request)
+        else:
+            dj = DJ.objects.get(user=user)
+            if dj and dj.number_of_milongas and dj.name:
+                return djdetail(request, dj.id)
+            return djedit(request)
     # This should not happen
     return index(request)
 
@@ -88,26 +97,25 @@ def djdetail(request, dj_id):
 
 def djedit(request):
     if request.user.is_authenticated():
-        # print ">>> djedit called"
+        debug("djedit called")
         html = "djedit.html"
         user = request.user
-        data = DJ.objects.get(user=user)
-        # print ">>> get data from  DB"
+        djobject = DJ.objects.get(user=user)
+        debug("djedit %s selected" % djobject)
+
         if request.method == 'POST':
-            # print ">>> djedit POST"
-            djform = DJEditForm(request.POST, instance=data)
+            debug("djedit POST")
+            djform = DJEditForm(request.POST, instance=djobject)
             djform.set_namesort(request)
             if djform.is_valid():
+                debug("djedit form valid => save()")
                 djform.save()
                 html = "djdetail.html"
-                # print ">>> dj data saved"
             else:
-                pass  # print ">>> di data NOT valid"
+                debug("djedit form not valid")
         else:
-            # print ">>> djedit GET"
-            data = DJ.objects.get(user=user)
-            djform = DJEditForm(instance=data)
-            # print ">>> get data from FORM"
+            debug("djedit GET")
+            djform = DJEditForm(instance=djobject)
 
         context = {"form": djform, "user": user}
         addDjContext(request, DJ, context)

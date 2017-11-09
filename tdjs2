@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-10-26 11:42:26 rene>
+# Time-stamp: <2017-11-09 10:05:54 rene>
 #
 # Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
 #
@@ -46,6 +46,7 @@ help() {
     echo "             dist    -> rsync sources (if local without database)"
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
+    echo "             clearsessions -> clear expired sessions"
     echo
     echo "Parameter 2: silent"
     echo
@@ -110,6 +111,11 @@ if [ "$1" = "restart" ]; then
 
 fi
 
+if [ "$1" = "clearsessions" ]; then
+    cd $WORKDIR
+    $PYTHON manage.py clearsessions
+    exit 0
+fi
 
 if [ "$1" = "getdb" ]; then
 
