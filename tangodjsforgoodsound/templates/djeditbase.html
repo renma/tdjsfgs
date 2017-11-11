@@ -10,8 +10,7 @@
     <tr>
     </tr><tr>
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
-      {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %} 
-    </tr><tr>
+      {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}    </tr><tr>
       <td clospan="2">Please correct the <span class="errorcell">wrong data</span> in your input.</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
@@ -76,7 +75,7 @@
       {% if form.soundprocessor.errors.as_text %} 
       <td class="errorcell">! Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
       {% else %}
-      <td>Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
+      <td>Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
       {% endif %}
     </tr><tr>
       <td>Other equipment:</td><td>{{ form.other_equipment }}</td>
@@ -99,7 +98,7 @@
     </tr><tr>
       <td>AudioInterface/DAC:</td><td>{{ form.backup_audiointerface }}</td>
     </tr><tr>
-      <td>Soundprocessor:</td><td>{{ form.backup_soundprocessor }}</td>
+      <td>Sound processor(s):</td><td>{{ form.backup_soundprocessor }}</td>
     </tr><tr>
       <td>Other equipment:</td><td>{{ form.backup_other_equipment }}</td>
     </tr><tr>
@@ -113,7 +112,7 @@
 <p>
   <ul>
     <li class="first">We use the best available transfers of the original recordings.
-    <li>We use good quality audio tools and software (interfaces, soundcards, DACs, soundprocessor(s)).
+    <li>We use good quality audio tools and software (interfaces, soundcards, DACs, sound processors).
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
   </ul>
 {% endblock %}
