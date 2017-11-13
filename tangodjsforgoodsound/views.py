@@ -8,6 +8,9 @@ from .models import DJ
 from .common import addDjContext, sendContactEmail as sendEmail
 
 
+SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
+
+
 def debug(s):
     if False:
         print ">>>>", s
@@ -19,13 +22,13 @@ def copyright(request):
 
 def index(request):
     home = os.path.expanduser("~")
-    if os.path.exists(os.path.join(home, "DJANGO_SHOW_EMPTY")):
-        return render(request, "index_empty.html")
-    orderBy = ["country", "namesort"]
-    djList = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
-    context = {"djList": djList}
-    addDjContext(request, DJ, context)
-    return render(request, "index.html", context)
+    if not os.path.exists(os.path.join(home, SHOW_MAINTENANCE_PAGE)):
+        orderBy = ["country", "namesort"]
+        djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
+        context = {"djList": djL}
+        addDjContext(request, DJ, context)
+        return render(request, "index.html", context)
+    return render(request, "index_empty.html")
 
 
 def contact(request):

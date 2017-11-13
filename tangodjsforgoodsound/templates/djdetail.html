@@ -9,9 +9,9 @@
     {% if dj.since %}
     {% if dj.number_of_milongas %}
     {% if dj.gender == "MAL" %}
-      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
+      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ<br />Since {{ dj.since }} with {{ dj.number_of_milongas }} milongas</td>
     {% else %}
-      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJane since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
+      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJane<br />Since {{ dj.since }} with {{ dj.number_of_milongas }} milongas</td>
     {% endif %}
     {% endif %}
     {% endif %}
@@ -71,9 +71,9 @@
       <td>AudioInterface/DAC:</td><td>{{ dj.audiointerface }}</td>
     </tr></tr>
     {% if dj.soundprocessor %}
-      <td>Soundprocessor:</td><td>{{ dj.soundprocessor }}</td>
+      <td>Sound processor(s):</td><td>{{ dj.soundprocessor }}</td>
     {% else %}
-      <td>Soundprocessor:</td><td>-</td>
+      <td>Sound processor(s):</td><td>-</td>
     {% endif %}
     </tr></tr>
     {% if dj.other_equipment %}
@@ -109,9 +109,9 @@
     {% endif %}
     </tr></tr>
     {% if dj.backup_soundprocessor %}
-      <td>Soundprocessor:</td><td>{{ dj.backup_soundprocessor }}</td>
+      <td>Sound processor(s):</td><td>{{ dj.backup_soundprocessor }}</td>
     {% else %}
-      <td>Soundprocessor:</td><td>-</td>
+      <td>Sound processor(s):</td><td>-</td>
     {% endif %}
     </tr></tr>
     {% if dj.backup_other_equipment %}

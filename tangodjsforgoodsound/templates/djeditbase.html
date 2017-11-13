@@ -73,7 +73,7 @@
       <td>AudioInterface/DAC:</td><td>{{ form.audiointerface }}</td>
     </tr><tr>
       {% if form.soundprocessor.errors.as_text %} 
-      <td class="errorcell">! Soundprocessor:</td><td>{{ form.soundprocessor }}</td>
+      <td class="errorcell">! Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
       {% else %}
       <td>Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
       {% endif %}
@@ -112,7 +112,7 @@
 <p>
   <ul>
     <li class="first">We use the best available transfers of the original recordings.
-    <li>We use good quality audio tools and software (interfaces, soundcards, DACs, sound processors).
+    <li>We use good quality audio tools and software (interfaces, sound cards, DACs, sound processors).
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
   </ul>
 {% endblock %}
