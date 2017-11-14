@@ -53,8 +53,9 @@ html {
 }
 
 body {
-    font-size: 17px;
+    font-size: 18px;
     font-family: "Helvetica", "sans-serif";
+    /* Don't reduce the 18px as this doesn't work with W10/Edge */
     /* margin-bottom not working in safari */
     /* margin-bottom: 42px; */  /* more or equal as footer */
 }
@@ -71,7 +72,7 @@ body {
 #footer {
   position: fixed;
   bottom: 10px;  /* same as body */
-  right: 100px;
+  right: 50px;
 }
 
 h1 {
@@ -178,7 +179,7 @@ ul#menu li a {
     text-decoration: none;
     color: #444;
     font-weight: bold;
-    font-size: 0.875em;
+    font-size: 0.85em;
 }
 
 ul#menu li.current a {
@@ -211,9 +212,12 @@ p {
 }
 
 #footer p {
-    font-size: 0.625em;
+}
+
+#footer a {
+    font-size: 0.75em;
     font-weight: bold;
-    color: #666;
+    color: #ccc;
 }
 
 p.margin-bottom {
