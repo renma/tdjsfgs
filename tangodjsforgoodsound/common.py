@@ -2,6 +2,19 @@ import os
 import unicodedata
 from django import forms
 from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
+from .models import DJ
+
+
+def stripAccents(val, encoding='utf-8'):
+    try:
+        assert(unicode(val, encoding))
+        val = unicode(val, encoding)
+    except TypeError:
+        pass
+    nkfd = unicodedata.normalize('NFKD', val)
+    val = nkfd.encode('ASCII', 'ignore')
+    return val
 
 
 def addDjContext(request, DJModel, context):
@@ -23,11 +36,25 @@ def createEmailTo():
 def sendContactEmail(first, last, emailFrom, content, magic):
     emailTo = createEmailTo()
     emailContent = [
-        "", "A new contact request was entered on the website:", "",
-        "    First name : %s" % first,
-        "    Last name  : %s" % last,
-        "    Email      : %s" % emailFrom,
-        "    Orquesta   : %s" % magic, ""]
+            "", "A new contact request was entered on the website:", "",
+            "    First name : %s" % first,
+            "    Last name  : %s" % last,
+            "    Email      : %s" % emailFrom,
+            "    Orquesta   : %s" % magic, ""]
+
+    knownDJs = DJ.objects.all().filter(email=emailFrom)
+    if knownDJs:
+        L = [stripAccents(dj.name) for dj in knownDJs]
+        msg = "Known DJ(s) with this email address : %s"
+        emailContent.append(msg % ", ".join(L))
+    knownUsers = User.objects.all().filter(email=emailFrom)
+    if knownUsers:
+        L = ["%s %s" % (stripAccents(u.first_name),
+                        stripAccents(u.last_name)) for u in knownUsers]
+        msg = "Known User with this email address : %s"
+        emailContent.append(msg % ", ".join(L))
+    if knownDJs or knownUsers:
+        emailContent.append("")
     if content:
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
@@ -56,17 +83,8 @@ class TrickyField(forms.Field):
         "troilo"
     ]
 
-    def _stripAccents(self, val, encoding="utf-8"):
-        try:
-            val = unicode(val, encoding)
-        except Exception:
-            pass
-        nkfd = unicodedata.normalize('NFKD', val)
-        val = nkfd.encode('ASCII', 'ignore')
-        return val
-
     def _createAz(self, val):
-        val = self._stripAccents(val)
+        val = stripAccents(val)
         val = "".join([c if c.isalnum() else '' for c in val])
         return val.strip()
 
