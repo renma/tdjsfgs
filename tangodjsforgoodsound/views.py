@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm
@@ -12,7 +13,7 @@ SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
 
 def debug(s):
-    if False:
+    if 0:
         print ">>>>", s
 
 
@@ -105,15 +106,36 @@ def djedit(request):
         user = request.user
         djobject = DJ.objects.get(user=user)
         debug("djedit %s selected" % djobject)
-
         if request.method == 'POST':
             debug("djedit POST")
             djform = DJEditForm(request.POST, instance=djobject)
             djform.set_namesort(request)
+            djform.request = request
             if djform.is_valid():
-                debug("djedit form valid => save()")
-                djform.save()
-                html = "djdetail.html"
+                debug("djedit form valid")
+                try:
+                    theUser = User.objects.all().filter(id=user.id)[0]
+                except Exception:
+                    theUser = None
+                if theUser:
+                    debug("djedit user found")
+                    loginAddress = djform.cleaned_data.get("useremail")
+                    debug("djedit => save()")
+                    djform.save()
+                    if not loginAddress == theUser.username \
+                       or not loginAddress == theUser.email:
+                        debug("New Username %s => %s" % (theUser.username,
+                                                         loginAddress))
+                        debug("New Useremail %s => %s" % (theUser.email,
+                                                          loginAddress))
+                        debug("auth_user => save()")
+                        theUser.username = loginAddress
+                        theUser.email = loginAddress
+                        User.save(theUser)
+                        # save user
+                    html = "djdetail.html"
+                else:
+                    debug("djedit user not found")
             else:
                 debug("djedit form not valid")
         else:

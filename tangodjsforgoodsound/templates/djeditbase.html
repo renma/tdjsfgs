@@ -6,15 +6,32 @@
   Please remember the Minimal Sound Requirement Statement below.
   <form role="form" action="" method="post">
   {% csrf_token %}
+  {% if form.namesort.errors.as_text %}
+    {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}
+      <p>&nbsp;<p>The <i>Login Address</i> is already known in the system.</p>
+      <p>Please correct also the <i>Wrong Data</i> in your input!</p>
+    {% else %}
+      <p>&nbsp;<p>The <i>Login Address</i> is already known in the system!</p>
+    {% endif %}
+  {% else %}
+    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}
+      <p>&nbsp;<p>Please correct the <i>Wrong Data</i> in your input!</p>
+    {% endif %}
+  {% endif %}
   <table id="djedit">
     <tr>
-    </tr><tr>
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
-      {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}    </tr><tr>
-      <td clospan="2">Please correct the <span class="errorcell">wrong data</span> in your input.</td>
     </tr><tr>
-      <td>&nbsp;</td><td>&nbsp;</td>
-{% endif %}
+      <td><b>Account data<b></td><td>&nbsp;</td>
+    </tr><tr>
+      {% if form.useremail.errors.as_text %} 
+      <td class="errorcell">Email:</td><td>{{ form.useremail }}</td>
+      {% else %}
+      <td>Login Email:</td><td>{{ form.useremail }}</td>
+      {% endif %}
+    </tr><tr>
+      <td>&nbsp;</td><td class="infocell">&rarr; for login and password reset (not visible)<br />
+      &nbsp;&nbsp;&nbsp;best if not identical with address on website</td>
     </tr><tr>
       <td><b>Personal<b></td><td>&nbsp;</td>
     </tr><tr>
@@ -31,13 +48,13 @@
       <td>Number of Milongas:</td><td>{{ form.number_of_milongas }}</td>
     </tr><tr>
       {% if form.email.errors.as_text %} 
-      <td class="errorcell">! Email:</td><td>{{ form.email }}</td>
+      <td class="errorcell">Email:</td><td>{{ form.email }}</td>
       {% else %}
       <td>Email:</td><td>{{ form.email }}</td>
       {% endif %}
     </tr><tr>
       {% if form.website.errors.as_text %} 
-      <td class="errorcell">! Website:</td><td>{{ form.website }}</td>
+      <td class="errorcell">Website:</td><td>{{ form.website }}</td>
       {% else %}
       <td>Website:</td><td>{{ form.website }}</td>
       {% endif %}
@@ -73,7 +90,7 @@
       <td>AudioInterface/DAC:</td><td>{{ form.audiointerface }}</td>
     </tr><tr>
       {% if form.soundprocessor.errors.as_text %} 
-      <td class="errorcell">! Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
+      <td class="errorcell">Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
       {% else %}
       <td>Sound processor(s):</td><td>{{ form.soundprocessor }}</td>
       {% endif %}

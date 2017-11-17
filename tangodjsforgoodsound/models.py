@@ -55,9 +55,9 @@ class DJ(models.Model):
                               max_length=LENGTH_1,
                               default='', blank=True)
 
-    # useremail = models.EmailField(_("UserEmail"),
-    #                               max_length=LENGTH_1,
-    #                               default='', blank=True)
+    useremail = models.EmailField(_("User Email"),
+                                  max_length=LENGTH_1,
+                                  default='', blank=True)
 
     website = models.URLField(_("Website"),
                               max_length=LENGTH_1,

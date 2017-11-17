@@ -144,9 +144,14 @@ th, td {
 
 
 .errorcell {
-    background: #ff9;
+    background: #ff6;
     font-weight: bold;
     font-style: italic;
+}
+
+.infocell {
+    font-style: italic;
+    font-size: 0.8em;
 }
 
 

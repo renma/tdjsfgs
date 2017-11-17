@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from . common import TrickyField
 from . models import DJ
 
@@ -36,6 +37,7 @@ class DJEditForm(forms.ModelForm):
             "since",
             "number_of_milongas",
             "email",
+            "useremail",
             "website",
             "style",
             "cortinas",
@@ -80,10 +82,36 @@ class DJEditForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(DJEditForm, self).clean()
+
         if (not cleaned_data.get("compression") == "NEV"
                 or not cleaned_data.get("equalization") == "NEV") and \
                 not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")
+
+        useremailError = True
+        try:
+            theUser = User.objects.filter(id=self.request.user.id)[0]
+            if theUser:
+                loginAddress = cleaned_data.get("useremail")
+                if loginAddress == theUser.username \
+                   and loginAddress == theUser.email:
+                    useremailError = False
+                else:
+                    try:
+                        x = theUser.id
+                        y = loginAddress
+                        objects = User.objects.exclude(id=x).filter(email=y)
+                        if not objects:
+                            useremailError = False
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        if useremailError:
+            # use namesort to indicate this Error (HACK!)
+            self.add_error("useremail", "Not unique or user not found")
+            self.add_error("namesort", "Not unique or user not found")
+
         return cleaned_data
 
     def set_namesort(self, request):

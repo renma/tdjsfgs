@@ -1,2 +1,2 @@
-VERSION = "0.43"
-TIMESTAMP = "Time-stamp: <2017-11-17 06:52:38 rene>"
+VERSION = "0.44"
+TIMESTAMP = "Time-stamp: <2017-11-17 13:48:59 rene>"
