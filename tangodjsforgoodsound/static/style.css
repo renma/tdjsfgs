@@ -1,7 +1,22 @@
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* reset everything                                                 */
-/* -----------------------------------------------------------------*/
+/* Time-stamp: <2017-11-18 17:23:11 rene>                               */
+/*                                                                      */
+/* Copyright (C) 2017 René Maurer                                       */
+/* This file is part of tangodjsforgoodsound.                           */
+/*                                                                      */
+/* tangodjsforgoodsound is free software: you can redistribute it       */
+/* and/or modify it under the terms of the GNU General Public License   */
+/* as published by the Free Software Foundation, either version 3 of    */
+/* the License, or (at your option) any later version.                  */
+/*                                                                      */
+/* tangodjsforgoodsound is distributed in the hope that it will be      */
+/* useful, but WITHOUT ANY WARRANTY; without even the implied warranty  */
+/* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU */
+/* General Public License for more details.                             */
+/*                                                                      */
+/* You should have received a copy of the GNU General Public License    */
+/* along with this program.  If not, see <http://www.gnu.org/licenses>. */
+/*                                                                      */
+/* -------------------------------------------------------------------- */
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   margin: 0;
@@ -43,10 +58,10 @@ table {
   border-spacing: 0;
 }
 
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* general styles                                                   */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* general styles                                                       */
+/* -------------------------------------------------------------------- */
 
 html {
     height: 100%;
@@ -154,11 +169,10 @@ th, td {
     font-size: 0.8em;
 }
 
-
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* menu styles                                                      */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* menu styles                                                          */
+/* -------------------------------------------------------------------- */
 
 #menubar {
     background: #ccc;
@@ -206,11 +220,10 @@ ul#menu li a.inactive:hover {
       border-bottom: none;
 }
 
-
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* paragraphs                                                       */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* paragraphs                                                           */
+/* -------------------------------------------------------------------- */
 
 p {
     max-width: 750px;
@@ -236,10 +249,10 @@ p.margin-top {
 p.margin-none {
 }
 
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* common input styles                                              */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* common input styles                                                  */
+/* -------------------------------------------------------------------- */
 
 input[type="text"] {
     border: 1px solid #ccc;
@@ -265,10 +278,10 @@ textarea {
     border: 1px solid #ccc;
 }
 
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* contact input styles                                             */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* contact input styles                                                 */
+/* -------------------------------------------------------------------- */
 
 #contact input[type="text"] {
     width: 290;
@@ -283,10 +296,10 @@ textarea {
     margin-top: 4px;
 }
 
-/* -----------------------------------------------------------------*/
-/* tango djs for good sound                                         */
-/* djedit input styles                                              */
-/* -----------------------------------------------------------------*/
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* djedit input styles                                                  */
+/* -------------------------------------------------------------------- */
 
 #djedit select {
     width: 370;

@@ -6,7 +6,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="" />
   <meta name="keywords" content="" />
-  <link rel="stylesheet" href="{% static 'style_20171117074748.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20171118172342.css' %}" type="text/css">
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <script type="text/javascript"> <!--
       function gugus(usr, srvr, txt) {
@@ -43,8 +43,8 @@
       {% endif %}
       <li><a href ="{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
-      {% if user.get_username == "rm@cumparsita.ch" or user.get_username == "saludos@gmx.ch" or user.get_username == "rene" or user.get_username == "alberto" %}
-      <li><a href ="{% url 'todo' %}">TODO</a></li>
+      {% if user.get_username == "rm@cumparsita.ch" or user.get_username == "rene@cumparsita.ch" or user.get_username == "saludos@gmx.ch" or user.get_username == "saludos@bluewin.ch" %}
+      <li><a href ="{% url 'more' %}">More</a></li>
       {% endif %}
       {% endif %}
     </ul>

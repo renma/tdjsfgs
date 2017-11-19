@@ -1,25 +1,23 @@
 #!/bin/bash
+# Time-stamp: <2017-11-19 12:00:24 rene>
 #
-# Time-stamp: <2017-11-09 10:05:54 rene>
+# Copyright (C) 2017 Rene Maurer
+# This file is part of tangodjsforgoodsound.
 #
-# Copyright (c) 2010  Rene Maurer <rene@cumparsita.ch>  
+# tangodjsforgoodsound is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNUecho
+# tangodjsforgoodsound is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ----------------------------------------------------------------------
-#
-
 
 localdir=/home/rene/mysite
 remotedir=/home/tdjsfgs/ALL/mysite
@@ -47,6 +45,7 @@ help() {
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo "             clearsessions -> clear expired sessions"
+    echo "             doc:    -> copy doc to static"
     echo
     echo "Parameter 2: silent"
     echo
@@ -114,6 +113,25 @@ fi
 if [ "$1" = "clearsessions" ]; then
     cd $WORKDIR
     $PYTHON manage.py clearsessions
+    exit 0
+fi
+
+if [ "$1" = "doc" ]; then
+    A=RESOURCES
+    B=tangodjsforgoodsound/static
+    W=$(pwd)
+    for f in tdjsfgs; do
+        cd $A
+        rm -f $f.pdf
+        libreoffice --headless --convert-to pdf $f.* > /dev/null 2>&1
+        cd $W
+        mv $A/$f.pdf $B/.
+        if [ -f $B/$f.pdf ]; then
+            echo "Created $B/$f.pdf"
+        else
+            echo "ERROR: Cannot create $B/$f.pdf"
+        fi
+    done
     exit 0
 fi
 

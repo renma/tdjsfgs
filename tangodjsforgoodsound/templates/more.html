@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+
+<p>
+  <br /><br /><b>Dokumente</b>
+  <ul>
+    <li class="first">Handbuch und HowTo: <a target="_blank" href="{% static 'tdjsfgs.pdf' %}">PDF/Anzeigen</a>.
+  </ul>
+</p>
 
 <p>
   <br /><br /><b>Todo für Version 1</b>
   <ul>
-    <li class="first">Admin: Login mit Email Adresse.
     <li class="first">Site: Testen.
     <li class="first">Site: Englisch prüfen (von jemandem der das beurteilen kann).
     <li class="first">Feedback Anfrage: JIB und JD.
     <li class="first">Feedback Anfrage: Zankl.
-    <li class="first">Contact Workflow festhalten:
-      <br />&nbsp;&nbsp;1. René DB Eintrag und Email an Alb, 2. Albi Email an DJ.
+    <li class="first">Contact Standard Email im Handbuch eintragen.
     <li class="first">Wie publizieren wir die Site? Geziehlt streuen/animpfen?
   </ul>
 </p>
@@ -31,6 +37,7 @@
     <li class="first">About: Inhalt definieren.
     <li class="first">About: Inhalt einpflegen und layouten.
     <li class="first">Admin Link korrigieren falls als admin eingeloggt.
+    <li class="first">Admin: Login mit Email Adresse.
     <li class="first">Centarus: Cronjob für einen Auto-Restart der Seite (=> tdjs2).
     <li class="first">Centarus: Emails über tangodjsforgoodsound verschicken.
     <li class="first">Centaurus: Cronjob um abgelaufene Session zu löschen.
