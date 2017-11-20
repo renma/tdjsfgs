@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-20 01:04:06 rene>
+# Time-stamp: <2017-11-20 17:01:44 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -29,6 +29,36 @@ from .common import addDjContext, sendContactEmail as sendEmail
 
 
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
+
+"""
+TODO
+
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+from  django.contrib.auth.decorators import login_required
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request,
+                             'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    #return render(request, 'accounts/change_password.html', {
+    return render(request, 'change_password.html', {
+        'form': form
+    })
+"""
 
 
 def debug(s):

@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-20 01:03:31 rene>
+# Time-stamp: <2017-11-20 17:00:58 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -37,10 +37,12 @@ urlpatterns = [
     url(r"^copyright/$", views.copyright, name="copyright"),
     url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
     url(r"^customlogout/$", views.customlogout, name="customlogout"),
-
     url("^accounts/password_reset/$", auth_views.password_reset,
         {'password_reset_form': forms.EmailValidationOnForgotPassword},
-        name="password_reset")
+        name="password_reset"),
 
+    # TODO
+    # url(r'^djedit/password/$', views.change_password,
+    #     name='change_password'),
 
 ]
