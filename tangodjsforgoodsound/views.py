@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 18:11:31 rene>
+# Time-stamp: <2017-11-20 01:04:06 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -21,7 +21,6 @@
 import os
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.http import FileResponse
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from forms import ContactForm, DJEditForm

@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 18:12:26 rene>
+# Time-stamp: <2017-11-20 01:03:31 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,7 +19,8 @@
 # ----------------------------------------------------------------------
 
 from django.conf.urls import url
-from . import views
+from django.contrib.auth import views as auth_views
+from . import views, forms
 
 
 urlpatterns = [
@@ -36,4 +37,10 @@ urlpatterns = [
     url(r"^copyright/$", views.copyright, name="copyright"),
     url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
     url(r"^customlogout/$", views.customlogout, name="customlogout"),
+
+    url("^accounts/password_reset/$", auth_views.password_reset,
+        {'password_reset_form': forms.EmailValidationOnForgotPassword},
+        name="password_reset")
+
+
 ]

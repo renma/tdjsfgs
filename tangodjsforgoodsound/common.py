@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 17:12:05 rene>
+# Time-stamp: <2017-11-20 00:16:11 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -24,6 +24,9 @@ from django import forms
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from .models import DJ
+
+
+USEREMAIL_NOT_REGISTERED = "USEREMAIL_NOT_REGISTERED"
 
 
 def stripAccents(val, encoding='utf-8'):

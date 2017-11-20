@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 17:14:33 rene>
+# Time-stamp: <2017-11-20 00:58:40 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,9 +19,21 @@
 # ----------------------------------------------------------------------
 
 from django import forms
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
-from . common import TrickyField
+from django.core.exceptions import ValidationError
+from . common import TrickyField, USEREMAIL_NOT_REGISTERED
 from . models import DJ
+
+
+class EmailValidationOnForgotPassword(PasswordResetForm):
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not User.objects.filter(email__iexact=email,
+                                   is_active=True).exists():
+            raise ValidationError(USEREMAIL_NOT_REGISTERED)
+        return email
 
 
 class ContactForm(forms.Form):
