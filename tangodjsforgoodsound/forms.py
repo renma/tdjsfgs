@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-20 00:58:40 rene>
+# Time-stamp: <2017-11-21 00:52:05 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -22,8 +22,23 @@ from django import forms
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 from . common import TrickyField, USEREMAIL_NOT_REGISTERED
 from . models import DJ
+
+
+class SubscriberPasswordForm(forms.Form):
+    new_password1 = forms.CharField(widget=forms.PasswordInput)
+    new_password2 = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get("new_password1")
+        password2 = self.cleaned_data.get("new_password2")
+        for password in [password1, password2]:
+            validate_password(password)
+        if not password1 == password2:
+            msg = "Password_mismatch"
+            raise forms.ValidationError(msg, code=msg)
 
 
 class EmailValidationOnForgotPassword(PasswordResetForm):

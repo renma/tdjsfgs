@@ -23,6 +23,9 @@
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
     </tr><tr>
       <td><b>Account data<b></td><td>&nbsp;</td>
+   {# </tr><tr> #}
+   {#   <td class="infocell" colspan="2">&nbsp;<br />Account data are used for login and password reset (not visible).<br /> #}
+   {#    It is recommended to use a differnt email adresses for login and the website.<br />&nbsp;</td> #}
     </tr><tr>
       {% if form.useremail.errors.as_text %} 
       <td class="errorcell">Email:</td><td>{{ form.useremail }}</td>
@@ -30,8 +33,8 @@
       <td>Login email:</td><td>{{ form.useremail }}</td>
       {% endif %}
     </tr><tr>
-      <td><a href=""><button type="button">Change PW-Link</button></a></td><td class="infocell">&rarr; for login and password reset (not visible).<br />
-      &nbsp;&nbsp; best if not identical with address on website.</td>
+      <td><p><a href="password"><button type="button">Change PW-Link</button></a></p></td><td class="infocell">&rarr; For login and password reset (not visible),<br />
+      &nbsp; &nbsp;best if not identical with address on website.</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>

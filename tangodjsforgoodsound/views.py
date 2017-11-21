@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-20 17:01:44 rene>
+# Time-stamp: <2017-11-21 00:51:04 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -20,45 +20,37 @@
 
 import os
 from django.contrib.auth import logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render
-from django.shortcuts import redirect
-from forms import ContactForm, DJEditForm
+from django.shortcuts import get_object_or_404, render, redirect
+from forms import ContactForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
 from .common import addDjContext, sendContactEmail as sendEmail
 
 
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
-"""
-TODO
-
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-from  django.contrib.auth.decorators import login_required
-
 
 @login_required
 def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+    if request.method == "POST":
+        form = SubscriberPasswordForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request,
-                             'Your password was successfully updated!')
-            return redirect('change_password')
-        else:
-            messages.error(request, 'Please correct the error below.')
+            try:
+                request.user.set_password(form.cleaned_data["new_password1"])
+                request.user.save()
+                update_session_auth_hash(request, request.user)  # Important!
+                print "Password for user %s set" % request.user
+            except Exception:
+                # This should not happen
+                print "Unexcpected error in change_password()"
+                return render(request, "change_password.html", {"form": form})
+            else:
+                return render(request, "change_password_success.html")
     else:
-        form = PasswordChangeForm(request.user)
-    #return render(request, 'accounts/change_password.html', {
-    return render(request, 'change_password.html', {
-        'form': form
-    })
-"""
+        form = SubscriberPasswordForm()
+    return render(request, "change_password.html", {"form": form})
 
 
 def debug(s):
