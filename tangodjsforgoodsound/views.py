@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-21 00:51:04 rene>
+# Time-stamp: <2017-11-21 07:48:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -32,6 +32,11 @@ from .common import addDjContext, sendContactEmail as sendEmail
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
 
+def debug(s):
+    if 0:
+        print ">>>>", s
+
+
 @login_required
 def change_password(request):
     if request.method == "POST":
@@ -41,21 +46,22 @@ def change_password(request):
                 request.user.set_password(form.cleaned_data["new_password1"])
                 request.user.save()
                 update_session_auth_hash(request, request.user)  # Important!
-                print "Password for user %s set" % request.user
+                debug("Password for user %s set" % request.user)
             except Exception:
                 # This should not happen
-                print "Unexcpected error in change_password()"
-                return render(request, "change_password.html", {"form": form})
+                print ">>>>>>>> Unexcpected error in change_password()"
+                context = {"form": form}
+                addDjContext(request, DJ, context)
+                return render(request, "change_password.html", context)
             else:
-                return render(request, "change_password_success.html")
+                context = {"form": form}
+                addDjContext(request, DJ, context)
+                return render(request, "change_password_success.html", context)
     else:
         form = SubscriberPasswordForm()
-    return render(request, "change_password.html", {"form": form})
-
-
-def debug(s):
-    if 0:
-        print ">>>>", s
+    context = {"form": form}
+    addDjContext(request, DJ, context)
+    return render(request, "change_password.html", context)
 
 
 def copyright(request):

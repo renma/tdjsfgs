@@ -3,19 +3,18 @@
 
 <h1>Please login</h1>
 
-<p>
   {% if form.errors %}
-    Your username and password didn't match. Please try again.
+    <p>Your username and password didn't match. Please try again.</p>
+    <p>&nbsp;</p>
   {% else %}
-    After login you can enter or change your personal data.
+    <p>After login you can enter or change your personal data.</p>
   {% endif %}
-</p>  
 
 {% if next %}
   {% if user.is_authenticated %}
     <h2>Your account doesn't have access to this page.</h2>
   {% else %}
-    &nbsp;<br />
+    <p>&nbsp;</p>
   {% endif %}
 {% endif %}
 
@@ -50,6 +49,6 @@
 </form>
 
 <p>&nbsp;<p>&nbsp;<p class="margin-top">
-  <a href="{% url 'password_reset' %}">Click here for a password reset!</a></b>
+  <a href="{% url 'password_reset' %}">Password reset?</a></b>
 
 {% endblock %}

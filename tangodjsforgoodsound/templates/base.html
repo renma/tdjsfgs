@@ -43,8 +43,8 @@
       {% endif %}
       <li><a href ="{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
-      {% if user.get_username == "rm@cumparsita.ch" or user.get_username == "rene@cumparsita.ch" or user.get_username == "saludos@gmx.ch" or user.get_username == "saludos@bluewin.ch" %}
-      <li><a href ="{% url 'more' %}">More</a></li>
+      {% if user.id == 0 or user.id == 1 or user.id == 2 %}
+     <li><a href ="{% url 'more' %}">More</a></li>
       {% endif %}
       {% endif %}
     </ul>
