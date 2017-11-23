@@ -43,7 +43,7 @@
       {% endif %}
       <li><a href ="{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
-      {% if user.id == 0 or user.id == 1 or user.id == 2 %}
+      {% if user.id == 1 or user.id == 2 or user.id == 4 %}
      <li><a href ="{% url 'more' %}">More</a></li>
       {% endif %}
       {% endif %}
