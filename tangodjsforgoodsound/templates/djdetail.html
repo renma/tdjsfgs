@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load hide_email %}
 
 <h1>{{ dj.name|truncatechars:28 }}</h1>
 <p>
@@ -20,7 +21,8 @@
     </tr><tr>
       <td>Region or City:</td><td>{{ dj.province }}</td>
     </tr><tr>
-      <td>Email::</td><td><a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></td>
+      {# <td>Email:</td><td><a href="mailto:{{ dj.email }}" target="_top">{{ dj.email }}</a></td> #}
+      <td>Email:</td><td>{{ dj.email|encode_mailto }}</td>
     </tr><tr>
       {% if dj.website %}
         {% if dj.website == "None" %}
