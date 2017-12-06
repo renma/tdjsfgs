@@ -1,0 +1,33 @@
+.mode csv
+.headers on
+.once save_djs
+SELECT * from tangodjsforgoodsound_dj;
+.exit
+
+.mode csv
+.headers on
+.once save_auth_user
+SELECT * from auth_user;
+.exit
+
+
+Delete migrations
+-----------------
+p2 manage.py makemigrations
+p2 manage.py showmigrations
+
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+
+p2 manage.py showmigrations
+=> no migrations
+
+p2 manage.py makemigrations
+=> Migrations for 'tangodjsforgoodsound':
+    tangodjsforgoodsound/migrations/0001_initial.py
+      - Create model DJ
+
+p2 manage.py migrate --fake-initial
+=> Apply all migrations: admin, auth, contenttypes, sessions, tangodjsforgoodsound
+   Running migrations:
+    No migrations to apply.
