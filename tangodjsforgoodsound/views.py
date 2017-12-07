@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-21 07:48:17 rene>
+# Time-stamp: <2017-12-07 18:29:24 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,6 +19,7 @@
 # ----------------------------------------------------------------------
 
 import os
+
 from django.contrib.auth import logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -122,9 +123,8 @@ def more(request):
 def loginredirect(request):
     if request.user.is_authenticated():
         user = request.user
-        if user.id == 1:  # admin MUST use admin URL
-            # return HttpResponseRedirect(reverse("admin:index"))
-            return contact(request)
+        if user.id == 1:
+            return redirect("/admin")
         else:
             dj = DJ.objects.get(user=user)
             if dj and dj.number_of_milongas and dj.name:
