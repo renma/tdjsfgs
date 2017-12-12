@@ -1,4 +1,4 @@
-/* Time-stamp: <2017-11-18 17:23:11 rene>                               */
+/* Time-stamp: <2017-12-12 12:01:53 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -80,14 +80,48 @@ body {
 }
 
 #banner {
-    background: #ccb url(banner.png);
+    /* background: #000 url(banner.png); */
+    background: #000;
     height: 128px;
 }
 
+#banner h1 {
+    font-family: "Helvetica", "sans-serif";
+    font-weight: bold;
+    color: #fff;
+    padding-left: 42px;
+    padding-top: 34px;
+    font-size: 46px;
+}
+
+/* >= 1200 pixel */
+@media (min-width: 1200px) {
+    #banner h1 {
+        font-family: "Helvetica", "sans-serif";
+        font-weight: bold;
+        color: #fff;
+        padding-left: 42px;
+        padding-top: 28px;
+        font-size: 60px;
+    }
+}
+
+/* >= 1600 pixel */
+@media (min-width: 1600px) {
+    #banner h1 {
+        font-family: "Helvetica", "sans-serif";
+        font-weight: bold;
+        color: #fff;
+        padding-left: 42px;
+        padding-top: 16px;
+        font-size: 85px;
+    }
+}
+
 #footer {
-  position: fixed;
-  bottom: 10px;  /* same as body */
-  right: 50px;
+    position: fixed;
+    bottom: 10px;  /* same as body */
+    right: 50px;
 }
 
 h1 {
