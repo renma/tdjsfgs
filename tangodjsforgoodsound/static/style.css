@@ -1,4 +1,4 @@
-/* Time-stamp: <2017-12-12 18:28:04 rene>                               */
+/* Time-stamp: <2017-12-13 01:24:23 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -58,6 +58,7 @@ table {
   border-spacing: 0;
 }
 
+
 /* -------------------------------------------------------------------- */
 /* tango djs for good sound                                             */
 /* general styles                                                       */
@@ -79,45 +80,27 @@ body {
     margin-left: 42px;
 }
 
-#banner {
-    /* background: #000 url(banner.png); */
-    background: #000;
-    height: 128px;
-}
-
-#banner h1 {
-    font-family: "Helvetica", "sans-serif";
-    font-weight: bold;
-    color: #fff;
-    padding-left: 42px;
-    padding-top: 34px;
-    font-size: 46px;
-    white-space: nowrap;
-}
-
-/* >= 1200 pixel */
-@media (min-device-width: 1200px) {
-    #banner h1 {
-        font-family: "Helvetica", "sans-serif";
-        font-weight: bold;
-        color: #fff;
-        padding-left: 42px;
-        padding-top: 28px;
-        font-size: 60px;
-        white-space: nowrap;
+/* 0 .... 1280 pixel */
+@media (min-device-width: 1px) {
+    #banner {
+        height: 125px;
+        background: #000 url(banner_900.png);
     }
 }
 
-/* >= 1600 pixel */
+/*  1280 ... 1600 pixel */
+@media (min-device-width: 1280px) {
+    #banner {
+        height: 125px;
+        background: #000 url(banner_1280.png);
+    }
+}
+
+/* 1600 ... pixel */
 @media (min-device-width: 1600px) {
-    #banner h1 {
-        font-family: "Helvetica", "sans-serif";
-        font-weight: bold;
-        color: #fff;
-        padding-left: 42px;
-        padding-top: 16px;
-        font-size: 85px;
-        white-space: nowrap;
+    #banner {
+        height: 125px;
+        background: #000 url(banner.png);
     }
 }
 
