@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-21 00:56:12 rene>
+# Time-stamp: <2017-12-14 18:18:33 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -35,6 +35,7 @@ urlpatterns = [
     url(r"^about/$", views.about, name="about"),
     url(r"^more/$", views.more, name="more"),
     url(r"^copyright/$", views.copyright, name="copyright"),
+    url(r"^linkpage/$", views.linkpage, name="linkpage"),
     url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
     url(r"^customlogout/$", views.customlogout, name="customlogout"),
 

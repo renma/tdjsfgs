@@ -1,4 +1,4 @@
-# Time-stamp: <2017-12-07 18:29:24 rene>
+# Time-stamp: <2017-12-14 18:15:29 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -67,6 +67,10 @@ def change_password(request):
 
 def copyright(request):
     return render(request, "copyright.html")
+
+
+def linkpage(request):
+    return render(request, "linkpage.html")
 
 
 def index(request):
