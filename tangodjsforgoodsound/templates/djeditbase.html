@@ -14,7 +14,7 @@
       <p>&nbsp;<p>The <i>Login Address</i> is already known in the system!</p>
     {% endif %}
   {% else %}
-    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}
+    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text or form.music_remark.errors.as_text or form.equipment_remark.errors.as_text %}
       <p>&nbsp;<p>Please correct the <i>Wrong Data</i> in your input!</p>
     {% endif %}
   {% endif %}
@@ -80,7 +80,11 @@
     </tr><tr>
       <td>Personal favorites:</td><td>{{ form.favorites }}</td>
     </tr><tr>
+      {% if form.music_remark.errors.as_text %} 
+      <td class="errorcell">Remarks:</td><td>{{ form.music_remark }}</td>
+      {% else %}
       <td>Remarks:</td><td>{{ form.music_remark }}</td>
+      {% endif %}
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>
@@ -106,7 +110,11 @@
     </tr><tr>
       <td>Equalization:</td><td>{{ form.equalization }}</td>
    </tr><tr>
+      {% if form.equipment_remark.errors.as_text %} 
+      <td class="errorcell">Remarks:</td><td>{{ form.equipment_remark }}</td>
+      {% else %}
       <td>Remarks:</td><td>{{ form.equipment_remark }}</td>
+      {% endif %}
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>

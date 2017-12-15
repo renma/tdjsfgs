@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-21 00:52:05 rene>
+# Time-stamp: <2017-12-14 10:37:22 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from . common import TrickyField, USEREMAIL_NOT_REGISTERED
-from . models import DJ
+from . models import DJ, LENGTH_1
 
 
 class SubscriberPasswordForm(forms.Form):
@@ -71,6 +71,12 @@ class ContactForm(forms.Form):
 
 
 class DJEditForm(forms.ModelForm):
+
+    attrs = {"cols": 45, "rows": 4}
+    music_remark = forms.CharField(required=False,
+                                   widget=forms.Textarea(attrs=attrs))
+    equipment_remark = forms.CharField(required=False,
+                                       widget=forms.Textarea(attrs=attrs))
 
     class Meta:
         model = DJ
@@ -134,6 +140,12 @@ class DJEditForm(forms.ModelForm):
                 or not cleaned_data.get("equalization") == "NEV") and \
                 not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")
+
+        if (len(cleaned_data.get("music_remark")) >= LENGTH_1 - 1):
+            self.add_error("music_remark", "to long")
+
+        if (len(cleaned_data.get("equipment_remark")) >= LENGTH_1 - 1):
+            self.add_error("equipment_remark", "to long")
 
         useremailError = True
         try:
