@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Time-stamp: <2017-12-15 22:28:37 rene>
+# Time-stamp: <2017-12-16 10:12:16 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -34,10 +34,10 @@ if __name__ == "__main__":
 
     links = []
     with open(srcFile, "rb") as csvfile:
+        print "%s found" % srcFile[2:]
         xreader = csv.reader(csvfile)
         for row in xreader:
             links.append(row)
-
     if links:
         content = []
         content.append("{% extends 'base.html' %}")
@@ -51,6 +51,7 @@ if __name__ == "__main__":
         content.append("{% endblock %}")
         with open(dstFile, "w") as f:
             f.write(os.linesep.join(content))
-        print "%d links written to %s" % (len(links), dstFile)
+        print "%d link entries created" % (len(links))
+        print "%s READY!" % dstFile[2:]
     else:
-        print "%s not written" % dstFile
+        print "%s not written" % dstFile[2:]
