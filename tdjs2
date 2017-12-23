@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2017-12-22 11:51:43 rene>
+# Time-stamp: <2017-12-23 22:20:03 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -69,7 +69,7 @@ info() {
 startserver() {
     cd $WORKDIR
     if [ -d $remotedir ]; then
-	X=$(netstat -tulpen | grep 63763)
+	X=$(netstat -tulpen | grep $PORT)
 	if [ "$X" ]; then
             info "Server already started"
 	    exit 0

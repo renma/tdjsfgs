@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2017-12-23 09:28:35 rene>
+# Time-stamp: <2017-12-23 22:30:42 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -24,7 +24,7 @@ remotedir=/home/rem/ALL/mysite
 if [ -d $remotedir ]; then
     PYTHON=/usr/local/bin/python2.7
     WORKDIR=$remotedir
-    PORT=63763
+    PORT=63762
 else
     PYTHON=python2.7
     WORKDIR=$localdir
@@ -68,7 +68,7 @@ info() {
 startserver() {
     cd $WORKDIR
     if [ -d $remotedir ]; then
-	X=$(netstat -tulpen | grep 63763)
+	X=$(netstat -tulpen | grep $PORT)
 	if [ "$X" ]; then
 	    echo "Server already started"
 	    exit 0
