@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2017-11-19 12:00:24 rene>
+# Time-stamp: <2017-12-22 11:51:43 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -53,8 +53,11 @@ help() {
 }
 
 
+SILENT="$2"
+
+
 info() {
-    if [ ! "$2" ]; then
+    if [ ! "$SILENT" ]; then
         date "+%Y-%m-%d %H:%M:%S $1"
     fi
     if [ -d $remotedir ]; then

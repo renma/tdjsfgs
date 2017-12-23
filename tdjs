@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2017-11-19 12:00:38 rene>
+# Time-stamp: <2017-12-23 09:28:35 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -52,8 +52,11 @@ help() {
 }
 
 
+SILENT="$2"
+
+
 info() {
-    if [ ! "$2" ]; then
+    if [ ! "$SILENT" ]; then
         date "+%Y-%m-%d %H:%M:%S $1"
     fi
     if [ -d $remotedir ]; then
@@ -131,6 +134,16 @@ if [ "$1" = "doc" ]; then
             echo "ERROR: Cannot create $B/$f.pdf"
         fi
     done
+    for f in tdjsfgs_testing.xls; do
+        cp $A/$f $B/.
+        if [ -f $B/$f ]; then
+            echo "Created $B/$f.pdf"
+        else
+            echo "ERROR: Cannot create $B/$f.pdf"
+        fi
+    done
+
+
     exit 0
 fi
 
