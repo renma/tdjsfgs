@@ -1,7 +1,7 @@
 # tdjsfgs
 Tango DJs for good sound
 
-Website: [tangotdjsforgoodsound.info](https://tangotdjsforgoodsound.info).
+[tangodjsforgoodsound.info](https://tangodjsforgoodsound.info)
 
 A website for dancers, DJs and milonga organizers aiming for a good
 sound in milongas.
@@ -20,4 +20,4 @@ tangodjsforgoodsound is implemented with
 framework for perfectionists with deadlines.
 
 ## License
-[GPL Version 3](https://www.gnu.org/licenses/gpl-3.0.txt)
+[GNU General Public License Version 3](https://www.gnu.org/licenses/gpl-3.0.txt)
