@@ -1,4 +1,4 @@
-# Time-stamp: <2017-12-14 18:18:33 rene>
+# Time-stamp: <2018-01-22 17:09:10 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -20,6 +20,7 @@
 
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.views.generic.base import RedirectView
 from . import views, forms
 
 
@@ -32,7 +33,7 @@ urlpatterns = [
     url(r"^contact/$", views.contact, name="contact"),
     url(r"^contactfeedback/$", views.contactfeedback, name="contactfeedback"),
     url(r"^djedit/$", views.djedit, name="djedit"),
-    url(r"^about/$", views.about, name="about"),
+    url(r"^mission/$", views.mission, name="mission"),
     url(r"^more/$", views.more, name="more"),
     url(r"^copyright/$", views.copyright, name="copyright"),
     url(r"^linkpage/$", views.linkpage, name="linkpage"),
@@ -45,4 +46,8 @@ urlpatterns = [
 
     url(r'^djedit/password/$', views.change_password,
         name='change_password'),
+
+    # Support old urls (google-search)
+    url(r"^about/$", RedirectView.as_view(url='/mission')),
+
 ]

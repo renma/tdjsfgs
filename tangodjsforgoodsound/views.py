@@ -1,4 +1,4 @@
-# Time-stamp: <2017-12-14 18:15:29 rene>
+# Time-stamp: <2018-01-22 07:02:50 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -112,10 +112,10 @@ def contactfeedback(request):
     return render(request, "contactfeedback.html", context)
 
 
-def about(request):
+def mission(request):
     context = {}
     addDjContext(request, DJ, context)
-    return render(request, "about.html", context)
+    return render(request, "mission.html", context)
 
 
 def more(request):

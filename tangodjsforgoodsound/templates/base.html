@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Good Sound</title>
+  <title>Tango DJs for good sound</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="A list with Tango DJanes and DJs providing good sound" />
@@ -40,7 +40,7 @@
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
         <li><a href ="{% url 'contact' %}">Contact</a></li>
       {% endif %}
-      <li><a href ="{% url 'about' %}">About</a></li>
+      <li><a href ="{% url 'mission' %}">Mission</a></li>
       <li><a href="/linkpage">Links</a></li>
       {% if user.is_authenticated %}
       {% if user.id == 1 or user.id == 2 or user.id == 4 %}

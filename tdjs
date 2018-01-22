@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-01-02 21:38:19 rene>
+# Time-stamp: <2018-01-20 10:24:02 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -89,34 +89,30 @@ killserver() {
 
 
 if [ "$1" = "kill" ]; then
-
     killserver
     exit 0
-
 fi
 
 
 if [ "$1" = "start" ]; then
-
     startserver
     exit 0
-
 fi
 
 
 if [ "$1" = "restart" ]; then
-
     killserver
     startserver
     exit 0
-
 fi
+
 
 if [ "$1" = "clearsessions" ]; then
     cd $WORKDIR
     $PYTHON manage.py clearsessions
     exit 0
 fi
+
 
 if [ "$1" = "doc" ]; then
     cd RESOURCES
@@ -132,6 +128,7 @@ if [ "$1" = "doc" ]; then
     exit 0
 fi
 
+
 if [ "$1" = "getdb" ]; then
 
     if [ -d $localdir ]; then
@@ -143,8 +140,8 @@ if [ "$1" = "getdb" ]; then
 	echo "$localdir/$DBF ready"
     fi
     exit 0
-
 fi
+
 
 if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
 
@@ -170,8 +167,8 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
 	echo
     fi
     exit 0
-
 fi
+
 
 if [ "$1" = "newcss" ]; then
 
@@ -187,8 +184,8 @@ if [ "$1" = "newcss" ]; then
         echo "$F adjusted"
     fi
     exit 0
-
 fi
+
 
 help
 exit 1

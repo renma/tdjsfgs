@@ -10,9 +10,9 @@
     {% if dj.since %}
     {% if dj.number_of_milongas %}
     {% if dj.gender == "MAL" %}
-      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ<br />Since {{ dj.since }} with {{ dj.number_of_milongas }} milongas</td>
+      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ<br />Since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
     {% else %}
-      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJane<br />Since {{ dj.since }} with {{ dj.number_of_milongas }} milongas</td>
+      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJane<br />Since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
     {% endif %}
     {% endif %}
     {% endif %}
