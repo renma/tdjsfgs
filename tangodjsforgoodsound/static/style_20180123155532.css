@@ -1,4 +1,4 @@
-/* Time-stamp: <2017-12-15 21:32:22 rene>                               */
+/* Time-stamp: <2018-01-23 15:55:30 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -310,15 +310,15 @@ textarea {
 /* -------------------------------------------------------------------- */
 
 #contact input[type="text"] {
-    width: 290;
+    width: 290px;
 }
 
 #contact input[type="email"] {
-    width: 290;
+    width: 290px;
 }
 
 #contact textarea {
-    width: 290;
+    width: 290px;
     margin-top: 4px;
 }
 
@@ -328,11 +328,11 @@ textarea {
 /* -------------------------------------------------------------------- */
 
 #login input[type="text"] {
-    width: 290;
+    width: 290px;
 }
 
 #login input[type="password"] {
-    width: 290;
+    width: 290px;
 }
 
 /* -------------------------------------------------------------------- */
@@ -340,26 +340,26 @@ textarea {
 /* djedit input styles                                                  */
 /* -------------------------------------------------------------------- */
 #djedit  textarea {
-    width: 370;
+    width: 370px;
     margin-top: 4px;
 }
 
 #djedit select {
-    width: 370;
+    width: 370px;
 }
 
 #djedit input[type="text"] {
-    width: 370;
+    width: 370px;
 }
 
 #djedit input[type="number"] {
-    width: 370;
+    width: 370px;
 }
 
 #djedit input[type="email"] {
-    width: 370;
+    width: 370px;
 }
 
 #djedit input[type="url"] {
-    width: 370;
+    width: 370px;
 }

@@ -52,17 +52,20 @@
     </tr><tr>
       <td>Number of Milongas:</td><td>{{ form.number_of_milongas }}</td>
     </tr><tr>
+      {% if form.website.errors.as_text %} 
+      <td class="errorcell">Website:</td><td>{{ form.website }}</td>
+      {% else %}
+      <td>Website:</td><td>{{ form.website }}</td>
+      {% endif %}
+    </tr><tr>
       {% if form.email.errors.as_text %} 
       <td class="errorcell">Email:</td><td>{{ form.email }}</td>
       {% else %}
       <td>Email:</td><td>{{ form.email }}</td>
       {% endif %}
     </tr><tr>
-      {% if form.website.errors.as_text %} 
-      <td class="errorcell">Website:</td><td>{{ form.website }}</td>
-      {% else %}
-      <td>Website:</td><td>{{ form.website }}</td>
-      {% endif %}
+      <td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
+        &nbsp; &nbsp; will be obfuscated and is therefore hard to read for spammers.</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>

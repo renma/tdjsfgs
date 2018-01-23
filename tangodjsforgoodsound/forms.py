@@ -1,4 +1,4 @@
-# Time-stamp: <2017-12-14 10:37:22 rene>
+# Time-stamp: <2018-01-23 10:12:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -118,6 +118,7 @@ class DJEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DJEditForm, self).__init__(*args, **kwargs)
         nonRequiredFields = [
+            "email",
             "namesort",
             "website",
             "soundprocessor",
