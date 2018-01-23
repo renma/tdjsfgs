@@ -24,13 +24,15 @@
   <div id="menubar">
     <ul id="menu">
       <li><a href="/" target="_self">Home</a>
+      <li><a href ="{% url 'mission' %}">Mission</a></li>
+      <li><a href ="{% url 'contact' %}">Contact</a></li>
       {% if user.is_authenticated %}
         {# <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li> #}
         {# <li><a href="{% url 'logout'%}?next=/">Logout</a></li> #}
         <li><a href="{% url 'customlogout'%}">Logout</a></li>
         {% if user.get_username == "admin" %}
           <li><a href ="/admin">Admin</a></li>
-          {% else %}
+        {% else %}
           {% if dj %}
             <li><a href="{% url 'djdetail' dj.id %}">{{ dj.name|truncatechars:14 }}</a></li>
           {% endif %}
@@ -38,9 +40,7 @@
         {% endif %}
       {% else %}
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-        <li><a href ="{% url 'contact' %}">Contact</a></li>
       {% endif %}
-      <li><a href ="{% url 'mission' %}">Mission</a></li>
       <li><a href="/linkpage">Links</a></li>
       {% if user.is_authenticated %}
       {% if user.id == 1 or user.id == 2 or user.id == 4 %}
