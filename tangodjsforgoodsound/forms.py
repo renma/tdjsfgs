@@ -1,4 +1,4 @@
-# Time-stamp: <2018-01-23 10:12:17 rene>
+# Time-stamp: <2018-01-24 17:44:34 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -25,6 +25,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from . common import TrickyField, USEREMAIL_NOT_REGISTERED
 from . models import DJ, LENGTH_1
+
+
+DISABLE_AUTOCOMPLETE = True
 
 
 class SubscriberPasswordForm(forms.Form):
@@ -133,6 +136,25 @@ class DJEditForm(forms.ModelForm):
             if field not in nonRequiredFields:
                 self.fields[field].required = True
         self.fields["province"].widget.attrs["pattern"] = "\D*"
+        if DISABLE_AUTOCOMPLETE:
+            for field in ["name",
+                          "province",
+                          "email",
+                          "useremail",
+                          "website",
+                          "sources",
+                          "favorites",
+                          "computermodel",
+                          "player",
+                          "audiointerface",
+                          "soundprocessor",
+                          "other_equipment",
+                          "backup_computermodel",
+                          "backup_player",
+                          "backup_audiointerface",
+                          "backup_soundprocessor",
+                          "backup_other_equipment"]:
+                self.fields[field].widget.attrs["autocomplete"] = "off"
 
     def clean(self):
         cleaned_data = super(DJEditForm, self).clean()
