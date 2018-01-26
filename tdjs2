@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-01-25 09:32:04 rene>
+# Time-stamp: <2018-01-26 11:54:56 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -118,12 +118,14 @@ fi
 if [ "$1" = "doc" ]; then
     cd RESOURCES
     rm -f *.pdf
-    for f in tdjsfgs.docx tdjsfgs_testing.xls; do
+    for f in tdjsfgs.docx tdjsfgs_testing_066.xls tdjsfgs_testing_10a.xls; do
         libreoffice --headless --convert-to pdf $f > /dev/null 2>&1
         basname=${f%.*}
         echo "$basname.pdf created"
         echo "copy $basname.* to static"
         cp $basname.* ../tangodjsforgoodsound/static/.
+        rm $basname.pdf
+        echo "$basname.pdf deleted"
     done
     cd ..
     exit 0
