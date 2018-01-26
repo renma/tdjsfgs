@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-01-20 10:23:39 rene>
+# Time-stamp: <2018-01-25 09:32:04 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -152,12 +152,12 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *style.css \
-                  --exclude RESOURCES \
+                  --exclude RESOURCES --exclude tmp* \
                  $localdir/*  uberspace2:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
-                  --exclude RESOURCES \
+                  --exclude RESOURCES --exclude tmp* \
                   $localdir/* uberspace2:$remotedir
         fi
         echo
