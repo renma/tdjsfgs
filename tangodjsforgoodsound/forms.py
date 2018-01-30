@@ -1,4 +1,4 @@
-# Time-stamp: <2018-01-24 17:44:34 rene>
+# Time-stamp: <2018-01-30 11:03:52 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -164,10 +164,10 @@ class DJEditForm(forms.ModelForm):
                 not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")
 
-        if (len(cleaned_data.get("music_remark")) >= LENGTH_1 - 1):
+        if (len(cleaned_data.get("music_remark")) > LENGTH_1 - 1):
             self.add_error("music_remark", "to long")
 
-        if (len(cleaned_data.get("equipment_remark")) >= LENGTH_1 - 1):
+        if (len(cleaned_data.get("equipment_remark")) > LENGTH_1 - 1):
             self.add_error("equipment_remark", "to long")
 
         useremailError = True
