@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-01-23 15:55:30 rene>                               */
+/* Time-stamp: <2018-02-04 18:07:59 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -256,6 +256,7 @@ p {
     font-size: 0.75em;
     font-weight: bold;
     color: #ccc;
+    background: #fff;
 }
 
 p.margin-bottom {
