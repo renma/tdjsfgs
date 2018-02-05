@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-02-04 18:07:59 rene>                               */
+/* Time-stamp: <2018-02-05 16:44:30 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -136,6 +136,8 @@ a {
     font-weight: bold;
     text-decoration: none;
     color: #444;
+    /* color: #369; */
+    /* background: #9f9; */
 }
 
 a:hover {
