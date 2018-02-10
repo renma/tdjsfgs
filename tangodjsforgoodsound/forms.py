@@ -1,4 +1,4 @@
-# Time-stamp: <2018-01-30 11:03:52 rene>
+# Time-stamp: <2018-02-09 10:39:41 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -192,7 +192,30 @@ class DJEditForm(forms.ModelForm):
         if useremailError:
             # use namesort to indicate this Error (HACK!)
             self.add_error("useremail", "Not unique or user not found")
-            self.add_error("namesort", "Not unique or user not found")
+            self.add_error("namesort", "user email address")
+
+        publicemailError = True
+        try:
+            publicAddress = cleaned_data.get("email")
+            if publicAddress:
+                theUser = User.objects.filter(id=self.request.user.id)[0]
+                try:
+                    x, y = theUser, publicAddress
+                    objects = DJ.objects.exclude(user=x).filter(email=y)
+                    if not objects:
+                        publicemailError = False
+                    else:
+                        print "Public email already used by", objects[0]
+                except Exception:
+                    pass
+            else:
+                publicemailError = False
+        except Exception:
+            pass
+        if publicemailError:
+            # use namesort to indicate this Error (HACK!)
+            self.add_error("email", "Not unique or user not found")
+            self.add_error("namesort", "public email address")
 
         return cleaned_data
 

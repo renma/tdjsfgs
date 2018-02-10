@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-02-05 16:44:30 rene>                               */
+/* Time-stamp: <2018-02-07 07:11:33 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -269,6 +269,10 @@ p.margin-top {
     margin-top: 24px;
 }
 
+p.margin-top-big {
+    margin-top: 3em;
+}
+
 p.margin-none {
 }
 
@@ -365,4 +369,13 @@ textarea {
 
 #djedit input[type="url"] {
     width: 370px;
+}
+
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* new password styles                                                 */
+/* -------------------------------------------------------------------- */
+
+#newpassword input[type="password"] {
+    width: 290px;
 }

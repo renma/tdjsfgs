@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-01-26 11:55:04 rene>
+# Time-stamp: <2018-02-10 07:48:43 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -44,7 +44,7 @@ help() {
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo "             clearsessions -> clear expired sessions"
-    echo "             doc:    -> copy doc to static"
+    echo "             doc     -> copy doc to static"
     echo
     echo "Parameter 2: silent"
     echo
@@ -116,17 +116,22 @@ fi
 
 if [ "$1" = "doc" ]; then
     cd RESOURCES
-    rm -f *.pdf
-    for f in tdjsfgs.docx tdjsfgs_testing_066.xls tdjsfgs_testing_10a.xls; do
-        libreoffice --headless --convert-to pdf $f > /dev/null 2>&1
-        basname=${f%.*}
-        echo "$basname.pdf created"
-        echo "copy $basname.* to static"
-        cp $basname.* ../tangodjsforgoodsound/static/.
-        rm $basname.pdf
-        echo "$basname.pdf deleted"
+    DST=tangodjsforgoodsound/static
+    for f in tdjsfgs; do
+        rm -f $f.pdf
+        libreoffice --headless --convert-to pdf $f.docx > /dev/null 2>&1
+        cp $f.* ../$DST/.
+        rm -f $f.pdf
+        echo "$f.pdf created"
     done
-    cd ..
+    for f in tdjsfgs_testing_current tdjsfgs_testing_120; do
+        rm -f $f.pdf
+        libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
+        cp $f.* ../$DST/.
+        rm -f $f.pdf
+        echo "$f.pdf created"
+    done
+    echo "$DST READY"
     exit 0
 fi
 

@@ -8,10 +8,10 @@
   {% csrf_token %}
   {% if form.namesort.errors.as_text %}
     {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}
-      <p>&nbsp;<p>The <i>Login Address</i> is already known in the system.</p>
+      <p>&nbsp;<p>The <i>{{ form.namesort.errors.as_text|cut:"* " }}</i> is already known in the system.</p>
       <p>Please correct also the <i>Wrong Data</i> in your input!</p>
     {% else %}
-      <p>&nbsp;<p>The <i>Login Address</i> is already known in the system!</p>
+      <p>&nbsp;<p>The <i>{{ form.namesort.errors.as_text|cut:"* " }}</i> is already known in the system!</p>
     {% endif %}
   {% else %}
     {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text or form.music_remark.errors.as_text or form.equipment_remark.errors.as_text %}
@@ -139,7 +139,9 @@
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr>
   </table>
-  <button type="submit">Save</button>
+  <p class="margin-top">
+    <a href="{% url 'djdelete'%}"><button type="button">Delete your registration ...</button></a>
+    <button type="submit">Save</button>
 </form>
 <h2><br />Minimal Sound Requirement Statement</h2>
 <p>

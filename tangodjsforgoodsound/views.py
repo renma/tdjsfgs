@@ -1,4 +1,4 @@
-# Time-stamp: <2018-01-22 07:02:50 rene>
+# Time-stamp: <2018-02-08 14:55:12 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -34,7 +34,7 @@ SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
 
 def debug(s):
-    if 0:
+    if 1:
         print ">>>>", s
 
 
@@ -199,3 +199,37 @@ def djedit(request):
 
     # This should not happen!
     return index(request)
+
+
+def djdelete(request):
+    if request.user.is_authenticated():
+        debug("djdelete called")
+        user = request.user
+        djobject = DJ.objects.get(user=user)
+        debug("djdelete djobject = %s" % djobject)
+        try:
+            theUser = User.objects.all().filter(id=user.id)[0]
+        except Exception:
+            theUser = None
+        try:
+            theDJ = DJ.objects.all().filter(user=user)[0]
+        except Exception:
+            theDJ = None
+        debug("djdelete, DJ = %d %s" % (theDJ.id, theDJ))
+        debug("djdelete, user = %d %s" % (theUser.id, theUser))
+        if request.method == "POST" and theUser and theDJ:
+            logout(request)
+            debug("logged out user")
+            theDJ.delete()
+            debug("DJ deleted")
+            theUser.delete()
+            debug("User deleted")
+            return render(request, "djdeleted.html")
+        context = {"user": user}
+        addDjContext(request, DJ, context)
+        return render(request, "djdelete.html", context)
+    return index(request)
+
+
+def djdeleted(request):
+    return render(request, "djdeleted.html")

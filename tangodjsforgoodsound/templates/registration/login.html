@@ -22,33 +22,28 @@
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<p>
-  <table id="login">
-    <tr>
-      {# <td>{{ form.username.label_tag }}</td> #}
-      <td>Login email</td>
-    <td>{{ form.username }}</td>
-    </tr>
-    <tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-    </tr>
-    <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    </tr>
-    <tr>
-    <td>
-      <input type="submit" value="Login" />
-      <input type="hidden" name="next" value="" />
-    </td>
-    <td>&nbsp;</td>
-    </tr>
-  </table>
+<table id="login">
+  <tr>
+  {#<td>{{ form.username.label_tag }}</td>#}
+  <td>Login email:</td>
+  <td>{{ form.username }}</td>
+  </tr>
+  <tr>
+  <td>{{ form.password.label_tag }}</td>
+  <td>{{ form.password }}</td>
+  </tr>
+  <tr>
+</table>
+
+<p class="margin-top">
+  <input type="submit" value="Login" />
+  <input type="hidden" name="next" value="" />
 
 </form>
 
-<p>&nbsp;<p>&nbsp;<p class="margin-top">
+
+<p class="margin-top-big">
   <a href="{% url 'password_reset' %}">Password reset?</a></b>
+
 
 {% endblock %}
