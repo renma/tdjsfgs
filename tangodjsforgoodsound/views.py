@@ -1,4 +1,4 @@
-# Time-stamp: <2018-02-08 14:55:12 rene>
+# Time-stamp: <2018-02-12 10:56:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -66,11 +66,15 @@ def change_password(request):
 
 
 def copyright(request):
-    return render(request, "copyright.html")
+    context = {}
+    addDjContext(request, DJ, context)
+    return render(request, "copyright.html", context)
 
 
 def linkpage(request):
-    return render(request, "linkpage.html")
+    context = {}
+    addDjContext(request, DJ, context)
+    return render(request, "linkpage.html", context)
 
 
 def index(request):
@@ -86,6 +90,8 @@ def index(request):
 
 def contact(request):
     form_class = ContactForm
+    context = {"form": form_class, }
+    addDjContext(request, DJ, context)
     if request.method == 'POST':
         form = form_class(data=request.POST)
         firstname = request.POST.get("contact_firstname", '')
@@ -102,8 +108,8 @@ def contact(request):
         form.fields["contact_email"].initial = email
         form.fields["contact_content"].initial = content
         form.fields["contact_magic"].initial = magic
-        return render(request, "contact_failed.html", {"form": form, })
-    return render(request, "contact.html", {"form": form_class, })
+        return render(request, "contact_failed.html", context)
+    return render(request, "contact.html", context)
 
 
 def contactfeedback(request):
