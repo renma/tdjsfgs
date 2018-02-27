@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-02-10 07:48:43 rene>
+# Time-stamp: <2018-02-27 19:45:07 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -73,8 +73,10 @@ startserver() {
 	    echo "Server already started"
 	    exit 0
 	fi
+        cp settings.py.topsecret mysite/settings.py
         $PYTHON manage.py runserver $PORT --noreload &
     else
+        cp settings.py.topsecret mysite/settings.py
         $PYTHON manage.py runserver $PORT
     fi
     info "Server started"
