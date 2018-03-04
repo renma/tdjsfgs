@@ -3,18 +3,22 @@
 {% block djeditbase %}
 {% endblock %}
 <p>
-  Please remember the Minimal Sound Requirement Statement below.
+  <!-- Please remember the Minimal Sound Requirement Statement below. -->
+<p class="margin-bottom">
+  <a href="{% url 'djdetail' dj.id %}"><button type="button">&laquo Back</button></a>
+  {# <a href="{% url 'customlogout'%}"><button type="button">Logout</button></a> #}
+  
   <form role="form" action="" method="post">
   {% csrf_token %}
   {% if form.namesort.errors.as_text %}
-    {% if form.email.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text %}
+    {% if form.email.errors.as_text or form.website.errors.as_text or form.resident_dj_website.errors.as_text or form.soundprocessor.errors.as_text %}
       <p>&nbsp;<p>The <i>{{ form.namesort.errors.as_text|cut:"* " }}</i> is already known in the system.</p>
       <p>Please correct also the <i>Wrong Data</i> in your input!</p>
     {% else %}
       <p>&nbsp;<p>The <i>{{ form.namesort.errors.as_text|cut:"* " }}</i> is already known in the system!</p>
     {% endif %}
   {% else %}
-    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.soundprocessor.errors.as_text or form.music_remark.errors.as_text or form.equipment_remark.errors.as_text %}
+    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.resident_dj_website.errors.as_text or form.soundprocessor.errors.as_text or form.music_remark.errors.as_text or form.equipment_remark.errors.as_text %}
       <p>&nbsp;<p>Please correct the <i>Wrong Data</i> in your input!</p>
     {% endif %}
   {% endif %}
@@ -56,6 +60,14 @@
       <td class="errorcell">Website:</td><td>{{ form.website }}</td>
       {% else %}
       <td>Website:</td><td>{{ form.website }}</td>
+      {% endif %}
+    </tr><tr>
+      <td>Resident DJ location:</td><td>{{ form.resident_dj_location }}</td>
+    </tr><tr>
+      {% if form.resident_dj_website.errors.as_text %} 
+      <td class="errorcell">Resident DJ website:</td><td>{{ form.resident_dj_website }}</td>
+      {% else %}
+      <td>Resident DJ website:</td><td>{{ form.resident_dj_website }}</td>
       {% endif %}
     </tr><tr>
       {% if form.email.errors.as_text %} 
@@ -141,6 +153,7 @@
   </table>
   <p class="margin-top">
     <a href="{% url 'djdelete'%}"><button type="button">Delete your registration ...</button></a>
+    <a href="{% url 'djdetail' dj.id %}"><button type="button">Abort</button></a>
     <button type="submit">Save</button>
 </form>
 <h2><br />Minimal Sound Requirement Statement</h2>

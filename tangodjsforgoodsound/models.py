@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 17:11:50 rene>
+# Time-stamp: <2018-03-03 10:51:48 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -82,6 +82,14 @@ class DJ(models.Model):
     website = models.URLField(_("Website"),
                               max_length=LENGTH_1,
                               default='', blank=True)
+
+    resident_dj_location = models.CharField(_("Resident DJ Location"),
+                                            max_length=LENGTH_1,
+                                            default='', blank=True)
+
+    resident_dj_website = models.URLField(_("Resident DJ Website"),
+                                          max_length=LENGTH_1,
+                                          default='', blank=True)
 
     # Music Data --------------------------------------------------------------
     style = models.CharField(_("Style"),

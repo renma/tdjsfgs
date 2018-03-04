@@ -3,7 +3,13 @@
 {% load hide_email %}
 
 <h1>{{ dj.name|truncatechars:28 }}</h1>
-<p>
+<p class="margin-bottom">
+
+  {% if dj.user == user %}
+    <a href="{% url 'djedit' %}"><button type="button">Edit</button></a>
+    <a href="{% url 'customlogout'%}"><button type="button">Logout</button></a>
+  {% endif %}
+  
   <table id="djview">
     <tr>
     </tr><tr>
@@ -36,7 +42,23 @@
       {% else %}
         <td>Website:</td><td>-</a></td>
       {% endif %}
+
     </tr><tr>
+      {% if dj.resident_dj_location or dj.resident_dj_website %}
+        {% if dj.resident_dj_location and dj.resident_dj_website %}
+          <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{ dj.resident_dj_location }}</a></td>
+        {% endif %}
+        {% if dj.resident_dj_location and not dj.resident_dj_website %}
+            <td>Resident DJ:</td><td>{{ dj.resident_dj_location }}<td>
+        {% endif %}
+        {% if not dj.resident_dj_location and dj.resident_dj_website %}
+            <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{  dj.resident_dj_website }}</a></td>
+        {% endif %}
+      {% else %}
+        <td>Resident DJ:</td><td>-</a></td>
+      {% endif %}
+
+   </tr><tr>
       <td>&nbsp;</td><td></td>
     </tr><tr>
       <td><b>Musica<b></td><td></td>

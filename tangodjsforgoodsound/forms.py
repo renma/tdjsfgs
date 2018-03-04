@@ -1,4 +1,4 @@
-# Time-stamp: <2018-02-09 10:39:41 rene>
+# Time-stamp: <2018-03-03 11:00:50 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -95,6 +95,8 @@ class DJEditForm(forms.ModelForm):
             "email",
             "useremail",
             "website",
+            "resident_dj_location",
+            "resident_dj_website",
             "style",
             "cortinas",
             "audioformat",
@@ -124,6 +126,8 @@ class DJEditForm(forms.ModelForm):
             "email",
             "namesort",
             "website",
+            "resident_dj_location",
+            "resident_dj_website",
             "soundprocessor",
             "audioformat2",
             "music_remark",
@@ -142,6 +146,8 @@ class DJEditForm(forms.ModelForm):
                           "email",
                           "useremail",
                           "website",
+                          "resident_dj_location",
+                          "resident_dj_website",
                           "sources",
                           "favorites",
                           "computermodel",
