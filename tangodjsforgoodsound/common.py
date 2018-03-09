@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-20 00:16:11 rene>
+# Time-stamp: <2018-03-09 21:26:08 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -91,6 +91,18 @@ def sendContactEmail(first, last, emailFrom, content, magic):
     email.send()
     print "Email sent to: %s" % emailTo
 
+
+def doesEmailExist(request, email):
+    theUser = User.objects.filter(id=request.user.id)[0]
+    objects = User.objects.exclude(id=theUser.id).filter(email=email)
+    if objects:
+        # print ">>> User email %s exists already" % email
+        return True
+    objects = DJ.objects.exclude(user=theUser).filter(email=email)
+    if objects:
+        # print ">>> Global email %s exists already" % email
+        return True
+    return False
 
 class TrickyField(forms.Field):
 

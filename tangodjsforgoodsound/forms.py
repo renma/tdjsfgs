@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-03 11:00:50 rene>
+# Time-stamp: <2018-03-09 21:27:29 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -23,7 +23,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
-from . common import TrickyField, USEREMAIL_NOT_REGISTERED
+from . common import doesEmailExist, TrickyField, USEREMAIL_NOT_REGISTERED
 from . models import DJ, LENGTH_1
 
 
@@ -176,49 +176,14 @@ class DJEditForm(forms.ModelForm):
         if (len(cleaned_data.get("equipment_remark")) > LENGTH_1 - 1):
             self.add_error("equipment_remark", "to long")
 
-        useremailError = True
-        try:
-            theUser = User.objects.filter(id=self.request.user.id)[0]
-            if theUser:
-                loginAddress = cleaned_data.get("useremail")
-                if loginAddress == theUser.username \
-                   and loginAddress == theUser.email:
-                    useremailError = False
-                else:
-                    try:
-                        x = theUser.id
-                        y = loginAddress
-                        objects = User.objects.exclude(id=x).filter(email=y)
-                        if not objects:
-                            useremailError = False
-                    except Exception:
-                        pass
-        except Exception:
-            pass
-        if useremailError:
+        userEmail = cleaned_data.get("useremail")
+        if userEmail and doesEmailExist(self.request, userEmail):
             # use namesort to indicate this Error (HACK!)
             self.add_error("useremail", "Not unique or user not found")
             self.add_error("namesort", "user email address")
 
-        publicemailError = True
-        try:
-            publicAddress = cleaned_data.get("email")
-            if publicAddress:
-                theUser = User.objects.filter(id=self.request.user.id)[0]
-                try:
-                    x, y = theUser, publicAddress
-                    objects = DJ.objects.exclude(user=x).filter(email=y)
-                    if not objects:
-                        publicemailError = False
-                    else:
-                        print "Public email already used by", objects[0]
-                except Exception:
-                    pass
-            else:
-                publicemailError = False
-        except Exception:
-            pass
-        if publicemailError:
+        publicEmail = cleaned_data.get("email")
+        if publicEmail and doesEmailExist(self.request, publicEmail):
             # use namesort to indicate this Error (HACK!)
             self.add_error("email", "Not unique or user not found")
             self.add_error("namesort", "public email address")
