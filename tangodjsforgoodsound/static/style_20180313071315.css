@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-02-07 07:11:33 rene>                               */
+/* Time-stamp: <2018-03-13 07:13:08 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -313,7 +313,7 @@ textarea {
 
 /* -------------------------------------------------------------------- */
 /* tango djs for good sound                                             */
-/* contact input styles                                                 */
+/* contact and register input styles                                                 */
 /* -------------------------------------------------------------------- */
 
 #contact input[type="text"] {
@@ -327,6 +327,23 @@ textarea {
 #contact textarea {
     width: 290px;
     margin-top: 4px;
+}
+
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* register input styles                                                 */
+/* -------------------------------------------------------------------- */
+
+#register input[type="text"] {
+    width: 290px;
+}
+
+#register input[type="email"] {
+    width: 290px;
+}
+
+#register input[type="password"] {
+    width: 290px;
 }
 
 /* -------------------------------------------------------------------- */

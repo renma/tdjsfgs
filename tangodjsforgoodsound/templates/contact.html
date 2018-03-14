@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% spaceless %}
 
 <h1>Get in touch with us</h1>
 
@@ -10,18 +11,14 @@
 
 <p class="margin-bottom">
   Please fill in the form below. We will get back to you shortly,
-  usually within two or three days. You will receive instructions as
-  well as login credentials to enter yourself on the list.
+  usually within two or three days. We will never pass any of your
+  data to third parties.
 
 <p class="margin-bottom">
-  Please note, that you can remove your data at any time. We will
-  never pass your email address to third parties.
-  
-<p class="margin-bottom">
-  By submitting your email address as well as your real name, you
-  acknowledge that you have read the Minimal Sound Requirement
-  Statement below.
+  For registration purpose please use the
+  <a href ="{% url 'register' %}">registration site</a>.
 
+<p class="margin-top">&nbsp;
 <h2>Please enter your data</h2>
   <form role="form" action="" method="post">
     {% csrf_token %}
@@ -32,13 +29,5 @@
     <button type="submit">Submit</button>
   </form>
 
-<p class="margin-bottom">
-  
-<h2>Minimal Sound Requirement Statement</h2>
-<ul>
-  <li class="first">We use good quality transfers of the original recordings.
-  <li>We use good quality audio tools and software (e.g. interfaces, sound cards, DACs, sound processors).
-  <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
-</ul>
-            
+{% endspaceless %}
 {% endblock %}

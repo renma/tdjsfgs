@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-09 21:26:08 rene>
+# Time-stamp: <2018-03-13 11:04:24 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -56,34 +56,55 @@ def createEmailTo():
     return ["contact@tangodjsforgoodsound.info"]
 
 
-def sendContactEmail(first, last, emailFrom, content, magic):
-    emailTo = createEmailTo()
-    emailContent = [
-            "", "A new contact request was entered on the website:", "",
+def sendAnEmail(first, last, emailFrom, content, magic,
+                subject, title, djname, setReplyTo, setKnownUsers):
+    if djname:
+        emailContent = [
+            "", title, "",
+            "    First name : %s" % first,
+            "    Last name  : %s" % last,
+            "    DJ name    : %s" % djname,
+            "    Email      : %s" % emailFrom,
+            "    Orquesta   : %s" % magic, ""]
+    else:
+        emailContent = [
+            "", title, "",
             "    First name : %s" % first,
             "    Last name  : %s" % last,
             "    Email      : %s" % emailFrom,
             "    Orquesta   : %s" % magic, ""]
 
-    knownDJs = DJ.objects.all().filter(email=emailFrom)
-    if knownDJs:
-        L = [stripAccents(dj.name) for dj in knownDJs]
-        msg = "Known DJ(s) with this email address : %s"
-        emailContent.append(msg % ", ".join(L))
-    knownUsers = User.objects.all().filter(email=emailFrom)
-    if knownUsers:
-        L = ["%s %s" % (stripAccents(u.first_name),
-                        stripAccents(u.last_name)) for u in knownUsers]
-        msg = "Known User with this email address : %s"
-        emailContent.append(msg % ", ".join(L))
-    if knownDJs or knownUsers:
+    if not magic:
+        emailContent = emailContent[:-2]
         emailContent.append("")
+
+    emailTo = createEmailTo()
+
+    if setKnownUsers == 1:
+        knownDJs = DJ.objects.all().filter(email=emailFrom)
+        if knownDJs:
+            L = [stripAccents(dj.name) for dj in knownDJs]
+            msg = "Known DJ(s) with this email address : %s."
+            emailContent.append(msg % ", ".join(L))
+        knownUsers = User.objects.all().filter(email=emailFrom)
+        if knownUsers:
+            L = ["%s %s" % (stripAccents(u.first_name),
+                            stripAccents(u.last_name)) for u in knownUsers]
+            msg = "Known User with this email address : %s"
+            emailContent.append(msg % ", ".join(L))
+        if knownDJs or knownUsers:
+            emailContent.append("")
+    elif setKnownUsers == 2:
+        emailContent.append("This is a new user.")
+    elif setKnownUsers == 3:
+        emailContent.append("This is a deleted user.")
+
     if content:
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
-    replyTo = emailFrom
+    replyTo = emailFrom if setReplyTo else "contact@tangodjsforgoodsound.info"
     emailFrom = "contact@tangodjsforgoodsound.info"
-    email = EmailMessage("New contact request",
+    email = EmailMessage(subject,
                          "\n".join(emailContent),
                          emailFrom,
                          emailTo,
@@ -92,17 +113,50 @@ def sendContactEmail(first, last, emailFrom, content, magic):
     print "Email sent to: %s" % emailTo
 
 
+def sendContactEmail(first, last, emailFrom, content, magic):
+    subject = "New contact request"
+    title = "A new contact request was entered on the website:"
+    dj = ''
+    setReplyTo, setKnownUsers = True, 1
+    sendAnEmail(first, last, emailFrom, content, magic, subject, title, dj,
+                setReplyTo, setKnownUsers)
+
+
+def sendRegistrationEmail(first, last, djname, emailFrom, content, magic):
+    subject = "New registration "
+    title = "A new registration was entered on the website:"
+    setReplyTo, setKnownUsers = False, 2
+    sendAnEmail(first, last, emailFrom, content, magic, subject, title, djname,
+                setReplyTo, setKnownUsers)
+
+
+def sendRegistrationDeletedEmail(first, last, djname, emailFrom):
+    subject = "Registration deleted"
+    title = "A user has deleted its registration"
+    content, magic = '', ''
+    setReplyTo, setKnownUsers = False, 3
+    sendAnEmail(first, last, emailFrom, content, magic, subject, title, djname,
+                setReplyTo, setKnownUsers)
+
+
 def doesEmailExist(request, email):
-    theUser = User.objects.filter(id=request.user.id)[0]
-    objects = User.objects.exclude(id=theUser.id).filter(email=email)
+    theUser = User.objects.filter(id=request.user.id)[0] if request else None
+    if theUser:
+        objects = User.objects.exclude(id=theUser.id).filter(email=email)
+    else:
+        objects = User.objects.filter(email=email)
     if objects:
         # print ">>> User email %s exists already" % email
         return True
-    objects = DJ.objects.exclude(user=theUser).filter(email=email)
+    if theUser:
+        objects = DJ.objects.exclude(user=theUser).filter(email=email)
+    else:
+        objects = DJ.objects.filter(email=email)
     if objects:
         # print ">>> Global email %s exists already" % email
         return True
     return False
+
 
 class TrickyField(forms.Field):
 
@@ -114,7 +168,6 @@ class TrickyField(forms.Field):
         "juandarienzo",
         "osvaldopugliese",
         "pugliese",
-        "sarli",
         "troilo"
     ]
 

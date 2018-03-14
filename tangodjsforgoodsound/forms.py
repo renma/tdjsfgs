@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-09 21:27:29 rene>
+# Time-stamp: <2018-03-13 16:00:33 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -66,11 +66,66 @@ class ContactForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
-        self.fields["contact_firstname"].label = "Your first name"
-        self.fields["contact_lastname"].label = "Your family name"
-        self.fields["contact_email"].label = "Your email address"
-        self.fields["contact_content"].label = "Your message (E/D)"
+        self.fields["contact_firstname"].label = "First name"
+        self.fields["contact_lastname"].label = "Family name"
+        self.fields["contact_email"].label = "Email address"
+        self.fields["contact_content"].label = "Message (E/D)"
         self.fields["contact_magic"].label = "One of the big four orchestras"
+
+
+class RegisterForm(forms.Form):
+
+    register_firstname = forms.CharField(required=True)
+    register_lastname = forms.CharField(required=True)
+    register_djname = forms.CharField(required=True)
+    register_email = forms.EmailField(required=True)
+    register_password1 = forms.CharField(widget=forms.PasswordInput,
+                                         required=True)
+    register_password2 = forms.CharField(widget=forms.PasswordInput,
+                                         required=True)
+    register_magic = TrickyField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields["register_firstname"].label = "First name"
+        self.fields["register_lastname"].label = "Family name"
+        self.fields["register_djname"].label = "DJ name"
+        label = "Email address used for login"
+        self.fields["register_email"].label = label
+        self.fields["register_password1"].label = "Password"
+        self.fields["register_password2"].label = "Confirm password"
+        self.fields["register_magic"].label = "One of the big four orchestras"
+
+    def clean(self):
+        cleaned_data = super(RegisterForm, self).clean()
+
+        # Email
+        email = self.cleaned_data.get("register_email")
+        request = None
+        if doesEmailExist(request, email):
+            msg = "Email address already known in the system"
+            self.add_error("register_email", msg)
+
+        # Magic
+        magic = self.cleaned_data.get("register_magic")
+        if not magic:
+            msg = "Artist not valid"
+            self.add_error("register_magic", msg)
+
+        # Password
+        password1 = self.cleaned_data.get("register_password1")
+        password2 = self.cleaned_data.get("register_password2")
+        for password in [password1, password2]:
+            try:
+                validate_password(password)
+            except Exception:
+                msg = "Password not valid"
+                self.add_error("register_password1", msg)
+        if not password1 == password2:
+            msg = "Password_mismatch"
+            self.add_error("register_password2", msg)
+
+        return cleaned_data
 
 
 class DJEditForm(forms.ModelForm):

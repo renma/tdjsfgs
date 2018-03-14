@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% spaceless %}
+
+<h1>Register</h1>
+
+<p class="margin-bottom">
+  By submitting your registration, you acknowledge that you accept
+  the <b>Minimal Sound Requirements</b>:
+  <ul>
+    <li class="first">We use good quality transfers of the original recordings.
+    <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
+    <li>We use good quality audio tools and software (e.g. interfaces, sound cards, DACs, sound processors).
+  </ul>
+
+<p class="margin-top">
+  After registration you can use your email address and your password
+  for login.
+
+<p class="margin-top">
+  We will never pass any of your data to third parties and you can
+  remove your registration data at any time.
+
+<p class="margin-top">
+  Your first name, your family name as well as your email address used
+  for login are not visible on the website. For contacting you, you
+  will have the option to enter an additional email address or your
+  website address.
+  
+<p class="margin-top">
+  <h2>Please enter your data</h2>
+
+  <form role="form" action="" method="post">
+  {% csrf_token %}
+
+  {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
+    <p class="margin-bottom">
+      Sorry, your password input is not invalid.
+      <br />Possible errors include: too short, too simple, no match between passwords.</p>
+  {% elif form.register_magic.errors.as_text %}
+    <p class="margin-bottom">
+      Sorry, this isn't one of the big four orchestras.
+  {% elif form.register_email.errors.as_text %}
+    <p class="margin-bottom">
+      Sorry, this email address is already known in the system.
+  {% endif %}
+
+  <table id="register">
+    <tr>
+      <td>{{ form.register_firstname.label }}:</td><td>{{ form.register_firstname }}</td>
+    </tr><tr>
+      <td>{{ form.register_lastname.label }}:</td><td>{{ form.register_lastname }}</td>
+    </tr><tr>
+      <td>{{ form.register_djname.label }}:</td><td>{{ form.register_djname }}</td>
+    </tr><tr>
+    {% if form.register_email.errors.as_text %}
+      <td class="errorcell">{{ form.register_email.label }}:</td><td>{{ form.register_email }}</td>
+    {% else %}
+      <td>{{ form.register_email.label }}:</td><td>{{ form.register_email }}</td>
+    {% endif %}
+    </tr><tr>
+    {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
+      <td class="errorcell">{{ form.register_password1.label }}:</td><td>{{ form.register_password1 }}</td>
+      </tr><tr>
+      <td class="errorcell">{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
+    {% else %}
+      <td>{{ form.register_password1.label }}:</td><td>{{ form.register_password1 }}</td>
+      </tr><tr>
+      <td>{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
+    {% endif %}
+    </tr><tr>
+    {% if form.register_magic.errors.as_text %}
+      <td class="errorcell">{{ form.register_magic.label }}:</td><td>{{ form.register_magic }}
+    {% else %}
+      <td>{{ form.register_magic.label }}:</td><td>{{ form.register_magic }}</td>
+    {% endif %}
+    </tr>
+  </table>
+  <br />
+  <button type="submit">Submit</button>
+  </form>
+
+{% endspaceless %}
+{% endblock %}

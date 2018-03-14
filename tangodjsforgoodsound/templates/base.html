@@ -7,7 +7,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="A list with Tango DJanes and DJs providing good sound" />
   <meta name="keywords" content="Tango,DJ,DJs,DJanes,Good Sound,Sound" />
-  <link rel="stylesheet" href="{% static 'style_20180207071136.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20180313071315.css' %}" type="text/css">
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <script> <!--
       function gugus(usr, srvr, txt) {
@@ -26,22 +26,18 @@
       <li><a href="/" target="_self">DJs</a>
       <li><a href ="{% url 'mission' %}">Mission</a></li>
       <li><a href ="{% url 'contact' %}">Contact</a></li>
-      {# <li><a href ="{% url 'register' %}">Register</a></li> #}
       {% if user.is_authenticated %}
-        {# <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li> #}
-        {# <li><a href="{% url 'logout'%}?next=/">Logout</a></li> #}
-        {# <li><a href="{% url 'customlogout'%}">Logout</a></li> #}
         {% if user.get_username == "admin" %}
           <li><a href ="/admin">Admin</a></li>
         {% else %}
           {% if dj %}
             <li><a href="{% url 'djdetail' dj.id %}">{{ dj.name|truncatechars:14 }}</a></li>
           {% endif %}
-          {# <li><a href ="{% url 'djedit' %}">Edit</a></li> #}
         {% endif %}
       {% else %}
+        <li><a href="{% url 'register'%}?next={{request.path}}">Register</a></li>
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-      {% endif %}
+     {% endif %}
       <li><a href="/linkpage">Links</a></li>
       {% if user.is_authenticated %}
       {% if user.id == 1 or user.id == 2 or user.id == 4 %}

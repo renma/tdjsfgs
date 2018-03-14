@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% spaceless %}
+
+<h1>Registration completed</h1>
+
+<p>
+  Your registration has been completed.
+
+<p class="margin-top-big">
+  <a href="{% url 'login'%}"><button type="button">Please login</button></a>
+
+{% endspaceless %}
+{% endblock %}

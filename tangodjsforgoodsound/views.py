@@ -1,4 +1,4 @@
-# Time-stamp: <2018-02-12 08:20:10 rene>
+# Time-stamp: <2018-03-13 10:03:53 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -25,10 +25,10 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
-from forms import ContactForm, DJEditForm, SubscriberPasswordForm
+from forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
-from .common import addDjContext, sendContactEmail as sendEmail
-
+from .common import addDjContext, sendContactEmail, sendRegistrationEmail, \
+    sendRegistrationDeletedEmail
 
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
@@ -94,7 +94,8 @@ def contact(request):
         content = request.POST.get("contact_content", '')
         magic = request.POST.get("contact_magic", '')
         if form.is_valid():
-            email = sendEmail(firstname, lastname, email, content, magic)
+            email = sendContactEmail(firstname, lastname, email, content,
+                                     magic)
             return redirect("contactfeedback")
         form = form_class()
         form.fields["contact_firstname"].initial = firstname
@@ -224,6 +225,8 @@ def djdelete(request):
             debug("DJ deleted")
             theUser.delete()
             debug("User deleted")
+            sendRegistrationDeletedEmail(theUser.first_name, theUser.last_name,
+                                         theDJ.name, theUser.email)
             return render(request, "djdeleted.html")
         context = {"user": user}
         addDjContext(request, DJ, context)
@@ -236,4 +239,36 @@ def djdeleted(request):
 
 
 def register(request):
-    return render(request, "register.html")
+    form_class = RegisterForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        firstname = request.POST.get("register_firstname", '')
+        lastname = request.POST.get("register_lastname", '')
+        djname = request.POST.get("register_djname", '')
+        email = request.POST.get("register_email", '')
+        password1 = request.POST.get("register_password1", '')
+        # password2
+        magic = request.POST.get("register_magic", '')
+        if form.is_valid():
+            user = User.objects.create_user(
+                first_name=firstname,
+                last_name=lastname,
+                username=email,
+                email=email,
+                password=password1)
+            dj = DJ(user=user,
+                    useremail=email,
+                    name=djname,
+                    number_of_milongas=0)
+            dj.save()
+            content = ""
+            email = sendRegistrationEmail(firstname, lastname, djname, email,
+                                          content, magic)
+            return redirect("registered")
+        return render(request, "registration/register.html", {"form": form, })
+    return render(request, "registration/register.html",
+                  {"form": form_class, })
+
+
+def registered(request):
+    return render(request, "registration/registered.html")
