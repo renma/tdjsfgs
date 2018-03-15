@@ -33,15 +33,30 @@
 
   <form role="form" action="" method="post">
   {% csrf_token %}
-
+  
   {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
+    <script type="text/javascript">
+      window.onload = function() {
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+    </script>
     <p class="margin-bottom">
       Sorry, your password input is not invalid.
       <br />Possible errors include: too short, too simple, no match between passwords.</p>
   {% elif form.register_magic.errors.as_text %}
+    <script type="text/javascript">
+      window.onload = function() {
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+    </script>
     <p class="margin-bottom">
       Sorry, this isn't one of the big four orchestras.
   {% elif form.register_email.errors.as_text %}
+    <script type="text/javascript">
+      window.onload = function() {
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+    </script>
     <p class="margin-bottom">
       Sorry, this email address is already known in the system.
   {% endif %}

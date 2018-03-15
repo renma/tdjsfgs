@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-02-27 19:45:06 rene>
+# Time-stamp: <2018-03-14 10:56:42 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -45,7 +45,7 @@ help() {
     echo "             distall -> rsync sources (if local with database)"
     echo "             newcss  -> creatre new css"
     echo "             clearsessions -> clear expired sessions"
-    echo "             doc     -> copy doc to static"
+    echo "             doc     -> create doc in static"
     echo
     echo "Parameter 2: silent"
     echo
@@ -118,23 +118,7 @@ fi
 
 
 if [ "$1" = "doc" ]; then
-    cd RESOURCES
-    DST=tangodjsforgoodsound/static
-    for f in tdjsfgs; do
-        rm -f $f.pdf
-        libreoffice --headless --convert-to pdf $f.docx > /dev/null 2>&1
-        cp $f.* ../$DST/.
-        rm -f $f.pdf
-        echo "$f.pdf created"
-    done
-    for f in tdjsfgs_testing_current tdjsfgs_testing_120; do
-        rm -f $f.pdf
-        libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
-        cp $f.* ../$DST/.
-        rm -f $f.pdf
-        echo "$f.pdf created"
-    done
-    echo "$DST READY"
+    ./tdjs doc
     exit 0
 fi
 
