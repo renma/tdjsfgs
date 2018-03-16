@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-13 10:03:53 rene>
+# Time-stamp: <2018-03-16 17:57:09 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -27,7 +27,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
-from .common import addDjContext, sendContactEmail, sendRegistrationEmail, \
+from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
     sendRegistrationDeletedEmail
 
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
@@ -52,25 +52,27 @@ def change_password(request):
                 # This should not happen
                 print ">>>>>>>> Unexcpected error in change_password()"
                 context = {"form": form}
-                addDjContext(request, DJ, context)
+                context = createDJContext(request, DJ, context)
                 return render(request, "change_password.html", context)
             else:
                 context = {"form": form}
-                addDjContext(request, DJ, context)
+                context = createDJContext(request, DJ, context)
                 return render(request, "change_password_success.html", context)
     else:
         form = SubscriberPasswordForm()
     context = {"form": form}
-    addDjContext(request, DJ, context)
+    context = createDJContext(request, DJ, context)
     return render(request, "change_password.html", context)
 
 
 def copyright(request):
-    return render(request, "copyright.html")
+    context = createDJContext(request, DJ)
+    return render(request, "copyright.html", context)
 
 
 def linkpage(request):
-    return render(request, "linkpage.html")
+    context = createDJContext(request, DJ)
+    return render(request, "linkpage.html", context)
 
 
 def index(request):
@@ -79,7 +81,7 @@ def index(request):
         orderBy = ["country", "namesort"]
         djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
         context = {"djList": djL}
-        addDjContext(request, DJ, context)
+        context = createDJContext(request, DJ, context)
         return render(request, "index.html", context)
     return render(request, "index_empty.html")
 
@@ -96,32 +98,27 @@ def contact(request):
         if form.is_valid():
             email = sendContactEmail(firstname, lastname, email, content,
                                      magic)
+            context = createDJContext(request, DJ)
             return redirect("contactfeedback")
-        form = form_class()
-        form.fields["contact_firstname"].initial = firstname
-        form.fields["contact_lastname"].initial = lastname
-        form.fields["contact_email"].initial = email
-        form.fields["contact_content"].initial = content
-        form.fields["contact_magic"].initial = magic
-        return render(request, "contact_failed.html", {"form": form, })
-    return render(request, "contact.html", {"form": form_class, })
+        context = {"form": form}
+        return render(request, "contact.html", context)
+    context = {"form": form_class}
+    context = createDJContext(request, DJ, context)
+    return render(request, "contact.html", context)
 
 
 def contactfeedback(request):
-    context = {}
-    addDjContext(request, DJ, context)
+    context = createDJContext(request, DJ)
     return render(request, "contactfeedback.html", context)
 
 
 def mission(request):
-    context = {}
-    addDjContext(request, DJ, context)
+    context = createDJContext(request, DJ)
     return render(request, "mission.html", context)
 
 
 def more(request):
-    context = {}
-    addDjContext(request, DJ, context)
+    context = createDJContext(request, DJ)
     return render(request, "more.html", context)
 
 
@@ -195,7 +192,7 @@ def djedit(request):
             djform = DJEditForm(instance=djobject)
 
         context = {"form": djform, "user": user}
-        addDjContext(request, DJ, context)
+        context = createDJContext(request, DJ, context)
         return render(request, html, context)
 
     # This should not happen!
@@ -229,7 +226,7 @@ def djdelete(request):
                                          theDJ.name, theUser.email)
             return render(request, "djdeleted.html")
         context = {"user": user}
-        addDjContext(request, DJ, context)
+        context = createDJContext(request, DJ, context)
         return render(request, "djdelete.html", context)
     return index(request)
 

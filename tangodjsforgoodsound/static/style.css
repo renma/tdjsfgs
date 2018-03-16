@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-03-13 07:13:08 rene>                               */
+/* Time-stamp: <2018-03-16 15:25:30 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -395,4 +395,13 @@ textarea {
 
 #newpassword input[type="password"] {
     width: 290px;
+}
+
+
+/* -------------------------------------------------------------------- */
+/* tango djs for good sound                                             */
+/* index styles                                                 */
+/* -------------------------------------------------------------------- */
+#index td {
+    white-space: nowrap;
 }

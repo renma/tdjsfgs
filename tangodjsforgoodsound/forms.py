@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-13 16:00:33 rene>
+# Time-stamp: <2018-03-16 11:17:13 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -60,7 +60,7 @@ class ContactForm(forms.Form):
     contact_lastname = forms.CharField(required=True)
     contact_email = forms.EmailField(required=True)
     attrs = {'rows': 5, 'cols': 42}
-    contact_content = forms.CharField(required=False,
+    contact_content = forms.CharField(required=True,
                                       widget=forms.Textarea(attrs=attrs))
     contact_magic = TrickyField(required=True)
 

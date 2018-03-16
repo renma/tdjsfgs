@@ -69,27 +69,13 @@
     </tr><tr>
       <td>{{ form.register_djname.label }}:</td><td>{{ form.register_djname }}</td>
     </tr><tr>
-    {% if form.register_email.errors.as_text %}
-      <td class="errorcell">{{ form.register_email.label }}:</td><td>{{ form.register_email }}</td>
-    {% else %}
       <td>{{ form.register_email.label }}:</td><td>{{ form.register_email }}</td>
-    {% endif %}
     </tr><tr>
-    {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
-      <td class="errorcell">{{ form.register_password1.label }}:</td><td>{{ form.register_password1 }}</td>
-      </tr><tr>
-      <td class="errorcell">{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
-    {% else %}
       <td>{{ form.register_password1.label }}:</td><td>{{ form.register_password1 }}</td>
-      </tr><tr>
-      <td>{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
-    {% endif %}
     </tr><tr>
-    {% if form.register_magic.errors.as_text %}
-      <td class="errorcell">{{ form.register_magic.label }}:</td><td>{{ form.register_magic }}
-    {% else %}
+      <td>{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
+    </tr><tr>
       <td>{{ form.register_magic.label }}:</td><td>{{ form.register_magic }}</td>
-    {% endif %}
     </tr>
   </table>
   <br />

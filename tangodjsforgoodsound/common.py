@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-13 11:04:24 rene>
+# Time-stamp: <2018-03-16 05:51:40 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -40,7 +40,7 @@ def stripAccents(val, encoding='utf-8'):
     return val
 
 
-def addDjContext(request, DJModel, context):
+def createDJContext(request, DJModel, context={}):
     context["dj"] = None
     if request.user.is_authenticated():
         try:
@@ -48,6 +48,7 @@ def addDjContext(request, DJModel, context):
             context["dj"] = dj
         except Exception:
             pass
+    return context
 
 
 def createEmailTo():
