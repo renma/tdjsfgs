@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-16 17:57:09 rene>
+# Time-stamp: <2018-03-17 14:33:33 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -129,9 +129,8 @@ def loginredirect(request):
             return redirect("/admin")
         else:
             dj = DJ.objects.get(user=user)
-            if dj and dj.number_of_milongas and dj.name:
+            if dj:
                 return djdetail(request, dj.id)
-            return djedit(request)
     # This should not happen
     return index(request)
 

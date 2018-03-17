@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-16 11:17:13 rene>
+# Time-stamp: <2018-03-17 15:32:50 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -70,7 +70,7 @@ class ContactForm(forms.Form):
         self.fields["contact_lastname"].label = "Family name"
         self.fields["contact_email"].label = "Email address"
         self.fields["contact_content"].label = "Message (E/D)"
-        self.fields["contact_magic"].label = "One of the big four orchestras"
+        self.fields["contact_magic"].label = "Magic"
 
 
 class RegisterForm(forms.Form):
@@ -94,7 +94,7 @@ class RegisterForm(forms.Form):
         self.fields["register_email"].label = label
         self.fields["register_password1"].label = "Password"
         self.fields["register_password2"].label = "Confirm password"
-        self.fields["register_magic"].label = "One of the big four orchestras"
+        self.fields["register_magic"].label = "Magic"
 
     def clean(self):
         cleaned_data = super(RegisterForm, self).clean()
