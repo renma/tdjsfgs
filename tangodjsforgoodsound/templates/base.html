@@ -40,7 +40,7 @@
      {% endif %}
       <li><a href="/linkpage">Links</a></li>
       {% if user.is_authenticated %}
-      {% if user.id == 1 or user.id == 2 or user.id == 4 %}
+      {% if user.last_name == "Maurer" and user.first_name == "Rene" or user.last_name == "Alt" and user.first_name == "Albert" %}
      <li><a href ="{% url 'more' %}">More</a></li>
       {% endif %}
       {% endif %}
