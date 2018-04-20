@@ -20,8 +20,8 @@
   Organizers and dancers may select DJs and enjoy the sound of the music.
 
 <p class="margin-bottom">
-  As for now, there are {{ djList|length }} DJs and DJanes on the
-  list giving detailed information on their setup.
+  As for now, there are {{ djList|length }} DJs on the list giving
+  detailed information on their setup.
 
 {% if djList %}
 <h2>Registered DJs:</h2>
@@ -41,7 +41,7 @@
   {% if dj.gender == "MAL" %}
   <td>DJ since {{ dj.since }}</td>
   {% else %}
-  <td>DJane since {{ dj.since }}</td>
+  <td>DJ since {{ dj.since }}</td>
   {% endif %}
   </tr>
 {% endfor %}
