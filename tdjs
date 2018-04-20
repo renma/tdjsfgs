@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-03-17 15:56:44 rene>
+# Time-stamp: <2018-04-20 22:04:11 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -119,7 +119,7 @@ fi
 if [ "$1" = "doc" ]; then
     cd RESOURCES
     DST=tangodjsforgoodsound/static
-    for f in tdjsfgs_testing_current tdjsfgs_testing_127; do
+    for f in tdjsfgs_testing_current tdjsfgs_testing_133; do
         rm -f $f.pdf
         libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
         cp $f.* ../$DST/.

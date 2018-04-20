@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-03-16 15:25:30 rene>                               */
+/* Time-stamp: <2018-04-20 12:08:07 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -178,7 +178,6 @@ th, td {
     padding-top: 6px;
     font-size: 1em;
 }
-
 
 .errorcell {
     background: #ff6;
