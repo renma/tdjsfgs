@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-17 14:33:33 rene>
+# Time-stamp: <2018-04-27 10:33:12 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -28,7 +28,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
 from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
-    sendRegistrationDeletedEmail
+    sendRegistrationDeletedEmail, sendWelcomeEmail
 
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
 
@@ -78,8 +78,26 @@ def linkpage(request):
 def index(request):
     home = os.path.expanduser("~")
     if not os.path.exists(os.path.join(home, SHOW_MAINTENANCE_PAGE)):
-        orderBy = ["country", "namesort"]
-        djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
+        # orderBy = ["country", "namesort"]
+        # djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
+        djL = []
+        D = {}
+        for dj in DJ.objects.filter(number_of_milongas__gte=1):
+            # TODO handle exception like Rene Maurer "El firulete"
+            # TODO use the namesort field for this
+            s = dj.name.lower().split()
+            x = s[1] if s[0] in ["dj", "tj"] and len(s) > 1 else s[0]
+            D[dj.country.name.lower() + x] = dj
+        keys = D.keys()
+        keys.sort()
+        for k in keys:
+            dj = D[k]
+            if dj.name.lower().startswith("dj ") \
+               or dj.name.lower().startswith("tj "):
+                dj.name = dj.name[3:]
+            djL.append(D[k])
+        # for dj in djL:
+        #     print dj, dj.country, dj.province, dj.country.name
         context = {"djList": djL}
         context = createDJContext(request, DJ, context)
         return render(request, "index.html", context)
@@ -257,9 +275,15 @@ def register(request):
                     name=djname,
                     number_of_milongas=0)
             dj.save()
-            content = ""
-            email = sendRegistrationEmail(firstname, lastname, djname, email,
-                                          content, magic)
+            retval = sendWelcomeEmail(firstname, lastname, djname, email)
+            if retval == 1:
+                sendRegistrationEmail(firstname, lastname, djname, email,
+                                      "Welcome email sent to %s" % email,
+                                      magic)
+            else:
+                sendRegistrationEmail(firstname, lastname, djname, email,
+                                      "ERROR sending email to %s" % email,
+                                      magic)
             return redirect("registered")
         return render(request, "registration/register.html", {"form": form, })
     return render(request, "registration/register.html",

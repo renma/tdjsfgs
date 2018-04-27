@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-16 05:51:40 rene>
+# Time-stamp: <2018-04-27 08:49:28 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,6 +18,7 @@
 #
 # ----------------------------------------------------------------------
 
+import codecs
 import os
 import unicodedata
 from django import forms
@@ -27,6 +28,8 @@ from .models import DJ
 
 
 USEREMAIL_NOT_REGISTERED = "USEREMAIL_NOT_REGISTERED"
+EMAIL_CONTACT = "contact@tangodjsforgoodsound.info"
+FILE_WELCOME_EMAIL = "welcome_email.txt"
 
 
 def stripAccents(val, encoding='utf-8'):
@@ -54,7 +57,7 @@ def createDJContext(request, DJModel, context={}):
 def createEmailTo():
     if os.path.exists("/home/rene"):
         return ["rm@cumparsita.ch"]
-    return ["contact@tangodjsforgoodsound.info"]
+    return [EMAIL_CONTACT]
 
 
 def sendAnEmail(first, last, emailFrom, content, magic,
@@ -103,15 +106,15 @@ def sendAnEmail(first, last, emailFrom, content, magic,
     if content:
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
-    replyTo = emailFrom if setReplyTo else "contact@tangodjsforgoodsound.info"
-    emailFrom = "contact@tangodjsforgoodsound.info"
+    replyTo = emailFrom if setReplyTo else EMAIL_CONTACT
+    emailFrom = EMAIL_CONTACT
     email = EmailMessage(subject,
                          "\n".join(emailContent),
                          emailFrom,
                          emailTo,
                          reply_to=[replyTo])
-    email.send()
-    print "Email sent to: %s" % emailTo
+    retval = email.send()
+    print "Email sent to: %s (retval=%s)" % (emailTo, retval)
 
 
 def sendContactEmail(first, last, emailFrom, content, magic):
@@ -129,6 +132,33 @@ def sendRegistrationEmail(first, last, djname, emailFrom, content, magic):
     setReplyTo, setKnownUsers = False, 2
     sendAnEmail(first, last, emailFrom, content, magic, subject, title, djname,
                 setReplyTo, setKnownUsers)
+
+
+def sendWelcomeEmail(first, last, djname, emailTo):
+    retval = 0
+    fn = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(fn, FILE_WELCOME_EMAIL)
+    with codecs.open(filename, "r", "utf-8") as f:
+        content = f.read()
+        if first:
+            emailContent = content % first
+        elif djname:
+            emailContent = content % djname
+        else:
+            emailContent = content % ""
+        subject = "Welcome to tangodjsforgoodsound"
+        emailFrom = EMAIL_CONTACT
+        emailTo = emailTo if isinstance(emailTo, list) else [emailTo]
+        emailCc = [EMAIL_CONTACT]
+        email = EmailMessage(subject,
+                             emailContent,
+                             emailFrom,
+                             emailTo,
+                             cc=emailCc)
+        retval = email.send()
+        msg = "Welcome Email sent to: %s (retval=%s)"
+        print msg % (emailTo + emailCc, retval)
+    return retval
 
 
 def sendRegistrationDeletedEmail(first, last, djname, emailFrom):

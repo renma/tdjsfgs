@@ -2,7 +2,7 @@
 {% block content %}
 {% load hide_email %}
 
-<h1>{{ dj.name|truncatechars:28 }}</h1>
+<h1>{{ dj.name }}</h1>
 <p class="margin-bottom">
 
   {% if dj.user == user %}
