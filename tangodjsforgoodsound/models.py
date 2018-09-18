@@ -1,4 +1,4 @@
-# Time-stamp: <2018-03-03 10:51:48 rene>
+# Time-stamp: <2018-09-18 12:15:35 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -116,7 +116,7 @@ class DJ(models.Model):
                                max_length=LENGTH_1,
                                default='', blank=True)
 
-    favorites = models.CharField(_("Personal favorites, decades"),
+    favorites = models.CharField(_("Favored orchestras"),
                                  max_length=LENGTH_1,
                                  default='', blank=True)
 
