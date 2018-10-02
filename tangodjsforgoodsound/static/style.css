@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-04-20 12:08:07 rene>                               */
+/* Time-stamp: <2018-10-02 07:33:10 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -261,6 +261,12 @@ p {
 }
 
 p.margin-bottom {
+    margin-bottom: 24px;
+}
+
+p.margin-bottom-error {
+    display: inline;
+    background: #ff6;
     margin-bottom: 24px;
 }
 

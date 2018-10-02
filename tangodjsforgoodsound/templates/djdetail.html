@@ -79,6 +79,12 @@
     </tr><tr>
       <td>Favored orchestras:</td><td>{{ dj.favorites }}</td>
     </tr><tr>
+    {% if dj.songdisplay %}
+      <td>Song display:</td><td>{{ dj.songdisplay }}</td>
+    {% else %}
+      <td>Song display:</td><td>-</td>
+    {% endif %}
+    </tr><tr>
     {% if dj.music_remark %}
       <td>Remarks:</td><td class="infocell">{{ dj.music_remark|wordwrap:50|linebreaks }}</td>
     {% else %}
@@ -97,10 +103,20 @@
     </tr></tr>
       <td>AudioInterface/DAC:</td><td>{{ dj.audiointerface }}</td>
     </tr></tr>
+      <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
+    </tr></tr>
     {% if dj.soundprocessor %}
-      <td>Sound processor(s):</td><td>{{ dj.soundprocessor }}</td>
+      <td>Equalizer:</td><td>{{ dj.soundprocessor }}</td>
     {% else %}
-      <td>Sound processor(s):</td><td>-</td>
+      <td>Equalizer:</td><td>-</td>
+    {% endif %}
+    </tr></tr>
+      <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
+    </tr></tr>
+    {% if dj.soundprocessor2 %}
+      <td>Compressor:</td><td>{{ dj.soundprocessor2 }}</td>
+    {% else %}
+      <td>Compressor:</td><td>-</td>
     {% endif %}
     </tr></tr>
     {% if dj.other_equipment %}
@@ -108,10 +124,6 @@
     {% else %}
       <td>Other equipment:</td><td>-</td>
     {% endif %}
-    </tr></tr>
-      <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
-    </tr></tr>
-      <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
     </tr><tr>
     {% if dj.equipment_remark %}
       <td>Remarks:</td><td class="infocell">{{ dj.equipment_remark|wordwrap:50|linebreaks }}</td>
@@ -133,12 +145,6 @@
       <td>AudioInterface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
     {% else %}
       <td>AudioInterface/DAC:</td><td>-</td>
-    {% endif %}
-    </tr></tr>
-    {% if dj.backup_soundprocessor %}
-      <td>Sound processor(s):</td><td>{{ dj.backup_soundprocessor }}</td>
-    {% else %}
-      <td>Sound processor(s):</td><td>-</td>
     {% endif %}
     </tr></tr>
     {% if dj.backup_other_equipment %}

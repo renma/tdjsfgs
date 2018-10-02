@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 17:11:56 rene>
+# Time-stamp: <2018-09-20 09:17:36 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -59,7 +59,7 @@ AUDIO_FORMAT_CHOICES = (
     ("SHN", _("SHN Shorten (.shn)")),
     ("TTA", _("TTA The True Audio (.tta)")),
     # ("WMA", _("WMA Windows Media Audio LOSSLESS (.wma)")),
-    ("WV",  _("WV WavPack LOSSLESS (.wv)")),
+    ("WV", _("WV WavPack LOSSLESS (.wv)")),
 )
 
 

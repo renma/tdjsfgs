@@ -1,4 +1,4 @@
-# Time-stamp: <2018-09-18 12:15:35 rene>
+# Time-stamp: <2018-09-29 21:47:04 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -112,6 +112,10 @@ class DJ(models.Model):
                                     choices=AUDIO_FORMAT_CHOICES,
                                     default='', blank=True)
 
+    songdisplay = models.CharField(_("Song display"),
+                                   max_length=LENGTH_1,
+                                   default='', blank=True)
+
     sources = models.CharField(_("Sources"),
                                max_length=LENGTH_1,
                                default='', blank=True)
@@ -142,23 +146,27 @@ class DJ(models.Model):
                                       max_length=LENGTH_1,
                                       default='', blank=True)
 
-    soundprocessor = models.CharField(_("Soundprocessor"),
+    equalization = models.CharField(_("Equalization"),
+                                    max_length=LENGTH_CHOICES,
+                                    choices=MOSTLY_CHOICES,
+                                    default='', blank=True)
+
+    soundprocessor = models.CharField(_("Equalizer"),
                                       max_length=LENGTH_1,
                                       default='', blank=True)
-
-    other_equipment = models.CharField(_("Other equipment"),
-                                       max_length=LENGTH_1,
-                                       default='', blank=True)
 
     compression = models.CharField(_("Compression"),
                                    max_length=LENGTH_CHOICES,
                                    choices=MOSTLY_CHOICES,
                                    default='', blank=True)
 
-    equalization = models.CharField(_("Equalization"),
-                                    max_length=LENGTH_CHOICES,
-                                    choices=MOSTLY_CHOICES,
-                                    default='', blank=True)
+    soundprocessor2 = models.CharField(_("Compressor"),
+                                       max_length=LENGTH_1,
+                                       default='', blank=True)
+
+    other_equipment = models.CharField(_("Other equipment"),
+                                       max_length=LENGTH_1,
+                                       default='', blank=True)
 
     equipment_remark = models.CharField(_("Remarks"),
                                         max_length=LENGTH_1,
@@ -182,9 +190,9 @@ class DJ(models.Model):
                                              max_length=LENGTH_1,
                                              default='', blank=True)
 
-    backup_soundprocessor = models.CharField(_("Soundprocessor"),
-                                             max_length=LENGTH_1,
-                                             default='', blank=True)
+    # backup_soundprocessor = models.CharField(_("Soundprocessor"),
+    #                                          max_length=LENGTH_1,
+    #                                          default='', blank=True)
 
     backup_other_equipment = models.CharField(_("Other equipment"),
                                               max_length=LENGTH_1,

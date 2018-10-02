@@ -1,4 +1,4 @@
-# Time-stamp: <2018-04-25 00:13:46 rene>
+# Time-stamp: <2018-10-02 11:20:06 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -156,6 +156,7 @@ class DJEditForm(forms.ModelForm):
             "cortinas",
             "audioformat",
             "audioformat2",
+            "songdisplay",
             "sources",
             "favorites",
             "music_remark",
@@ -163,16 +164,17 @@ class DJEditForm(forms.ModelForm):
             "computermodel",
             "player",
             "audiointerface",
-            "soundprocessor",
-            "other_equipment",
-            "compression",
             "equalization",
+            "soundprocessor",
+            "compression",
+            "soundprocessor2",
+            "other_equipment",
             "equipment_remark",
             "backup_computer",
             "backup_computermodel",
             "backup_player",
             "backup_audiointerface",
-            "backup_soundprocessor",
+            # "backup_soundprocessor",
             "backup_other_equipment"]
 
     def __init__(self, *args, **kwargs):
@@ -184,12 +186,14 @@ class DJEditForm(forms.ModelForm):
             "resident_dj_location",
             "resident_dj_website",
             "soundprocessor",
+            "soundprocessor2",
             "audioformat2",
+            "songdisplay",
             "music_remark",
             "other_equipment",
             "equipment_remark",
             "backup_audiointerface",
-            "backup_soundprocessor",
+            # "backup_soundprocessor",
             "backup_other_equipment"]
         for field in self.fields:
             if field not in nonRequiredFields:
@@ -209,21 +213,25 @@ class DJEditForm(forms.ModelForm):
                           "player",
                           "audiointerface",
                           "soundprocessor",
+                          "soundprocessor2",
                           "other_equipment",
                           "backup_computermodel",
                           "backup_player",
                           "backup_audiointerface",
-                          "backup_soundprocessor",
+                          # "backup_soundprocessor",
                           "backup_other_equipment"]:
                 self.fields[field].widget.attrs["autocomplete"] = "off"
 
     def clean(self):
         cleaned_data = super(DJEditForm, self).clean()
-
-        if (not cleaned_data.get("compression") == "NEV"
-                or not cleaned_data.get("equalization") == "NEV") and \
-                not cleaned_data.get("soundprocessor"):
+        
+        if not cleaned_data.get("equalization") == "NEV" and \
+           not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")
+
+        if not cleaned_data.get("compression") == "NEV" and \
+           not cleaned_data.get("soundprocessor2"):
+            self.add_error("soundprocessor2", "Cannot be empty")
 
         if (len(cleaned_data.get("music_remark")) > LENGTH_1 - 1):
             self.add_error("music_remark", "to long")

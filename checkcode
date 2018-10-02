@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Time-stamp: <2017-12-06 16:07:04 rene>
+# Time-stamp: <2018-09-20 09:16:36 rene>
 #
 # Copyright (C) 2017 Rene Maurer <rene@cumparsita.ch>.
 # Copyright (C) 2017 Albert Alt <saludos@gmx.ch>.
@@ -24,7 +24,7 @@
 
 clear
 
-for CHECKER in pyflakes-python2 pycodestyle2; do
+for CHECKER in pyflakes-python2 "pycodestyle2 --ignore W605"; do
 
     find . -maxdepth 1 -name '*.py' -exec $CHECKER '{}' \;
     for DIR in tangodjsforgoodsound tangodjsforgoodsound/templatetags; do

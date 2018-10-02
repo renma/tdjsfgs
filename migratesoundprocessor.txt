@@ -1,0 +1,1 @@
+UPDATE tangodjsforgoodsound_dj SET soundprocessor2=soundprocessor WHERE compression<>"NEV" and number_of_milongas>0;
