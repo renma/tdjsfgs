@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Player+DAC</h1>
+
+{% if djList %}
+<table id="index">
+
+<tr>
+  <th>DJ</td>
+  <th>&nbsp;&nbsp;</th>
+  <th>Computer</th>
+  <th>&nbsp;&nbsp;</th>
+  <th>Player</th>
+  <th>&nbsp;&nbsp;</th>
+  <th>Audio interface/DAC</th>
+</tr>
+
+{% for dj in djList %}
+<tr>
+  <td><a href="/{{ dj.id }}/">{{ dj.name|truncatechars:28 }}</a></td>
+  <td>&nbsp;&nbsp;</td>
+  <td>{{ dj.get_computer_display }}</td>
+  <td>&nbsp;&nbsp;</td>
+  <td>{{ dj.player }}</td>
+  <td>&nbsp;&nbsp;</td>
+  <td>{{ dj.audiointerface|truncatechars:40 }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-04-20 22:04:11 rene>
+# Time-stamp: <2018-12-26 08:11:14 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -119,12 +119,23 @@ fi
 if [ "$1" = "doc" ]; then
     cd RESOURCES
     DST=tangodjsforgoodsound/static
-    for f in tdjsfgs_testing_current tdjsfgs_testing_133; do
-        rm -f $f.pdf
-        libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
-        cp $f.* ../$DST/.
-        rm -f $f.pdf
-        echo "$f.pdf created"
+    for f in Userkontakte_und_Reaktiokion_nach_Release_1.3.6.pdf \
+                 releasenotes_140.txt; do
+        cp $f ../$DST/.
+        echo "$f copied to $DST"
+    done
+    for f in tdjsfgs_testing_current tdjsfgs_testing_140; do
+        f1=$f.xls
+        f2=../$DST/$f.pdf
+        if [[ $f1 -nt $f2 ]]; then
+            rm -f $f.pdf
+            libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
+            cp $f.* ../$DST/.
+            rm -f $f.pdf
+            echo "../$DST/$f.pdf created"
+        else
+            echo "$f1 nothing to do"
+        fi
     done
     echo "$DST READY"
     exit 0
@@ -153,13 +164,13 @@ if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
 	echo "rsync $localdir/* => uberspace:$remotedir"
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *style.css \
-                  --exclude RESOURCES --exclude tmp* \
+	          --exclude *db.sqlite3.1* --exclude *style.css --exclude tdjsfgs.log \
+                  --exclude RESOURCES --exclude tmp* --exclude olddbs* \
                   $localdir/* uberspace:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css \
-                  --exclude RESOURCES --exclude tmp* \
+	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css --exclude tdjsfgs.log \
+                  --exclude RESOURCES --exclude tmp* --exclude olddbs* \
                   $localdir/* uberspace:$remotedir
         fi
         echo

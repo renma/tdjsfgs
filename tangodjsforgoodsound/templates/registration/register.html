@@ -40,8 +40,8 @@
       };
     </script>
     <p class="margin-bottom">
-      Sorry, your password input is not invalid.
-      <br />Possible errors include: too short, too simple, no match between passwords.</p>
+      Sorry, your password input is not valid.
+      <br />Possible errors: too short (must be at least 8 characters), too simple (numbers only is not allowed), no match between passwords.</p>
   {% elif form.register_magic.errors.as_text %}
     <script type="text/javascript">
       window.onload = function() {

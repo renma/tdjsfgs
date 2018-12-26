@@ -1,0 +1,33 @@
+Release notes 1.4.0
+Released: 2018-12-25
+------------------------------------------------------------------------
+
+#51 Enhancement: URL field handling changed (add schema http).
+
+#52 New: Logging implemented.
+
+#56 Enhancement: Replace "Personal favorites" with "Favored orchestras".
+
+#57 New: Fields in equipment changed to: "Audio interface/DAC",
+    "Equalization", "Equalizer", "Compression" and "Compressor".
+
+#58 Enhancement: New field "Song display".
+
+#59 Enhancement: Field "backup_soundprocessor" deleted.
+
+#63 Enhancement: Yellow background for "Please correct the Wrong Data
+    in your input".
+
+#65 New: View Player and audiointerface overview: "Player+DAC".
+
+#66 Bug fix: "AudioInterface" should be "Audio intereface".
+
+#67 New: Field "Last updated" added in DJ details.
+
+#69 Bug fix: Sorry, your password input is "not invalid".
+    Should be "valid".
+
+#71 Bug fix: Strange presentation on small devices fixed.
+
+Other:
+tdjs improved (only create PDFs if required, more excludes in rsync)

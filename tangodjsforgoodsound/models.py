@@ -1,4 +1,4 @@
-# Time-stamp: <2018-09-29 21:47:04 rene>
+# Time-stamp: <2018-12-07 07:12:24 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -197,6 +197,10 @@ class DJ(models.Model):
     backup_other_equipment = models.CharField(_("Other equipment"),
                                               max_length=LENGTH_1,
                                               default='', blank=True)
+
+    # Last changed ------------------------------------------------------------
+    last_changed = models.DateField(_("Last changed"),
+                                    auto_now=True)
 
     def __str__(self):
         return self.name

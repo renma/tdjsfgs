@@ -1,4 +1,4 @@
-# Time-stamp: <2018-04-27 10:33:12 rene>
+# Time-stamp: <2018-12-09 09:20:49 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,28 +18,37 @@
 #
 # ----------------------------------------------------------------------
 
+import unicodedata
+import inspect
+import logging
 import os
 
 from django.contrib.auth import logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
 from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
     sendRegistrationDeletedEmail, sendWelcomeEmail
 
+
 SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
+logger = logging.getLogger("tdjsfgs")
 
 
-def debug(s):
-    if 1:
-        print ">>>>", s
+def log():
+    caller = inspect.stack()[1][3]
+    if caller == "index":
+        caller = "DJs"
+    logger.info("%s" % caller)
 
 
 @login_required
 def change_password(request):
+    log()
     if request.method == "POST":
         form = SubscriberPasswordForm(request.POST)
         if form.is_valid():
@@ -47,10 +56,10 @@ def change_password(request):
                 request.user.set_password(form.cleaned_data["new_password1"])
                 request.user.save()
                 update_session_auth_hash(request, request.user)  # Important!
-                debug("Password for user %s set" % request.user)
+                logger.info("Password for user %s set" % request.user)
             except Exception:
                 # This should not happen
-                print ">>>>>>>> Unexcpected error in change_password()"
+                logger.error("Oooops, unexcpected error in change_password")
                 context = {"form": form}
                 context = createDJContext(request, DJ, context)
                 return render(request, "change_password.html", context)
@@ -66,16 +75,19 @@ def change_password(request):
 
 
 def copyright(request):
+    log()
     context = createDJContext(request, DJ)
     return render(request, "copyright.html", context)
 
 
 def linkpage(request):
+    log()
     context = createDJContext(request, DJ)
     return render(request, "linkpage.html", context)
 
 
 def index(request):
+    log()
     home = os.path.expanduser("~")
     if not os.path.exists(os.path.join(home, SHOW_MAINTENANCE_PAGE)):
         # orderBy = ["country", "namesort"]
@@ -105,6 +117,7 @@ def index(request):
 
 
 def contact(request):
+    log()
     form_class = ContactForm
     if request.method == 'POST':
         form = form_class(data=request.POST)
@@ -126,34 +139,42 @@ def contact(request):
 
 
 def contactfeedback(request):
+    log()
     context = createDJContext(request, DJ)
     return render(request, "contactfeedback.html", context)
 
 
 def mission(request):
+    log()
     context = createDJContext(request, DJ)
     return render(request, "mission.html", context)
 
 
 def more(request):
+    log()
     context = createDJContext(request, DJ)
     return render(request, "more.html", context)
 
 
 def loginredirect(request):
+    log()
     if request.user.is_authenticated():
         user = request.user
+        logger.info("%s logged in" % user)
         if user.id == 1:
             return redirect("/admin")
         else:
             dj = DJ.objects.get(user=user)
             if dj:
+                logger.info("DJ details: %s" % dj.name)
                 return djdetail(request, dj.id)
     # This should not happen
     return index(request)
 
 
 def customlogout(request):
+    log()
+    logger.info("Logout %s" % request.user)
     model_changed = False
     if not model_changed:
         logout(request)
@@ -161,51 +182,54 @@ def customlogout(request):
 
 
 def djdetail(request, dj_id):
+    log()
     dj = get_object_or_404(DJ, pk=dj_id)
+    logger.info("DJ details: %s" % dj.name)
     return render(request, "djdetail.html", {"dj": dj})
 
 
 def djedit(request):
+    log()
     if request.user.is_authenticated():
-        debug("djedit called")
         html = "djedit.html"
         user = request.user
         djobject = DJ.objects.get(user=user)
-        debug("djedit %s selected" % djobject)
+        logger.debug("djedit %s selected" % djobject)
         if request.method == 'POST':
-            debug("djedit POST")
+            logger.debug("djedit POST")
             djform = DJEditForm(request.POST, instance=djobject)
             djform.set_namesort(request)
             djform.request = request
             if djform.is_valid():
-                debug("djedit form valid")
+                logger.debug("djedit form valid")
                 try:
                     theUser = User.objects.all().filter(id=user.id)[0]
                 except Exception:
                     theUser = None
                 if theUser:
-                    debug("djedit user found")
+                    logger.debug("djedit user found")
                     loginAddress = djform.cleaned_data.get("useremail")
-                    debug("djedit => save()")
+                    msg = "djedit saved djform for %s"
+                    logger.info(msg % theUser.username)
                     djform.save()
                     if not loginAddress == theUser.username \
                        or not loginAddress == theUser.email:
-                        debug("New Username %s => %s" % (theUser.username,
-                                                         loginAddress))
-                        debug("New Useremail %s => %s" % (theUser.email,
-                                                          loginAddress))
-                        debug("auth_user => save()")
+                        msg = "New Username %s => %s"
+                        logger.info(msg % (theUser.username, loginAddress))
+                        msg = "New Useremail %s => %s"
+                        logger.info(msg % (theUser.email, loginAddress))
+                        msg = "djedit saved user data for %s"
+                        logger.info(msg % theUser.username)
                         theUser.username = loginAddress
                         theUser.email = loginAddress
                         User.save(theUser)
-                        # save user
                     html = "djdetail.html"
                 else:
-                    debug("djedit user not found")
+                    logger.debug("djedit user not found")
             else:
-                debug("djedit form not valid")
+                logger.debug("djedit form not valid")
         else:
-            debug("djedit GET")
+            logger.debug("djedit GET")
             djform = DJEditForm(instance=djobject)
 
         context = {"form": djform, "user": user}
@@ -217,11 +241,9 @@ def djedit(request):
 
 
 def djdelete(request):
+    log()
     if request.user.is_authenticated():
-        debug("djdelete called")
         user = request.user
-        djobject = DJ.objects.get(user=user)
-        debug("djdelete djobject = %s" % djobject)
         try:
             theUser = User.objects.all().filter(id=user.id)[0]
         except Exception:
@@ -230,15 +252,15 @@ def djdelete(request):
             theDJ = DJ.objects.all().filter(user=user)[0]
         except Exception:
             theDJ = None
-        debug("djdelete, DJ = %d %s" % (theDJ.id, theDJ))
-        debug("djdelete, user = %d %s" % (theUser.id, theUser))
+        logger.info("djdelete, DJ = %d %s" % (theDJ.id, theDJ))
+        logger.info("djdelete, User = %d %s" % (theUser.id, theUser))
         if request.method == "POST" and theUser and theDJ:
             logout(request)
-            debug("logged out user")
+            logger.info("logged out user")
             theDJ.delete()
-            debug("DJ deleted")
+            logger.debug("DJ deleted")
             theUser.delete()
-            debug("User deleted")
+            logger.debug("User deleted")
             sendRegistrationDeletedEmail(theUser.first_name, theUser.last_name,
                                          theDJ.name, theUser.email)
             return render(request, "djdeleted.html")
@@ -249,10 +271,12 @@ def djdelete(request):
 
 
 def djdeleted(request):
+    log()
     return render(request, "djdeleted.html")
 
 
 def register(request):
+    log()
     form_class = RegisterForm
     if request.method == 'POST':
         form = form_class(data=request.POST)
@@ -291,4 +315,41 @@ def register(request):
 
 
 def registered(request):
+    log()
     return render(request, "registration/registered.html")
+
+
+def technology(request):
+    log()
+    home = os.path.expanduser("~")
+    if not os.path.exists(os.path.join(home, SHOW_MAINTENANCE_PAGE)):
+        orderBy = ["computer", "player", "namesort"]
+        djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
+        for dj in djL:
+            if dj.name.lower().startswith("dj ") \
+               or dj.name.lower().startswith("tj "):
+                dj.name = dj.name[3:]
+        context = {"djList": djL}
+        context = createDJContext(request, DJ, context)
+        return render(request, "technology.html", context)
+    return render(request, "index_empty.html")
+
+
+@login_required
+def logfile(request):
+
+    def stripAccents(val, encoding="utf-8"):
+        nfkd_form = unicodedata.normalize('NFKD', val)
+        return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+    log()
+    name = "%s %s" % (request.user.first_name, request.user.last_name)
+    if name in ["Rene Maurer", "Albert Alt"]:
+        lines = []
+        import codecs
+        with codecs.open("tdjsfgs.log", "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            lines.reverse()
+        content = stripAccents("".join(lines))
+        return HttpResponse(content, content_type="text/plain")
+    return HttpResponse("", content_type="text/plain")

@@ -101,7 +101,7 @@
     </tr></tr>
       <td>Player:</td><td>{{ dj.player }}</td>
     </tr></tr>
-      <td>AudioInterface/DAC:</td><td>{{ dj.audiointerface }}</td>
+      <td>Audio interface/DAC:</td><td>{{ dj.audiointerface }}</td>
     </tr></tr>
       <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
     </tr></tr>
@@ -141,8 +141,8 @@
     </tr></tr>
       <td>Player:</td><td>{{ dj.backup_player }}</td>
     </tr></tr>
-    {% if dj.backup_audiointerface %}
-      <td>AudioInterface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
+    {% if dj.backup_audioiterface %}
+      <td>Audio interface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
     {% else %}
       <td>AudioInterface/DAC:</td><td>-</td>
     {% endif %}
@@ -152,6 +152,10 @@
     {% else %}
       <td>Other equipment:</td><td>-</td>
     {% endif %}
-    </tr>
+    </tr><tr>
+    <td><b>&nbsp;<b></td><td></td>
+    </tr></tr>
+    <td>Last changed:</td><td>{{ dj.last_changed }}</td>
+  </tr>
   </table>
 {% endblock %}

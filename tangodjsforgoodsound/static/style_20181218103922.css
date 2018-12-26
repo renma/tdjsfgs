@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-10-02 07:33:10 rene>                               */
+/* Time-stamp: <2018-12-18 10:39:17 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -69,6 +69,7 @@ html {
 }
 
 body {
+    height: 100%;
     font-size: 18px;
     font-family: "Helvetica", "sans-serif";
     /* Don't reduce the 18px as this doesn't work with W10/Edge */
@@ -83,31 +84,31 @@ body {
 /* 0 .... 1280 pixel */
 @media (min-device-width: 1px) {
     #banner {
-        height: 125px;
+        height: 128px;
         background: #000 url(banner_900.png);
+        min-width: 1400px;
     }
 }
 
-/*  1280 ... 1600 pixel */
-@media (min-device-width: 1280px) {
+/*  1281 ... 1600 pixel */
+@media (min-device-width: 1281px) {
     #banner {
-        height: 125px;
+        height: 128px;
         background: #000 url(banner_1280.png);
+        min-width: 1400px;
     }
 }
 
-/* 1600 ... pixel */
-@media (min-device-width: 1600px) {
+/* 1601 ... pixel */
+@media (min-device-width: 1601px) {
     #banner {
-        height: 125px;
+        height: 128px;
         background: #000 url(banner.png);
     }
 }
 
 #footer {
-    position: fixed;
-    bottom: 10px;  /* same as body */
-    right: 50px;
+    text-align: left;
 }
 
 h1 {
@@ -145,11 +146,19 @@ a:hover {
 }
 
 
-th, td {
+td {
     font-weight: normal;
     font-size: 1em;
     text-align: left;
     padding-right: 10px;
+}
+
+th {
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: left;
+    padding-right: 10px;
+    padding-bottom: 20px;
 }
 
 #content ul {
@@ -197,7 +206,16 @@ th, td {
 
 #menubar {
     background: #ccc;
+    min-width: 1400px;
 }
+
+/* 1601 ... pixel */
+@media (min-device-width: 1601px) {
+    #menubar {
+        background: #ccc;
+    }
+}
+
 
 ul#menu {
     list-style: none;
@@ -251,6 +269,7 @@ p {
 }
 
 #footer p {
+    margin: 0 0 12px 42px;
 }
 
 #footer a {

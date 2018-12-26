@@ -7,7 +7,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="A list with Tango DJs providing good sound" />
   <meta name="keywords" content="Tango,DJ,DJs,Good Sound,Sound" />
-  <link rel="stylesheet" href="{% static 'style_20181002073316.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20181218103922.css' %}" type="text/css">
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <script> <!--
       function gugus(usr, srvr, txt) {
@@ -25,6 +25,7 @@
     <ul id="menu">
       <li><a href="/" target="_self">DJs</a>
       <li><a href ="{% url 'mission' %}">Mission</a></li>
+      <li><a href ="{% url 'technology' %}">Player+DAC</a></li>
       <li><a href ="{% url 'contact' %}">Contact</a></li>
       {% if user.is_authenticated %}
         {% if user.get_username == "admin" %}
@@ -46,6 +47,7 @@
       {% endif %}
     </ul>
   </div>
+
   <div id="content">
     {% block content %}
     {% endblock %}
@@ -55,8 +57,11 @@
     <p>
       &nbsp;
   </div>
+
   <div id="footer">
     <p>
       <a href="{% url 'copyright' %}">Version {{ APP_VERSION }}</a>
   </div>
+
 </body>
+</html>

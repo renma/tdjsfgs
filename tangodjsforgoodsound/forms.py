@@ -1,4 +1,4 @@
-# Time-stamp: <2018-10-02 11:20:06 rene>
+# Time-stamp: <2018-12-18 06:49:27 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -136,6 +136,9 @@ class DJEditForm(forms.ModelForm):
     equipment_remark = forms.CharField(required=False,
                                        widget=forms.Textarea(attrs=attrs))
 
+    website = forms.URLField(required=False, initial='http://')
+    resident_dj_website = forms.URLField(required=False, initial='http://')
+
     class Meta:
         model = DJ
         fields = [
@@ -224,7 +227,7 @@ class DJEditForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(DJEditForm, self).clean()
-        
+
         if not cleaned_data.get("equalization") == "NEV" and \
            not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")

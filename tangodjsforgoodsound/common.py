@@ -1,4 +1,4 @@
-# Time-stamp: <2018-04-27 08:49:28 rene>
+# Time-stamp: <2018-12-09 09:30:41 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,6 +19,7 @@
 # ----------------------------------------------------------------------
 
 import codecs
+import logging
 import os
 import unicodedata
 from django import forms
@@ -30,6 +31,7 @@ from .models import DJ
 USEREMAIL_NOT_REGISTERED = "USEREMAIL_NOT_REGISTERED"
 EMAIL_CONTACT = "contact@tangodjsforgoodsound.info"
 FILE_WELCOME_EMAIL = "welcome_email.txt"
+logger = logging.getLogger("tdjsfgs")
 
 
 def stripAccents(val, encoding='utf-8'):
@@ -114,7 +116,7 @@ def sendAnEmail(first, last, emailFrom, content, magic,
                          emailTo,
                          reply_to=[replyTo])
     retval = email.send()
-    print "Email sent to: %s (retval=%s)" % (emailTo, retval)
+    logger.info("Email sent to: %s (retval=%s)" % (emailTo, retval))
 
 
 def sendContactEmail(first, last, emailFrom, content, magic):
@@ -157,7 +159,7 @@ def sendWelcomeEmail(first, last, djname, emailTo):
                              cc=emailCc)
         retval = email.send()
         msg = "Welcome Email sent to: %s (retval=%s)"
-        print msg % (emailTo + emailCc, retval)
+        logger.info(msg % (emailTo + emailCc, retval))
     return retval
 
 
@@ -211,5 +213,5 @@ class TrickyField(forms.Field):
         super(TrickyField, self).validate(value)
         val = self._createAz(value.lower())
         if value and val not in self._artists:
-            print "This artist isn't valid: %s" % val
+            # print "This artist isn't valid: %s" % val
             raise forms.ValidationError(("Artist not valid"), code="invalid")
