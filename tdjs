@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-12-26 08:11:14 rene>
+# Time-stamp: <2019-01-14 06:51:20 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ----------------------------------------------------------------------
+
+RELEASE=144
 
 localdir=/home/rene/mysite
 remotedir=/home/rem/ALL/mysite
@@ -119,12 +121,13 @@ fi
 if [ "$1" = "doc" ]; then
     cd RESOURCES
     DST=tangodjsforgoodsound/static
-    for f in Userkontakte_und_Reaktiokion_nach_Release_1.3.6.pdf \
-                 releasenotes_140.txt; do
+    for f in Kontakte_zu_Usern_o_Publik_2019-01-12.pdf \
+                 Kontakte_und_Reaktiokion_nach_Release_1.3.6.pdf \
+                 releasenotes_$RELEASE.txt; do
         cp $f ../$DST/.
         echo "$f copied to $DST"
     done
-    for f in tdjsfgs_testing_current tdjsfgs_testing_140; do
+    for f in tdjsfgs_testing_current tdjsfgs_testing_$RELEASE; do
         f1=$f.xls
         f2=../$DST/$f.pdf
         if [[ $f1 -nt $f2 ]]; then

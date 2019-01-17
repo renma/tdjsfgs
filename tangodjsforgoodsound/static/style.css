@@ -1,4 +1,4 @@
-/* Time-stamp: <2018-12-18 10:39:17 rene>                               */
+/* Time-stamp: <2019-01-12 21:45:43 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -153,6 +153,14 @@ td {
     padding-right: 10px;
 }
 
+td.xsmall {
+    font-weight: normal;
+    font-size: 0.7em;
+    text-align: center;
+    padding-right: 0px;
+}
+
+
 th {
     font-weight: bold;
     font-size: 1.3em;
@@ -189,9 +197,7 @@ th {
 }
 
 .errorcell {
-    background: #ff6;
-    font-weight: bold;
-    font-style: italic;
+    background: #ffff90;
 }
 
 .infocell {
@@ -283,9 +289,14 @@ p.margin-bottom {
     margin-bottom: 24px;
 }
 
+p.error {
+    display: inline;
+    background: #ffff90;
+}
+
 p.margin-bottom-error {
     display: inline;
-    background: #ff6;
+    background: #ffff90;
     margin-bottom: 24px;
 }
 

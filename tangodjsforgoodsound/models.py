@@ -1,4 +1,4 @@
-# Time-stamp: <2018-12-07 07:12:24 rene>
+# Time-stamp: <2019-01-14 06:03:21 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -64,7 +64,7 @@ class DJ(models.Model):
 
     since = models.IntegerField(_("Since"),
                                 choices=YEAR_CHOICES,
-                                default=datetime.datetime.now().year,
+                                default=0,
                                 blank=True)
 
     number_of_milongas = models.IntegerField(_("Number of milongas"),

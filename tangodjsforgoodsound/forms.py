@@ -1,4 +1,4 @@
-# Time-stamp: <2018-12-18 06:49:27 rene>
+# Time-stamp: <2019-01-13 13:20:19 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,6 +18,7 @@
 #
 # ----------------------------------------------------------------------
 
+import logging
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
@@ -27,6 +28,7 @@ from . common import doesEmailExist, TrickyField, USEREMAIL_NOT_REGISTERED
 from . models import DJ, LENGTH_1
 
 
+logger = logging.getLogger("tdjsfgs")
 DISABLE_AUTOCOMPLETE = True
 
 
@@ -228,31 +230,58 @@ class DJEditForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(DJEditForm, self).clean()
 
+        anyError = False
+
         if not cleaned_data.get("equalization") == "NEV" and \
            not cleaned_data.get("soundprocessor"):
             self.add_error("soundprocessor", "Cannot be empty")
+            anyError = True
 
         if not cleaned_data.get("compression") == "NEV" and \
            not cleaned_data.get("soundprocessor2"):
             self.add_error("soundprocessor2", "Cannot be empty")
+            anyError = True
 
         if (len(cleaned_data.get("music_remark")) > LENGTH_1 - 1):
             self.add_error("music_remark", "to long")
+            anyError = True
 
         if (len(cleaned_data.get("equipment_remark")) > LENGTH_1 - 1):
             self.add_error("equipment_remark", "to long")
+            anyError = True
 
         userEmail = cleaned_data.get("useremail")
         if userEmail and doesEmailExist(self.request, userEmail):
             # use namesort to indicate this Error (HACK!)
             self.add_error("useremail", "Not unique or user not found")
-            self.add_error("namesort", "user email address")
+            # self.add_error("namesort", "user email address")
+            anyError = True
 
         publicEmail = cleaned_data.get("email")
         if publicEmail and doesEmailExist(self.request, publicEmail):
             # use namesort to indicate this Error (HACK!)
             self.add_error("email", "Not unique or user not found")
-            self.add_error("namesort", "public email address")
+            # self.add_error("namesort", "public email address")
+            anyError = True
+
+        for field in self.fields:
+            if self.fields[field].required:
+                if field not in self.cleaned_data:
+                    anyError = True
+                    logger.info("Error because %s not set" % field)
+                else:
+                    try:
+                        if self.cleaned_data[field].startswith("-"):
+                            anyError = True
+                            msg = "Error because %s startswith '-'"
+                            logger.info(msg % field)
+                            msg = "Error because value invalid"
+                            self.add_error(field, msg)
+                    except AttributeError:
+                        pass  # not a text field
+
+        if anyError:
+            self.add_error("namesort", "error")
 
         return cleaned_data
 
@@ -264,8 +293,9 @@ class DJEditForm(forms.ModelForm):
         """
         mutable = request.POST._mutable
         request.POST._mutable = True
-        x = self.data["name"].split()
-        namesort = x[1] if "dj" in x[0].lower() and len(x) > 1 else x[0]
-        self.data["namesort"] = namesort.lower()[:40]
+        if self.data["name"]:
+            x = self.data["name"].split()
+            namesort = x[1] if "dj" in x[0].lower() and len(x) > 1 else x[0]
+            self.data["namesort"] = namesort.lower()[:40]
         # print "used namesort =", self.data["namesort"]
         request.POST._mutable = mutable

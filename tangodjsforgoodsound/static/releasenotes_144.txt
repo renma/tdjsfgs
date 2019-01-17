@@ -1,0 +1,21 @@
+Release notes 1.4.4
+Released: 2019-01-16
+------------------------------------------------------------------------
+
+#14 Improve input checking and handling in DJ Edit
+
+#64 Edit: Wrong highlighted field in rare cases #64
+
+#72 DJ Edit no longer handles empty inputs as expected (1.4.0 bug)
+
+#73 DJ edit: Bestehende Mailadresse nur bedingt erkannt (case sensitive)
+
+#74 Register: Error message not highlighted
+
+#75 Don't accept hyphen character in mandatory text fields
+
+#76 Mandatory fields should be marked in DJ edit
+
+#77 Rename Field "Since" to "DJ since" and change default value
+
+#82 Rescue equipment: AudioInterface/DAC not displayed (patched after release) 

@@ -39,9 +39,8 @@
         window.scrollTo(0, document.body.scrollHeight);
       };
     </script>
-    <p class="margin-bottom">
-      Sorry, your password input is not valid.
-      <br />Possible errors: too short (must be at least 8 characters), too simple (numbers only is not allowed), no match between passwords.</p>
+    <p class="error">Sorry, your password input is not valid.</p>
+    <p class="margin-bottom">Possible errors: too short (must be at least 8 characters), too simple (numbers only is not allowed), no match between passwords.</p>
   {% elif form.register_magic.errors.as_text %}
     <script type="text/javascript">
       window.onload = function() {

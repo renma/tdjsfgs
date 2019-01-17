@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-10 16:40:25 rene>
+# Time-stamp: <2019-01-11 16:17:09 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -175,7 +175,8 @@ def sendRegistrationDeletedEmail(first, last, djname, emailFrom):
 def doesEmailExist(request, email):
     theUser = User.objects.filter(id=request.user.id)[0] if request else None
     if theUser:
-        objects = User.objects.exclude(id=theUser.id).filter(email__iexact=email)
+        objects = \
+            User.objects.exclude(id=theUser.id).filter(email__iexact=email)
     else:
         objects = User.objects.filter(email__iexact=email)
     if objects:

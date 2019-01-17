@@ -3,164 +3,302 @@
 {% block djeditbase %}
 {% endblock %}
 <p>
-  <!-- Please remember the Minimal Sound Requirement Statement below. -->
 <p class="margin-bottom">
   <a href="{% url 'djdetail' dj.id %}"><button type="button">&laquo Back</button></a>
+
   <p class="margin-bottom">
     Please note that your data is not visible on the website as long as <b>Number of
     Milongas</b> is set to zero.
-  
-<!--  <form role="form" action="" method="post" novalidate> -->
-  <form role="form" action="" method="post">
+
+  <form role="form" action="" method="post" novalidate>
   {% csrf_token %}
   {% if form.namesort.errors.as_text %}
-    {% if form.email.errors.as_text or form.website.errors.as_text or form.resident_dj_website.errors.as_text or form.soundprocessor.errors.as_text or form.soundprocessor2.errors.as_text %}
-      <p>The <b>{{ form.namesort.errors.as_text|cut:"* " }}</b> is already known in the system.</p>
-      <p class="margin-bottom-error">Please correct also the <b>Wrong Data</b> in your input!</p>
-    {% else %}
-      <p class="margin-bottom-error">The <b>{{ form.namesort.errors.as_text|cut:"* " }}</b> is already known in the system!</p>
-    {% endif %}
-  {% else %}
-    {% if form.email.errors.as_text or form.useremail.errors.as_text or form.website.errors.as_text or form.resident_dj_website.errors.as_text or form.soundprocessor.errors.as_text or form.soundprocessor2.errors.as_text or form.music_remark.errors.as_text or form.equipment_remark.errors.as_text %}
-      <p class="margin-bottom-error">Please correct the <b>Wrong Data</b> in your input!</p>
-    {% endif %}
+  <p class="margin-bottom-error">Please correct wrong or missing information.</p>
   {% endif %}
+
   <table id="djedit">
     <tr>
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
+
     </tr><tr>
       <td><b>Account data<b></td><td>&nbsp;</td>
-   {# </tr><tr> #}
-   {#   <td class="infocell" colspan="2">&nbsp;<br />Account data are used for login and password reset (not visible).<br /> #}
-   {#    It is recommended to use a differnt email adresses for login and the website.<br />&nbsp;</td> #}
+
     </tr><tr>
-      {% if form.useremail.errors.as_text %} 
-      <td class="errorcell">Email:</td><td>{{ form.useremail }}</td>
+      {% if form.useremail.errors.as_text %}
+      <td class="errorcell">Login email:</td><td class="xsmall">*</td><td>{{ form.useremail }}</td>
       {% else %}
-      <td>Login email:</td><td>{{ form.useremail }}</td>
+      <td>Login email:</td><td class="xsmall">*</td><td>{{ form.useremail }}</td>
       {% endif %}
+
     </tr><tr>
-      <td><p><a href="password"><button type="button">Change password</button></a></p></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br />
-      &nbsp; &nbsp; best if not identical with address on website.</td>
+      <td><p><a href="password"><button type="button">Change password</button></a></p></td>
+      <td></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br />&nbsp; &nbsp; best if not identical with address on website.</td>
+
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
+
     </tr><tr>
       <td><b>Personal<b></td><td>&nbsp;</td>
+
     </tr><tr>
-      <td>DJ-Name:</td><td>{{ form.name }}</td>
-    </tr><tr>
-      <td>Gender:</td><td>{{ form.gender }}</td>
-    </tr><tr>
-      <td>Country:</td><td>{{ form.country }}</td>
-    </tr><tr>
-      <td>Region or City:</td><td>{{ form.province }}</td>
-    </tr><tr>
-      <td>Since:</td><td>{{ form.since }}</td>
-    </tr><tr>
-      <td>Number of Milongas:</td><td>{{ form.number_of_milongas }}</td>
-    </tr><tr>
-      {% if form.resident_dj_website.errors.as_text %} 
-      <td class="errorcell">Resident DJ website:</td><td>{{ form.resident_dj_website }}</td>
+      {% if form.name.errors.as_text %} 
+      <td class="errorcell">DJ-Name:</td><td class="xsmall">*</td><td>{{ form.name }}</td>
       {% else %}
-      <td>Resident DJ website:</td><td>{{ form.resident_dj_website }}</td>
+      <td>DJ-Name:</td><td class="xsmall">*</td><td>{{ form.name }}</td>
       {% endif %}
+
     </tr><tr>
-      <td>Resident DJ location:</td><td>{{ form.resident_dj_location }}</td>
-    </tr><tr>
-      {% if form.website.errors.as_text %} 
-      <td class="errorcell">Website:</td><td>{{ form.website }}</td>
+      {% if form.gender.errors.as_text %} 
+      <td class="errorcell">Gender:</td><td class="xsmall">*</td><td>{{ form.gender }}</td>
       {% else %}
-      <td>Website:</td><td>{{ form.website }}</td>
+      <td>Gender:</td><td class="xsmall">*</td><td>{{ form.gender }}</td>
       {% endif %}
+
+    </tr><tr>
+      {% if form.country.errors.as_text %}
+      <td class="errorcell">Country:</td><td class="xsmall">*</td><td>{{ form.country }}</td>
+      {% else %}
+      <td>Country:</td><td class="xsmall">*</td><td>{{ form.country }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.province.errors.as_text %} 
+      <td class="errorcell">Region or City:</td><td class="xsmall">*</td><td>{{ form.province }}</td>
+      {% else %}
+      <td>Region or City:</td><td class="xsmall">*</td><td>{{ form.province }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.since.errors.as_text %}
+      <td class="errorcell">DJ since:</td><td class="xsmall">*</td><td>{{ form.since }}</td>
+      {% else %}
+      <td>DJ since:</td><td class="xsmall">*</td><td>{{ form.since }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.number_of_milongas.errors.as_text %}
+      <td class="errorcell">Number of Milongas:</td><td class="xsmall">*</td><td>{{ form.number_of_milongas }}</td>
+      {% else %}
+      <td>Number of Milongas:</td><td class="xsmall">*</td><td>{{ form.number_of_milongas }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.resident_dj_website.errors.as_text %}
+      <td class="errorcell">Resident DJ website:</td><td></td><td>{{ form.resident_dj_website }}</td>
+      {% else %}
+      <td>Resident DJ website:</td><td></td><td>{{ form.resident_dj_website }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.resident_dj_location.errors.as_text %} 
+      <td class="errorcell">Resident DJ location:</td><td></td><td>{{ form.resident_dj_location }}</td>
+      {% else %}
+      <td>Resident DJ location:</td><td></td><td>{{ form.resident_dj_location }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.website.errors.as_text %}
+      <td class="errorcell">Website:</td><td></td><td>{{ form.website }}</td>
+      {% else %}
+      <td>Website:</td><td></td><td>{{ form.website }}</td>
+      {% endif %}
+
     </tr><tr>
       {% if form.email.errors.as_text %} 
-      <td class="errorcell">Email:</td><td>{{ form.email }}</td>
+      <td class="errorcell">Email:</td><td></td><td>{{ form.email }}</td>
       {% else %}
-      <td>Email:</td><td>{{ form.email }}</td>
+      <td>Email:</td><td></td><td>{{ form.email }}</td>
       {% endif %}
-    </tr><tr>
-      <td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
+
+    </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
         &nbsp; &nbsp; will be obfuscated - against SPAM.</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
-    </tr><tr>
-      <td><b>Musica<b></td><td>&nbsp;</td>
-    </tr><tr>
-      <td>Style:</td><td>{{ form.style }}</td>
-    </tr><tr>
-      <td>Tandas and cortinas:</td><td>{{ form.cortinas }}</td>
-    </tr><tr>
-      <td>Audio format:</td><td>{{ form.audioformat }}</td>
-    </tr><tr>
-      <td>Alternative audio format:</td><td>{{ form.audioformat2 }}</td>
-    </tr><tr>
-      <td>Sources/Labels:</td><td>{{ form.sources }}</td>
-    </tr><tr>
-      <td>Song display:</td><td>{{ form.songdisplay }}</td>
-    </tr><tr>
-      <td>Favored orchestras:</td><td>{{ form.favorites }}</td>
-    </tr><tr>
-      {% if form.music_remark.errors.as_text %} 
-      <td class="errorcell">Remarks:</td><td>{{ form.music_remark }}</td>
-      {% else %}
-      <td>Remarks:</td><td>{{ form.music_remark }}</td>
-      {% endif %}
-    </tr><tr>
-      <td>&nbsp;</td><td>&nbsp;</td>
-    </tr><tr>
-      <td><b>Equipment<b></td><td>&nbsp;</td>
-    </tr><tr>
-      <td>Computer:</td><td>{{ form.computer }}</td>
-    </tr><tr>
-      <td>Model:</td><td>{{ form.computermodel }}</td>
-    </tr><tr>
-      <td>Player:</td><td>{{ form.player }}</td>
-    </tr><tr>
-      <td>Audio interface/DAC:</td><td>{{ form.audiointerface }}</td>
 
     </tr><tr>
-      <td>Equalization:</td><td>{{ form.equalization }}</td>
+      <td><b>Musica<b></td><td>&nbsp;</td>
+
     </tr><tr>
-      {% if form.soundprocessor.errors.as_text %} 
-      <td class="errorcell">Equalizer:</td><td>{{ form.soundprocessor }}</td>
+      {% if form.style.errors.as_text %}
+      <td class="errorcell">Style:</td><td class="xsmall">*</td><td>{{ form.style }}</td>
       {% else %}
-      <td>Equalizer:</td><td>{{ form.soundprocessor }}</td>
+      <td>Style:</td><td class="xsmall">*</td><td>{{ form.style }}</td>
       {% endif %}
+
     </tr><tr>
-      <td>Compression:</td><td>{{ form.compression }}</td>
-    </tr><tr>
-      {% if form.soundprocessor2.errors.as_text %} 
-      <td class="errorcell">Compressor:</td><td>{{ form.soundprocessor2 }}</td>
+      {% if form.cortinas.errors.as_text %}
+      <td class="errorcell">Tandas and cortinas:</td><td class="xsmall">*</td><td>{{ form.cortinas }}</td>
       {% else %}
-      <td>Compressor:</td><td>{{ form.soundprocessor2 }}</td>
+      <td>Tandas and cortinas:</td><td class="xsmall">*</td><td>{{ form.cortinas }}</td>
       {% endif %}
+
     </tr><tr>
-      <td>Other equipment:</td><td>{{ form.other_equipment }}</td>
-    </tr><tr>
-      {% if form.equipment_remark.errors.as_text %} 
-      <td class="errorcell">Remarks:</td><td>{{ form.equipment_remark }}</td>
+      {% if form.audioformat.errors.as_text %}
+      <td class="errorcell">Audio format:</td><td class="xsmall">*</td><td>{{ form.audioformat }}</td>
       {% else %}
-      <td>Remarks:</td><td>{{ form.equipment_remark }}</td>
+      <td>Audio format:</td><td class="xsmall">*</td><td>{{ form.audioformat }}</td>
       {% endif %}
+
+
+    </tr><tr>
+      {% if form.audioformat2.errors.as_text %}
+      <td class="errorcell">Alternative audio format:</td><td class="xsmall"></td><td>{{ form.audioformat2 }}</td>
+      {% else %}
+      <td>Alternative audio format:</td><td class="xsmall"></td><td>{{ form.audioformat2 }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.sources.errors.as_text %} 
+      <td class="errorcell">Sources/Labels:</td><td class="xsmall">*</td><td>{{ form.sources }}</td>
+      {% else %}
+      <td>Sources/Labels:</td><td class="xsmall">*</td><td>{{ form.sources }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.songdisplay.errors.as_text %} 
+      <td class="errorcell">Song display:</td><td></td><td>{{ form.songdisplay }}</td>
+      {% else %}
+      <td>Song display:</td><td></td><td>{{ form.songdisplay }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.favorites.errors.as_text %}
+      <td class="errorcell">Favored orchestras:</td><td class="xsmall">*</td><td>{{ form.favorites }}</td>
+      {% else %}
+      <td>Favored orchestras:</td><td class="xsmall">*</td><td>{{ form.favorites }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.music_remark.errors.as_text %}
+      <td class="errorcell">Remarks:</td><td></td><td>{{ form.music_remark }}</td>
+      {% else %}
+      <td>Remarks:</td><td></td><td>{{ form.music_remark }}</td>
+      {% endif %}
+
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
+
+    </tr><tr>
+      <td><b>Equipment<b></td><td>&nbsp;</td>
+
+    </tr><tr>
+      {% if form.computer.errors.as_text %}
+      <td class="errorcell">Computer:</td><td class="xsmall">*</td><td>{{ form.computer }}</td>
+      {% else %}
+      <td>Computer:</td><td class="xsmall">*</td><td>{{ form.computer }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.computermodel.errors.as_text %}
+      <td class="errorcell">Model:</td><td class="xsmall">*</td><td>{{ form.computermodel }}</td>
+      {% else %}
+      <td>Model:</td><td class="xsmall">*</td><td>{{ form.computermodel }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.player.errors.as_text %}
+      <td class="errorcell">Player:</td><td class="xsmall">*</td><td>{{ form.player }}</td>
+      {% else %}
+      <td>Player:</td><td class="xsmall">*</td><td>{{ form.player }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.audiointerface.errors.as_text %}
+      <td class="errorcell">Audio interface/DAC:</td><td class="xsmall">*</td><td>{{ form.audiointerface }}</td>
+      {% else %}
+      <td>Audio interface/DAC:</td><td class="xsmall">*</td><td>{{ form.audiointerface }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.equalization.errors.as_text %}
+      <td class="errorcell">Equalization:</td><td class="xsmall">*</td><td>{{ form.equalization }}</td>
+      {% else %}
+      <td>Equalization:</td><td class="xsmall">*</td><td>{{ form.equalization }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.soundprocessor.errors.as_text %} 
+      <td class="errorcell">Equalizer:</td><td class="xsmall">(*)&nbsp;</td><td>{{ form.soundprocessor }}</td>
+      {% else %}
+      <td>Equalizer:</td><td class="xsmall">(*)&nbsp;</td><td>{{ form.soundprocessor }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.compression.errors.as_text %}
+      <td class="errorcell">Compression:</td><td class="xsmall">*&nbsp;</td><td>{{ form.compression }}</td>
+      {% else %}
+      <td>Compression:</td><td class="xsmall">*&nbsp;</td><td>{{ form.compression }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.soundprocessor2.errors.as_text %} 
+      <td class="errorcell">Compressor:</td><td class="xsmall">(*)</td><td>{{ form.soundprocessor2 }}</td>
+      {% else %}
+      <td>Compressor:</td><td class="xsmall">(*)</td><td>{{ form.soundprocessor2 }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.other_equipment.errors.as_text %}
+      <td class="errorcell">Other equipment:</td><td></td><td>{{ form.other_equipment }}</td>
+      {% else %}
+      <td>Other equipment:</td><td></td><td>{{ form.other_equipment }}</td>
+      {% endif %}
+
+    </tr><tr>
+      {% if form.equipment_remark.errors.as_text %}
+      <td class="errorcell">Remarks:</td><td></td><td>{{ form.equipment_remark }}</td>
+      {% else %}
+      <td>Remarks:</td><td></td><td>{{ form.equipment_remark }}</td>
+      {% endif %}
+
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+
     </tr><tr>
       <td><b>Rescue equipment<b></td><td>&nbsp;</td>
+
     </tr><tr>
-      <td>Computer:</td><td>{{ form.backup_computer }}</td>
+      {% if form.backup_computer.errors.as_text %}
+      <td class="errorcell">Computer:</td><td class="xsmall">*</td><td>{{ form.backup_computer }}</td>
+      {% else %}
+      <td>Computer:</td><td class="xsmall">*</td><td>{{ form.backup_computer }}</td>
+      {% endif %}
+
     </tr><tr>
-      <td>Model:</td><td>{{ form.backup_computermodel }}</td>
+      {% if form.backup_computermodel.errors.as_text %}
+      <td class="errorcell">Model:</td><td class="xsmall">*</td><td>{{ form.backup_computermodel }}</td>
+      {% else %}
+      <td>Model:</td><td class="xsmall">*</td><td>{{ form.backup_computermodel }}</td>
+      {% endif %}
+
     </tr><tr>
-      <td>Player:</td><td>{{ form.backup_player }}</td>
+      {% if form.backup_player.errors.as_text %}
+      <td class="errorcell">Player:</td><td class="xsmall">*</td><td>{{ form.backup_player }}</td>
+      {% else %}
+      <td>Player:</td><td class="xsmall">*</td><td>{{ form.backup_player }}</td>
+      {% endif %}
+
     </tr><tr>
-      <td>Audio interface/DAC:</td><td>{{ form.backup_audiointerface }}</td>
+      {% if form.backup_audiointerface.errors.as_text %}
+      <td class="errorcell">Audio interface/DAC:</td><td class="xsmall"></td><td>{{ form.backup_audiointerface }}</td>
+      {% else %}
+      <td>Audio interface/DAC:</td><td class="xsmall"></td><td>{{ form.backup_audiointerface }}</td>
+      {% endif %}
+
     </tr><tr>
-      <td>Other equipment:</td><td>{{ form.backup_other_equipment }}</td>
+      {% if form.backup_other_equipment.errors.as_text %}
+      <td class="errorcell">Other equipment:</td><td></td><td>{{ form.backup_other_equipment }}</td>
+      {% else %}
+      <td>Other equipment:</td><td></td><td>{{ form.backup_other_equipment }}</td>
+      {% endif %}
+
     </tr><tr>
+
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr>
   </table>
+
   <p class="margin-top">
     <a href="{% url 'djdelete'%}"><button type="button">Delete your registration ...</button></a>
     <a href="{% url 'djdetail' dj.id %}"><button type="button">Abort</button></a>
