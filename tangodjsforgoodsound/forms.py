@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-13 13:20:19 rene>
+# Time-stamp: <2019-01-24 06:55:57 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -56,7 +56,24 @@ class EmailValidationOnForgotPassword(PasswordResetForm):
         return email
 
 
-class ContactForm(forms.Form):
+class MyFormBase(forms.Form):
+
+    any_error = forms.CharField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(MyFormBase, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(MyFormBase, self).clean()
+        for field in self.fields:
+            if not field == "any_error" and not cleaned_data.get(field):
+                self.add_error(field, "field cannot be empty")
+                self.add_error("any_error", "field cannot be empty")
+                msg = "Error because %s empty or not valid"
+                logger.info(msg % field)
+
+
+class ContactForm(MyFormBase):
 
     contact_firstname = forms.CharField(required=True)
     contact_lastname = forms.CharField(required=True)
@@ -75,7 +92,7 @@ class ContactForm(forms.Form):
         self.fields["contact_magic"].label = "Magic"
 
 
-class RegisterForm(forms.Form):
+class RegisterForm(MyFormBase):
 
     register_firstname = forms.CharField(required=True)
     register_lastname = forms.CharField(required=True)
@@ -103,29 +120,37 @@ class RegisterForm(forms.Form):
 
         # Email
         email = self.cleaned_data.get("register_email")
-        request = None
-        if doesEmailExist(request, email):
-            msg = "Email address already known in the system"
-            self.add_error("register_email", msg)
-
-        # Magic
-        magic = self.cleaned_data.get("register_magic")
-        if not magic:
-            msg = "Artist not valid"
-            self.add_error("register_magic", msg)
+        if email:
+            request = None
+            if doesEmailExist(request, email):
+                msg = "Email already known in the system"
+                self.add_error("register_email", msg)
+                self.add_error("any_error", msg)
+                msg = "Error because email already known in the system"
+                logger.info(msg)
 
         # Password
         password1 = self.cleaned_data.get("register_password1")
         password2 = self.cleaned_data.get("register_password2")
-        for password in [password1, password2]:
-            try:
-                validate_password(password)
-            except Exception:
-                msg = "Password not valid"
-                self.add_error("register_password1", msg)
-        if not password1 == password2:
-            msg = "Password_mismatch"
-            self.add_error("register_password2", msg)
+        if password1 and password2:
+            ok = True
+            passwords = [password1, password2]
+            for password in passwords:
+                try:
+                    validate_password(password)
+                except Exception:
+                    ok = False
+                    msg = "Password not valid"
+                    self.add_error("register_password1", msg)
+                    self.add_error("any_error", msg)
+                    msg = "Error because password%d not valid"
+                    logger.info(msg % (passwords.index(password) + 1))
+            if ok and not password1 == password2:
+                msg = "Password_mismatch"
+                self.add_error("register_password2", msg)
+                self.add_error("any_error", msg)
+                msg = "Error because passwords mismatch"
+                logger.info(msg)
 
         return cleaned_data
 
@@ -251,17 +276,17 @@ class DJEditForm(forms.ModelForm):
             anyError = True
 
         userEmail = cleaned_data.get("useremail")
+        print "%s, known: %s" % (userEmail, doesEmailExist(self.request, userEmail))
         if userEmail and doesEmailExist(self.request, userEmail):
-            # use namesort to indicate this Error (HACK!)
-            self.add_error("useremail", "Not unique or user not found")
-            # self.add_error("namesort", "user email address")
+            msg = "Email already known in the system"
+            self.add_error("useremail", msg)
             anyError = True
 
         publicEmail = cleaned_data.get("email")
+        print "%s, known: %s" % (publicEmail, doesEmailExist(self.request, publicEmail))
         if publicEmail and doesEmailExist(self.request, publicEmail):
-            # use namesort to indicate this Error (HACK!)
-            self.add_error("email", "Not unique or user not found")
-            # self.add_error("namesort", "public email address")
+            msg = "Email already known in the system"
+            self.add_error("email", msg)
             anyError = True
 
         for field in self.fields:

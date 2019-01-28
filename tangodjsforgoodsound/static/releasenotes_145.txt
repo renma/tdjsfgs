@@ -1,0 +1,10 @@
+Release notes 1.4.5
+Released: 2019-01-24
+------------------------------------------------------------------------
+
+#86 Register: No longer use browser validation
+              (includes handling of existing email addresses)
+
+#87 Bigger stars for required fields
+
+#89 DJEdit: Existing email addresses should be pointed out
