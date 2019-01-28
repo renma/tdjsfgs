@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-14 06:03:21 rene>
+# Time-stamp: <2019-01-17 12:12:49 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,7 +19,6 @@
 # ----------------------------------------------------------------------
 
 from __future__ import unicode_literals
-import datetime
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User

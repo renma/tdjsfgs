@@ -30,50 +30,81 @@
 <p class="margin-top">
   <h2>Please enter your data</h2>
 
-  <form role="form" action="" method="post">
+  <form role="form" action="" method="post" novalidate>
   {% csrf_token %}
   
-  {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
+  {% if form.any_error.errors.as_text %}
     <script type="text/javascript">
       window.onload = function() {
         window.scrollTo(0, document.body.scrollHeight);
       };
     </script>
-    <p class="error">Sorry, your password input is not valid.</p>
-    <p class="margin-bottom">Possible errors: too short (must be at least 8 characters), too simple (numbers only is not allowed), no match between passwords.</p>
-  {% elif form.register_magic.errors.as_text %}
-    <script type="text/javascript">
-      window.onload = function() {
-        window.scrollTo(0, document.body.scrollHeight);
-      };
-    </script>
-    <p class="margin-bottom">
-      Sorry, this isn't one of the ‚big four‘ orchestras.
-  {% elif form.register_email.errors.as_text %}
-    <script type="text/javascript">
-      window.onload = function() {
-        window.scrollTo(0, document.body.scrollHeight);
-      };
-    </script>
-    <p class="margin-bottom">
-      Sorry, this email address is already known in the system or not valid.
+    {% if form.register_email.errors.as_text == "* Email already known in the system" %}
+      <p class="error">Please correct wrong or missing information<br />Email address already known in the system.</p>
+    {% else %}
+      <p class="error">Please correct wrong or missing information.</p>
+    {% endif %}
+    <p class="margin-bottom">Note: Password must contain at least 8 characters (numeric only is not allowed).</p>
   {% endif %}
 
   <table id="register">
     <tr>
-      <td>{{ form.register_firstname.label }}:</td><td>{{ form.register_firstname }}</td>
+    <tr>
+      {% if form.register_firstname.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_firstname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_firstname }}</td>
+
     </tr><tr>
-      <td>{{ form.register_lastname.label }}:</td><td>{{ form.register_lastname }}</td>
+      {% if form.register_lastname.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_lastname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_lastname }}</td>
+
     </tr><tr>
-      <td>{{ form.register_djname.label }}:</td><td>{{ form.register_djname }}</td>
+      {% if form.register_djname.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_djname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_djname }}</td>
+
     </tr><tr>
-      <td>{{ form.register_email.label }}:</td><td>{{ form.register_email }}</td>
+      {% if form.register_email.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_email.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_email }}</td>
+
     </tr><tr>
-      <td>{{ form.register_password1.label }}:</td><td>{{ form.register_password1 }}</td>
+      {% if form.any_error.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_password1.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_password1 }}</td>
+
     </tr><tr>
-      <td>{{ form.register_password2.label }}:</td><td>{{ form.register_password2 }}</td>
+      {% if  form.any_error.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      {{ form.register_password2.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_password2 }}</td>
+
     </tr><tr>
-      <td>One of the ‚big four‘ orchestras:</td><td>{{ form.register_magic }}</td>
+      {% if form.register_magic.errors.as_text %}
+        <td class="errorcell">
+      {% else %}
+        <td>
+      {% endif %}
+      One of the big four orchestras:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_magic }}</td>
+
     </tr>
   </table>
   <br />
