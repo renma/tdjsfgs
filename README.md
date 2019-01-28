@@ -20,4 +20,4 @@ tangodjsforgoodsound is implemented with
 framework for perfectionists with deadlines.
 
 ## License
-[GNU General Public License Version 3](https://www.gnu.org/licenses/gpl-3.0.txt)
+[GNU General Public License Version 2](https://www.gnu.org/licenses/gpl-2.0.txt)
