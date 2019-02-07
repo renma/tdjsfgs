@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-24 06:55:57 rene>
+# Time-stamp: <2019-02-05 21:02:05 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -257,13 +257,15 @@ class DJEditForm(forms.ModelForm):
 
         anyError = False
 
+        x = cleaned_data.get("soundprocessor")
         if not cleaned_data.get("equalization") == "NEV" and \
-           not cleaned_data.get("soundprocessor"):
+           (not x or x.startswith("-")):
             self.add_error("soundprocessor", "Cannot be empty")
             anyError = True
 
+        x = cleaned_data.get("soundprocessor2")
         if not cleaned_data.get("compression") == "NEV" and \
-           not cleaned_data.get("soundprocessor2"):
+           (not x or x.startswith("-")):
             self.add_error("soundprocessor2", "Cannot be empty")
             anyError = True
 
@@ -276,14 +278,16 @@ class DJEditForm(forms.ModelForm):
             anyError = True
 
         userEmail = cleaned_data.get("useremail")
-        print "%s, known: %s" % (userEmail, doesEmailExist(self.request, userEmail))
+        print "%s, known: %s" % (userEmail, doesEmailExist(self.request,
+                                                           userEmail))
         if userEmail and doesEmailExist(self.request, userEmail):
             msg = "Email already known in the system"
             self.add_error("useremail", msg)
             anyError = True
 
         publicEmail = cleaned_data.get("email")
-        print "%s, known: %s" % (publicEmail, doesEmailExist(self.request, publicEmail))
+        print "%s, known: %s" % (publicEmail, doesEmailExist(self.request,
+                                                             publicEmail))
         if publicEmail and doesEmailExist(self.request, publicEmail):
             msg = "Email already known in the system"
             self.add_error("email", msg)
