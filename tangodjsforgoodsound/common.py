@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-11 16:17:09 rene>
+# Time-stamp: <2019-02-08 06:42:04 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -96,7 +96,7 @@ def sendAnEmail(first, last, emailFrom, content, magic,
         if knownUsers:
             L = ["%s %s" % (stripAccents(u.first_name),
                             stripAccents(u.last_name)) for u in knownUsers]
-            msg = "Known User with this email address : %s"
+            msg = "Known User with this email address : %s."
             emailContent.append(msg % ", ".join(L))
         if knownDJs or knownUsers:
             emailContent.append("")
