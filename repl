@@ -1,0 +1,11 @@
+#!/bin/bash
+# Time-stamp: <2019-02-19 08:28:06 rene>
+
+find . -type f -exec \
+     sed -i "s/class=\"1\"/class=\"p1\"/g" {} +
+
+find . -type f -exec \
+     sed -i "s/class=\"2\"/class=\"p2\"/g" {} +
+
+find . -type f -exec \
+     sed -i "s/class=\"3\"/class=\"p3\"/g" {} +

@@ -1,15 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-{% spaceless %}
-
-<h1>Registration deleted</h1>
-
-<p>
-  Your data has been completly removed from our website.
-
-<p class="margin-top-big">
-  <a href="{% url 'index'%}"><button type="button">&laquo; Back to DJs</button></a>
-
+<div id="djdeleted">
+    <h1>Registration deleted</h1>
+    <p class="p1">Your data has been completly removed from our website.</p>
+    <p class="p2"><a href="{% url 'index'%}"><button type="button">&laquo; Back to DJs</button></a></p>
+</div>
 {% endspaceless %}
 {% endblock %}

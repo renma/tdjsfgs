@@ -1,4 +1,285 @@
-{% extends 'djeditbase.html' %}
-{% block djeditbase %}
-<h1>Please enter your data</h1>
+{% extends 'base.html' %}
+{% block content %}
+<div id="djedit">
+    <h1>Please enter your data</h1>
+
+    <p class="p1"><a href="{% url 'djdetail' dj.id %}"><button type="button">&laquo Back</button></a></p>
+
+    <p class="p1">Please note that your data is not visible on the website as long as <b>Number of Milongas</b>
+        is set to zero.</p>
+
+    <form role="form" action="" method="post" novalidate>
+        {% csrf_token %}
+        {% if form.namesort.errors.as_text %}
+        {% if form.useremail.errors.as_text == "* Email already known in the system" or form.email.errors.as_text == "* Email already known in the system" %}
+        <p class="p2"><span class="error">Please correct wrong or missing information.</span></p>
+        <p class="p1"><span class="error">Email address already known in the system.</span></p>
+        {% else %}
+        <p class="p3"><span class="error">Please correct wrong or missing information.</span></p>
+        {% endif %}
+        {% endif %}
+        <table>
+            <tr>
+                <td>{{ form.namesort.as_hidden }}</td><td></td><td></td>
+            </tr><tr>
+                {# ----- Account data -------------------------------------- #}
+                <td class="title_row">Account data</td><td></td>
+            </tr><tr>
+                {% if form.useremail.errors.as_text %}
+                <td class="error">Login email:</td><td class="xsmall">&lowast;</td><td>{{ form.useremail }}</td>
+                {% else %}
+                <td>Login email:</td><td class="xsmall">&lowast;</td><td>{{ form.useremail }}</td>
+                {% endif %}
+            </tr><tr>
+                <td><p><a href="password"><button type="button">Change password</button></a></p></td>
+                <td></td><td class="infocell1">&rarr; Used for login and password reset (not visible)
+                    <span class="infocell2">best if not identical with address on website.</span></td>
+            </tr><tr>
+                <td></td><td></td>
+            </tr><tr class="blank_row">
+                <td colspan="3"></td>
+            </tr><tr>
+                {# ----- Personal data ------------------------------------- #}
+                <td><b>Personal</b></td><td></td>
+            </tr><tr>
+                {% if form.name.errors.as_text %} 
+                <td class="error">DJ-Name:</td><td class="xsmall">&lowast;</td><td>{{ form.name }}</td>
+                {% else %}
+                <td>DJ-Name:</td><td class="xsmall">&lowast;</td><td>{{ form.name }}</td>
+                {% endif %}
+            </tr><tr>
+                    {% if form.gender.errors.as_text %} 
+                    <td class="error">Gender:</td><td class="xsmall">&lowast;</td><td>{{ form.gender }}</td>
+                    {% else %}
+                    <td>Gender:</td><td class="xsmall">&lowast;</td><td>{{ form.gender }}</td>
+                    {% endif %}
+            </tr><tr>
+                {% if form.country.errors.as_text %}
+                <td class="error">Country:</td><td class="xsmall">&lowast;</td><td>{{ form.country }}</td>
+                {% else %}
+                <td>Country:</td><td class="xsmall">&lowast;</td><td>{{ form.country }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.province.errors.as_text %} 
+                <td class="error">Region or City:</td><td class="xsmall">&lowast;</td><td>{{ form.province }}</td>
+                {% else %}
+                <td>Region or City:</td><td class="xsmall">&lowast;</td><td>{{ form.province }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.since.errors.as_text %}
+                <td class="error">DJ since:</td><td class="xsmall">&lowast;</td><td>{{ form.since }}</td>
+                {% else %}
+                <td>DJ since:</td><td class="xsmall">&lowast;</td><td>{{ form.since }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.number_of_milongas.errors.as_text %}
+                <td class="error">Number of Milongas:</td><td class="xsmall">&lowast;</td><td>{{ form.number_of_milongas }}</td>
+                {% else %}
+                <td>Number of Milongas:</td><td class="xsmall">&lowast;</td><td>{{ form.number_of_milongas }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.resident_dj_website.errors.as_text %}
+                <td class="error">Resident DJ website:</td><td></td><td>{{ form.resident_dj_website }}</td>
+                {% else %}
+                <td>Resident DJ website:</td><td></td><td>{{ form.resident_dj_website }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.resident_dj_location.errors.as_text %} 
+                <td class="error">Resident DJ location:</td><td></td><td>{{ form.resident_dj_location }}</td>
+                {% else %}
+                <td>Resident DJ location:</td><td></td><td>{{ form.resident_dj_location }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.website.errors.as_text %}
+                <td class="error">Website:</td><td></td><td>{{ form.website }}</td>
+                {% else %}
+                <td>Website:</td><td></td><td>{{ form.website }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.email.errors.as_text %} 
+                <td class="error">Email:</td><td></td><td>{{ form.email }}</td>
+                {% else %}
+                <td>Email:</td><td></td><td>{{ form.email }}</td>
+                {% endif %}
+            </tr><tr>
+                <td></td><td></td><td class="infocell1">&rarr; Optional email address for contacting you
+                    <span class="infocell2">will be obfuscated - against SPAM.</span></td>
+            </tr><tr>
+                <td></td><td></td>
+            </tr><tr class="blank_row">
+                <td colspan="3"></td>
+            </tr><tr>
+                {# ----- Musica -------------------------------------------- #}
+                <td class="title_row">Musica</td><td></td>
+            </tr><tr>
+                {% if form.style.errors.as_text %}
+                <td class="error">Style:</td><td class="xsmall">&lowast;</td><td>{{ form.style }}</td>
+                {% else %}
+                <td>Style:</td><td class="xsmall">&lowast;</td><td>{{ form.style }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.cortinas.errors.as_text %}
+                <td class="error">Tandas and cortinas:</td><td class="xsmall">&lowast;</td><td>{{ form.cortinas }}</td>
+                {% else %}
+                <td>Tandas and cortinas:</td><td class="xsmall">&lowast;</td><td>{{ form.cortinas }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.audioformat.errors.as_text %}
+                <td class="error">Audio format:</td><td class="xsmall">&lowast;</td><td>{{ form.audioformat }}</td>
+                {% else %}
+                <td>Audio format:</td><td class="xsmall">&lowast;</td><td>{{ form.audioformat }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.audioformat2.errors.as_text %}
+                <td class="error">Alternative audio format:</td><td class="xsmall"></td><td>{{ form.audioformat2 }}</td>
+                {% else %}
+                <td>Alternative audio format:</td><td class="xsmall"></td><td>{{ form.audioformat2 }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.sources.errors.as_text %} 
+                <td class="error">Sources/Labels:</td><td class="xsmall">&lowast;</td><td>{{ form.sources }}</td>
+                {% else %}
+                <td>Sources/Labels:</td><td class="xsmall">&lowast;</td><td>{{ form.sources }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.songdisplay.errors.as_text %} 
+                <td class="error">Song display:</td><td></td><td>{{ form.songdisplay }}</td>
+                {% else %}
+                <td>Song display:</td><td></td><td>{{ form.songdisplay }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.favorites.errors.as_text %}
+                <td class="error">Favored orchestras:</td><td class="xsmall">&lowast;</td><td>{{ form.favorites }}</td>
+                {% else %}
+                <td>Favored orchestras:</td><td class="xsmall">&lowast;</td><td>{{ form.favorites }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.music_remark.errors.as_text %}
+                <td class="error">Remarks:</td><td></td><td>{{ form.music_remark }}</td>
+                {% else %}
+                <td>Remarks:</td><td></td><td>{{ form.music_remark }}</td>
+                {% endif %}
+            </tr><tr>
+                <td></td><td></td>
+            </tr><tr class="blank_row">
+                <td colspan="3"></td>
+            </tr><tr>
+                {# ----- Equipment ----------------------------------------- #}
+                <td class="title_row">Equipment</td><td></td>
+            </tr><tr>
+                {% if form.computer.errors.as_text %}
+                <td class="error">Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
+                {% else %}
+                <td>Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.computermodel.errors.as_text %}
+                <td class="error">Model:</td><td class="xsmall">&lowast;</td><td>{{ form.computermodel }}</td>
+                {% else %}
+                <td>Model:</td><td class="xsmall">&lowast;</td><td>{{ form.computermodel }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.player.errors.as_text %}
+                <td class="error">Player:</td><td class="xsmall">&lowast;</td><td>{{ form.player }}</td>
+                {% else %}
+                <td>Player:</td><td class="xsmall">&lowast;</td><td>{{ form.player }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.audiointerface.errors.as_text %}
+                <td class="error">Audio interface/DAC:</td><td class="xsmall">&lowast;</td><td>{{ form.audiointerface }}</td>
+                {% else %}
+                <td>Audio interface/DAC:</td><td class="xsmall">&lowast;</td><td>{{ form.audiointerface }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.equalization.errors.as_text %}
+                <td class="error">Equalization:</td><td class="xsmall">&lowast;</td><td>{{ form.equalization }}</td>
+                {% else %}
+                <td>Equalization:</td><td class="xsmall">&lowast;</td><td>{{ form.equalization }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.soundprocessor.errors.as_text %} 
+                <td class="error">Equalizer:</td><td class="xsmall">(&lowast;);</td><td>{{ form.soundprocessor }}</td>
+                {% else %}
+                <td>Equalizer:</td><td class="xsmall">(&lowast;)</td><td>{{ form.soundprocessor }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.compression.errors.as_text %}
+                <td class="error">Compression:</td><td class="xsmall">&lowast;</td><td>{{ form.compression }}</td>
+                {% else %}
+                <td>Compression:</td><td class="xsmall">&lowast;</td><td>{{ form.compression }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.soundprocessor2.errors.as_text %} 
+                <td class="error">Compressor:</td><td class="xsmall">(&lowast;)</td><td>{{ form.soundprocessor2 }}</td>
+                {% else %}
+                <td>Compressor:</td><td class="xsmall">(&lowast;)</td><td>{{ form.soundprocessor2 }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.other_equipment.errors.as_text %}
+                <td class="error">Other equipment:</td><td></td><td>{{ form.other_equipment }}</td>
+                {% else %}
+                <td>Other equipment:</td><td></td><td>{{ form.other_equipment }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.equipment_remark.errors.as_text %}
+                <td class="error">Remarks:</td><td></td><td>{{ form.equipment_remark }}</td>
+                {% else %}
+                <td>Remarks:</td><td></td><td>{{ form.equipment_remark }}</td>
+                {% endif %}
+            </tr><tr>
+                <td></td><td></td>
+            </tr><tr class="blank_row">
+                <td colspan="3"></td>
+            </tr><tr>
+                {# ----- Rescue equipment ------------------------------ #}
+                <td class="title_row">Rescue equipment</td><td></td>
+            </tr><tr>
+                {% if form.backup_computer.errors.as_text %}
+                <td class="error">Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
+                {% else %}
+                <td>Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.backup_computermodel.errors.as_text %}
+                <td class="error">Model:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computermodel }}</td>
+                {% else %}
+                <td>Model:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computermodel }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.backup_player.errors.as_text %}
+                <td class="error">Player:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_player }}</td>
+                {% else %}
+                <td>Player:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_player }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.backup_audiointerface.errors.as_text %}
+                <td class="error">Audio interface/DAC:</td><td class="xsmall"></td><td>{{ form.backup_audiointerface }}</td>
+                {% else %}
+                <td>Audio interface/DAC:</td><td class="xsmall"></td><td>{{ form.backup_audiointerface }}</td>
+                {% endif %}
+            </tr><tr>
+                {% if form.backup_other_equipment.errors.as_text %}
+                <td class="error">Other equipment:</td><td></td><td>{{ form.backup_other_equipment }}</td>
+                {% else %}
+                <td>Other equipment:</td><td></td><td>{{ form.backup_other_equipment }}</td>
+                {% endif %}
+            </tr>
+        </table>
+
+        <p class="p3">
+            <a href="{% url 'djdelete'%}"><button type="button">Delete your registration ...</button></a>
+            <a href="{% url 'djdetail' dj.id %}"><button type="button">Abort</button></a>
+            <button type="submit">Save</button>
+        </p>
+    </form>
+
+    <p class="p5">
+        <ul>
+            <li>We use good quality transfers of the original recordings.</li>
+            <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).</li>
+            <li>We use good quality audio tools and software (e.g. interfaces, sound cards, DACs, sound processors).</li>
+        </ul>
+    </p>
+
+</div>
 {% endblock %}

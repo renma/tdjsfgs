@@ -1,85 +1,72 @@
 {% extends 'base.html' %}
 {% block content %}
-{% spaceless %}
-
-<h1>Get in touch</h1>
-
-<p class="margin-bottom">
-  We love to hear from engaged Tango DJs providing good sound for
-  their audience. We really appreciate your taking the time to get in
-  touch.
-
-<p class="margin-bottom">
-  Please fill in the form below. We will get back to you shortly,
-  usually within two or three days. For sure, we will never pass any
-  of your data to third parties.
-
-<p class="margin-bottom">
-  For registration purpose please use the
-  <a href ="{% url 'register' %}">registration site</a>.
-
-<p class="margin-top">
-<h2>Please enter your data</h2>
-
-  {% if form.any_error.errors.as_text %}
+<div id="contact">
+    <h1>Get in touch</h1>
+    <p class="p1">We love to hear from engaged Tango DJs providing good sound for their audience.
+        We really appreciate your taking the time to get in
+        touch.
+    </p>
+    <p class="p1">Please fill in the form below. We will get back to you shortly, usually within
+        two or three days. For sure, we will never pass any of your data to third parties.
+    </p>
+    <p class="p1">For registration purpose please use the
+        <a href ="{% url 'register' %}">registration site</a>.</p>
+    <h2>Please enter your data</h2>
+    {% if form.any_error.errors.as_text %}
     <script type="text/javascript">
-      window.onload = function() {
-        window.scrollTo(0, document.body.scrollHeight);
-      };
+     window.onload = function() {
+         window.scrollTo(0, document.body.scrollHeight);
+     };
     </script>
-    <p class="error">Please correct wrong or missing information.</p>
-    <p>&nbsp;</p>
-  {% endif %}
+    <p class="p1"><span class="error">Please correct wrong or missing information.</span></p>
+    {% endif %}
 
-  <form role="form" action="" method="post" novalidate>
-    {% csrf_token %}
-    <table id="contact">
-
-    <tr>
-      {% if form.contact_firstname.errors.as_text %}
-        <td class="errorcell">
-      {% else %}
-        <td>
-      {% endif %}
-      {{ form.contact_firstname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.contact_firstname }}</td>
-
-    </tr><tr>
-      {% if form.contact_lastname.errors.as_text %}
-        <td class="errorcell">
-      {% else %}
-        <td>
-      {% endif %}
-      {{ form.contact_lastname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.contact_lastname }}</td>
-
-    </tr><tr>
-      {% if form.contact_email.errors.as_text %}
-        <td class="errorcell">
-      {% else %}
-        <td>
-      {% endif %}
-      {{ form.contact_email.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.contact_email }}</td>
-
-    </tr><tr>
-      {% if form.contact_content.errors.as_text %}
-        <td class="errorcell">
-      {% else %}
-        <td>
-      {% endif %}
-      {{ form.contact_content.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.contact_content }}</td>
-
-    </tr><tr>
-      {% if form.contact_magic.errors.as_text %}
-        <td class="errorcell">
-      {% else %}
-        <td>
-      {% endif %}
-      One of the big four orchestras:</td><td class="xsmall2">&lowast;</td><td>{{ form.contact_magic }}</td>
-
-    </tr>
-    </table>
-    <br />
-    <button type="submit">Submit</button>
-  </form>
-  
-{% endspaceless %}
+    <form role="form" action="" method="post" novalidate>
+        {% csrf_token %}
+        <table>
+            <tr>
+                {% if form.contact_firstname.errors.as_text %}
+                <td class="error">{{ form.contact_firstname.label }}:</td>
+                {% else %}
+                <td>{{ form.contact_firstname.label }}:</td>
+                {% endif %}
+                <td class="small">&lowast;</td>
+                <td>{{ form.contact_firstname }}</td>
+            </tr><tr>
+                {% if form.contact_lastname.errors.as_text %}
+                <td class="error">{{ form.contact_lastname.label }}:</td>
+                {% else %}
+                <td>{{ form.contact_lastname.label }}:</td>
+                {% endif %}
+                <td class="small">&lowast;</td>
+                <td>{{ form.contact_lastname }}</td>
+            </tr><tr>
+                {% if form.contact_email.errors.as_text %}
+                <td class="error">{{ form.contact_email.label }}:</td>
+                {% else %}
+                <td>{{ form.contact_email.label }}:</td>
+                {% endif %}
+                <td class="small">&lowast;</td>
+                <td>{{ form.contact_email }}</td>
+            </tr><tr>
+                {% if form.contact_content.errors.as_text %}
+                <td class="error">{{ form.contact_content.label }}:</td>
+                {% else %}
+                <td>{{ form.contact_content.label }}:</td>
+                {% endif %}
+                <td class="small">&lowast;</td>
+                <td>{{ form.contact_content }}</td>
+            </tr><tr>
+                {% if form.contact_magic.errors.as_text %}
+                <td class="error">One of the big four orchestras:</td>
+                {% else %}
+                <td>One of the big four orchestras:</td>
+                {% endif %}
+                <td class="small">&lowast;</td>
+                <td>{{ form.contact_magic }}</td>
+            </tr>
+        </table>
+        <p class="p3"><button type="submit">Submit</button></p>
+    </form>
+</div>
 {% endblock %}

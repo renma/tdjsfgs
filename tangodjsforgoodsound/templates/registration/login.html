@@ -1,49 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
+<div id="login">
+    <h1>Please login</h1>
+    {% if form.errors %}
+    <p class="error">Sorry, your username and password didn't match.</p>
+    <p class="p1">Please try again.</p>
+    {% else %}
+    <p class="p1">After login you can enter or change your personal data.</p>
+    {% endif %}
 
-<h1>Please login</h1>
-
-  {% if form.errors %}
-    <p class="error">Sorry, your username and password didn't match.
-    <p class="margin-bottom">Please try again.</p>
-  {% else %}
-    <p>After login you can enter or change your personal data.</p>
-  {% endif %}
-
-{% if next %}
-  {% if user.is_authenticated %}
+    {% if next %}
+    {% if user.is_authenticated %}
     <h2>Your account doesn't have access to this page.</h2>
-  {% else %}
-    <p>&nbsp;</p>
-  {% endif %}
-{% endif %}
+    {% endif %}
+    {% endif %}
 
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                {#<td>{{ form.username.label_tag }}</td>#}
+                <td>Login email:</td>
+                <td>{{ form.username }}</td>
+            </tr><tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+        <p class="p3">
+            <input type="submit" value="Login" />
+            <input type="hidden" name="next" value="" />
+        </p>
+    </form>
 
-<table id="login">
-  <tr>
-  {#<td>{{ form.username.label_tag }}</td>#}
-  <td>Login email:</td>
-  <td>{{ form.username }}</td>
-  </tr>
-  <tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-  </tr>
-  <tr>
-</table>
+    <p class="p2">
+        <a href="{% url 'password_reset' %}">Password reset?</a></b>
+    </p>
 
-<p class="margin-top">
-  <input type="submit" value="Login" />
-  <input type="hidden" name="next" value="" />
-
-</form>
-
-
-<p class="margin-top-big">
-  <a href="{% url 'password_reset' %}">Password reset?</a></b>
-
-
+</div>
 {% endblock %}

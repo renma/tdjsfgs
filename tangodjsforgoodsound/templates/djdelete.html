@@ -1,22 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-{% spaceless %}
-
-<h1>Delete registration</h1>
-
-<p>
-  This will permanently delete your data.
-
-<p>
-  Please confirm in case you are sure.
-
-<p class="margin-top-big">
-  <form role="form" action="" method="post">
-    {% csrf_token %}
-    <a href="{% url 'djedit'%}?next={{request.path}}"><button type="button">&laquo; Back to edit</button></a>
-    &nbsp;<button type="submit">Delete your registration ...</button>
-  </form>
-
+<div id="djdelete">
+    <h1>Delete registration</h1>
+    <p class="p1">This will permanently delete your data.</p>
+    <p class="p1">Please confirm in case you are sure.</p>
+    <p class="p2">
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            <a href="{% url 'djedit'%}?next={{request.path}}"><button type="button">&laquo; Back to edit</button></a>
+            <button type="submit">Delete your registration ...</button>
+        </form>
+    </p>
+</div>
 {% endspaceless %}
 {% endblock %}

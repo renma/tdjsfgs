@@ -1,161 +1,159 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load hide_email %}
+<div id="djdetail">
 
-<h1>{{ dj.name }}</h1>
-<p class="margin-bottom">
-
-  {% if dj.user == user %}
-    <a href="{% url 'djedit' %}"><button type="button">Edit</button></a>
-    <a href="{% url 'customlogout'%}"><button type="button">Logout</button></a>
-  {% endif %}
-  
-  <table id="djview">
-    <tr>
-    </tr><tr>
-    {% if dj.since %}
-    {% if dj.number_of_milongas %}
-    {% if dj.gender == "MAL" %}
-      <td>Summary:</td><td> {{ dj.get_style_display }} Tango DJ<br />Since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
-    {% else %}
-      <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJ<br />Since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas</td>
+    <h1>{{ dj.name }}</h1>
+    {% if dj.user == user %}
+    <p class="p1">
+        <a href="{% url 'djedit' %}"><button type="button">Edit</button></a>
+        <a href="{% url 'customlogout'%}"><button type="button">Logout</button></a>
+    </p>
     {% endif %}
-    {% endif %}
-    {% endif %}
-    </tr><tr>
-      <td>Country:</td><td>{{ dj.country.name }}</td>
-    </tr><tr>
-      <td>Region or City:</td><td>{{ dj.province }}</td>
-    </tr><tr>
-      {% if dj.email %}
-        <td>Email:</td><td>{{ dj.email|encode_mailto }}</td>
-      {% else %}
-        <td>Email:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-      {% if dj.website %}
-        {% if dj.website == "None" %}
-          <td>Website:</td><td>-</a></td>
-        {% else %}
-          <td>Website:</td><td><a href="{{ dj.website }}" target="_new">{{ dj.website }}</a></td>
-        {% endif %}
-      {% else %}
-        <td>Website:</td><td>-</a></td>
-      {% endif %}
-
-    </tr><tr>
-      {% if dj.resident_dj_location or dj.resident_dj_website %}
-        {% if dj.resident_dj_location and dj.resident_dj_website %}
-          <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{ dj.resident_dj_location }}</a></td>
-        {% endif %}
-        {% if dj.resident_dj_location and not dj.resident_dj_website %}
-            <td>Resident DJ:</td><td>{{ dj.resident_dj_location }}<td>
-        {% endif %}
-        {% if not dj.resident_dj_location and dj.resident_dj_website %}
-            <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{  dj.resident_dj_website }}</a></td>
-        {% endif %}
-      {% else %}
-        <td>Resident DJ:</td><td>-</a></td>
-      {% endif %}
-
-   </tr><tr>
-      <td>&nbsp;</td><td></td>
-    </tr><tr>
-      <td><b>Musica<b></td><td></td>
-    </tr><tr>
-      <td>Style:</td><td>{{ dj.get_style_display }}</td>
-    </tr><tr>
-      <td>Tandas and cortinas:</td><td>{{ dj.get_cortinas_display }} </td>
-    </tr><tr>
-      <td>Audio format:</td><td>{{ dj.get_audioformat_display }}</td>
-    </tr><tr>
-    {% if dj.audiofromat2 %}
-      <td>Alternative audio format:</td><td>{{ dj.get_audiofromat2_display }}</td>
-    {% else %}
-      <td>Alternative audio format:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-      <td>Sources/Labels:</td><td>{{ dj.sources }}</td>
-    </tr><tr>
-      <td>Favored orchestras:</td><td>{{ dj.favorites }}</td>
-    </tr><tr>
-    {% if dj.songdisplay %}
-      <td>Song display:</td><td>{{ dj.songdisplay }}</td>
-    {% else %}
-      <td>Song display:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-    {% if dj.music_remark %}
-      <td>Remarks:</td><td class="infocell">{{ dj.music_remark|wordwrap:50|linebreaks }}</td>
-    {% else %}
-      <td>Remarks:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-      <td>&nbsp;</td><td></td>
-    </tr><tr>
-      <td><b>Equipment<b></td><td></td>
-    </tr></tr>
-      <td>Computer:</td><td>{{ dj.get_computer_display }}</td>
-    </tr></tr>
-      <td>Model:</td><td>{{ dj.computermodel }}</td>
-    </tr></tr>
-      <td>Player:</td><td>{{ dj.player }}</td>
-    </tr></tr>
-      <td>Audio interface/DAC:</td><td>{{ dj.audiointerface }}</td>
-    </tr></tr>
-      <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
-    </tr></tr>
-    {% if dj.soundprocessor %}
-      <td>Equalizer:</td><td>{{ dj.soundprocessor }}</td>
-    {% else %}
-      <td>Equalizer:</td><td>-</td>
-    {% endif %}
-    </tr></tr>
-      <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
-    </tr></tr>
-    {% if dj.soundprocessor2 %}
-      <td>Compressor:</td><td>{{ dj.soundprocessor2 }}</td>
-    {% else %}
-      <td>Compressor:</td><td>-</td>
-    {% endif %}
-    </tr></tr>
-    {% if dj.other_equipment %}
-      <td>Other equipment:</td><td>{{ dj.other_equipment }}</td>
-    {% else %}
-      <td>Other equipment:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-    {% if dj.equipment_remark %}
-      <td>Remarks:</td><td class="infocell">{{ dj.equipment_remark|wordwrap:50|linebreaks }}</td>
-    {% else %}
-      <td>Remarks:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-      <td>&nbsp;</td><td></td>
-    </tr><tr>
-      <td><b>Rescue equipment<b></td><td></td>
-    </tr></tr>
-      <td>Computer:</td><td>{{ dj.get_backup_computer_display }}</td>
-    </tr></tr>
-      <td>Model:</td><td>{{ dj.backup_computermodel }}</td>
-    </tr></tr>
-      <td>Player:</td><td>{{ dj.backup_player }}</td>
-    </tr></tr>
-    {% if dj.backup_audiointerface %}
-      <td>Audio interface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
-    {% else %}
-      <td>Audio interface/DAC:</td><td>-</td>
-    {% endif %}
-    </tr></tr>
-    {% if dj.backup_other_equipment %}
-      <td>Other equipment:</td><td>{{ dj.backup_other_equipment }}</td>
-    {% else %}
-      <td>Other equipment:</td><td>-</td>
-    {% endif %}
-    </tr><tr>
-    <td><b>&nbsp;<b></td><td></td>
-    </tr></tr>
-    <td>Last changed:</td><td>{{ dj.last_changed }}</td>
-  </tr>
-  </table>
+    
+    <table>
+        <tr>
+            <td class="title_row">Overview</td><td></td>
+        </tr><tr>
+            <td>Summary:</td><td>{{ dj.get_style_display }} Tango DJ
+                    (since {{ dj.since }} with about {{ dj.number_of_milongas }} milongas)</td>
+        </tr><tr>
+            <td>Country:</td><td>{{ dj.country.name }}</td>
+        </tr><tr>
+            <td>Region or City:</td><td>{{ dj.province }}</td>
+        </tr><tr>
+            {% if dj.email %}
+            <td>Email:</td><td>{{ dj.email|encode_mailto }}</td>
+            {% else %}
+            <td>Email:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.website %}
+            {% if dj.website == "None" %}
+            <td>Website:</td><td>-</a></td>
+            {% else %}
+            <td>Website:</td><td><a href="{{ dj.website }}" target="_new">{{ dj.website }}</a></td>
+            {% endif %}
+            {% else %}
+            <td>Website:</td><td>-</a></td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.resident_dj_location or dj.resident_dj_website %}
+            {% if dj.resident_dj_location and dj.resident_dj_website %}
+            <td>Resident DJ:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{ dj.resident_dj_location }}</a></td>
+            {% else %}
+            {% if dj.resident_dj_website %}
+            <td>Resident DJ:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{  dj.resident_dj_website }}</a></td>
+            {% else %}
+            <td>Resident DJ:</td><td>{{ dj.resident_dj_location }}</td>
+            {% endif %}
+            {% endif %}
+            {% else %}
+            <td>Resident DJ:</td><td>-</td>
+            {% endif %}
+        </tr><tr class="blank_row">
+            <td colspan="2"></td>
+        </tr><tr>
+            <td class="title_row">Musica</td><td></td>
+        </tr><tr>
+            <td>Style:</td><td>{{ dj.get_style_display }}</td>
+        </tr><tr>
+            <td>Tandas and cortinas:</td><td>{{ dj.get_cortinas_display }}</td>
+        </tr><tr>
+            <td>Audio format:</td><td>{{ dj.get_audioformat_display }}</td>
+        </tr><tr>
+            {% if dj.audiofromat2 %}
+            <td>Alternative audio format:</td><td>{{ dj.get_audiofromat2_display }}</td>
+            {% else %}
+            <td>Alternative audio format:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            <td>Sources/Labels:</td><td>{{ dj.sources }}</td>
+        </tr><tr>
+            <td>Favored orchestras:</td><td>{{ dj.favorites }}</td>
+        </tr><tr>
+            {% if dj.songdisplay %}
+            <td>Song display:</td><td>{{ dj.songdisplay }}</td>
+            {% else %}
+            <td>Song display:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.music_remark %}
+            <td>Remarks:</td><td class="infocell">{{ dj.music_remark|wordwrap:50|linebreaks }}</td>
+            {% else %}
+            <td>Remarks:</td><td>-</td>
+            {% endif %}
+        </tr><tr class="blank_row">
+            <td colspan="2"></td>
+        </tr><tr>
+            <td class="title_row">Equipment</td><td></td>
+        </tr><tr>
+            <td>Computer:</td><td>{{ dj.get_computer_display }}</td>
+        </tr><tr>
+            <td>Model:</td><td>{{ dj.computermodel }}</td>
+        </tr><tr>
+            <td>Player:</td><td>{{ dj.player }}</td>
+        </tr><tr>
+            <td>Audio interface/DAC:</td><td>{{ dj.audiointerface }}</td>
+        </tr><tr>
+            <td>Equalization:</td><td>{{ dj.get_equalization_display }}</td>
+        </tr><tr>
+            {% if dj.soundprocessor %}
+            <td>Equalizer:</td><td>{{ dj.soundprocessor }}</td>
+            {% else %}
+            <td>Equalizer:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            <td>Compression:</td><td>{{ dj.get_compression_display }}</td>
+        </tr><tr>
+            {% if dj.soundprocessor2 %}
+            <td>Compressor:</td><td>{{ dj.soundprocessor2 }}</td>
+            {% else %}
+            <td>Compressor:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.other_equipment %}
+            <td>Other equipment:</td><td>{{ dj.other_equipment }}</td>
+            {% else %}
+            <td>Other equipment:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.equipment_remark %}
+            <td>Remarks:</td><td class="infocell">{{ dj.equipment_remark|wordwrap:50|linebreaks }}</td>
+            {% else %}
+            <td>Remarks:</td><td>-</td>
+            {% endif %}
+        </tr><tr class="blank_row">
+            <td colspan="2"></td>
+        </tr><tr>
+            <td class="title_row">Rescue equipment</td><td></td>
+        </tr><tr>
+            <td>Computer:</td><td>{{ dj.get_backup_computer_display }}</td>
+        </tr><tr>
+            <td>Model:</td><td>{{ dj.backup_computermodel }}</td>
+        </tr><tr>
+            <td>Player:</td><td>{{ dj.backup_player }}</td>
+        </tr><tr>
+            {% if dj.backup_audiointerface %}
+            <td>Audio interface/DAC:</td><td>{{ dj.backup_audiointerface }}</td>
+            {% else %}
+            <td>Audio interface/DAC:</td><td>-</td>
+            {% endif %}
+        </tr><tr>
+            {% if dj.backup_other_equipment %}
+            <td>Other equipment:</td><td>{{ dj.backup_other_equipment }}</td>
+            {% else %}
+            <td>Other equipment:</td><td>-</td>
+            {% endif %}
+        </tr><tr class="invisible_row">
+            <td colspan="2"></td>
+        </tr><tr class="blank_row">
+            <td colspan="2"></td>
+        </tr><tr class="invisible_row">
+            <td colspan="2"></td>
+        </tr><tr>
+            <td>Last changed:</td><td>{{ dj.last_changed }}</td>
+        </tr>
+    </table>
+</div>
 {% endblock %}

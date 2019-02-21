@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Time-stamp: <2017-12-16 10:12:16 rene>
+# Time-stamp: <2019-02-13 11:22:33 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -23,35 +23,43 @@ import csv
 import os
 
 
-x = os.curdir
-srcFile = os.path.join(x, "RESOURCES", "linkpage.csv")
-dstFile = os.path.join(x, "tangodjsforgoodsound", "templates", "linkpage.html")
-template = "<p class=\"linkpage\">" \
-    "<a target=\"_blank\" href=\"%s\">%s</a><br />%s"
-
-
 if __name__ == "__main__":
 
+    template = (
+        "{%% extends 'base.html' %%}\n"
+        "{%% block content %%}\n"
+        "{%% spaceless %%}\n"
+        "<div class=\"linkpage\">\n"
+         "    <h1>Links</h1>\n"
+        "%s"
+        "</div>\n"
+        "{%% endspaceless %%}\n"
+        "{%% endblock %%}\n")
+
+    template2 = (
+       "    <p class=\"1\"><a target=\"_blank\" href=\"%s\">%s</a></p>\n"
+       "    <p class=\"2\">%s</p>")
+
     links = []
+    x = os.curdir
+    srcFile = os.path.join(x, "RESOURCES/linkpage.csv")
+    dstFile = os.path.join(x, "tangodjsforgoodsound/templates/linkpage.html")
+    
     with open(srcFile, "rb") as csvfile:
         print "%s found" % srcFile[2:]
         xreader = csv.reader(csvfile)
         for row in xreader:
             links.append(row)
+
+    linksContent = ""
     if links:
-        content = []
-        content.append("{% extends 'base.html' %}")
-        content.append("{% block content %}")
-        content.append("<h1>Links</h1>")
-        content.append("<div class=\"linkpage\">")
         for link, linkName, linkDesc in links:
             if link:
-                content.append(template % (link, linkName, linkDesc))
-        content.append("</div>")
-        content.append("{% endblock %}")
-        with open(dstFile, "w") as f:
-            f.write(os.linesep.join(content))
+                x = template2 % (link, linkName, linkDesc)
+                linksContent = "%s%s\n" % (linksContent, x)
+    content = template % linksContent
+
+    with open(dstFile, "w") as f:
+        f.write(content)
         print "%d link entries created" % (len(links))
         print "%s READY!" % dstFile[2:]
-    else:
-        print "%s not written" % dstFile[2:]
