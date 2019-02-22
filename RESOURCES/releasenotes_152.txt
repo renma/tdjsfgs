@@ -1,0 +1,7 @@
+Release notes 1.5.2
+Released: 2019-02-21
+------------------------------------------------------------------------
+
+#93 Resident DJ Label not unique
+
+#94 Menu entry "DJ name" wrong (when logged in)

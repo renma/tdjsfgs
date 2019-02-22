@@ -46,13 +46,13 @@
     </tr><tr>
       {% if dj.resident_dj_location or dj.resident_dj_website %}
         {% if dj.resident_dj_location and dj.resident_dj_website %}
-          <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{ dj.resident_dj_location }}</a></td>
+          <td>Resident DJ:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{ dj.resident_dj_location }}</a></td>
         {% endif %}
         {% if dj.resident_dj_location and not dj.resident_dj_website %}
             <td>Resident DJ:</td><td>{{ dj.resident_dj_location }}<td>
         {% endif %}
         {% if not dj.resident_dj_location and dj.resident_dj_website %}
-            <td>Resident DJ at:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{  dj.resident_dj_website }}</a></td>
+            <td>Resident DJ:</td><td><a href="{{ dj.resident_dj_website }}" target="_new">{{  dj.resident_dj_website }}</a></td>
         {% endif %}
       {% else %}
         <td>Resident DJ:</td><td>-</a></td>

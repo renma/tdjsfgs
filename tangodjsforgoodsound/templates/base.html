@@ -32,7 +32,7 @@
           <li><a href ="/admin">Admin</a></li>
         {% else %}
           {% if dj %}
-            <li><a href="{% url 'djdetail' dj.id %}">{{ dj.name|truncatechars:14 }}</a></li>
+            <li><a href="{% url 'djdetail' user.dj.id %}">{{ user.dj.name|truncatechars:14 }}</a></li>
           {% endif %}
         {% endif %}
       {% else %}
