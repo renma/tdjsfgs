@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2019-02-21 16:39:28 rene>
+# Time-stamp: <2019-03-20 10:08:37 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,7 +19,7 @@
 #
 # ----------------------------------------------------------------------
 
-RELEASE=152
+RELEASE=153
 
 localdir=/home/rene/mysite
 remotedir=/home/rem/ALL/mysite

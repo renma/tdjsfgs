@@ -1,4 +1,4 @@
-# Time-stamp: <2019-02-05 21:02:05 rene>
+# Time-stamp: <2019-03-20 10:05:09 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -71,6 +71,12 @@ class MyFormBase(forms.Form):
                 self.add_error("any_error", "field cannot be empty")
                 msg = "Error because %s empty or not valid"
                 logger.info(msg % field)
+                if field == "contact_magic":
+                    for x in self.fields:
+                        val = cleaned_data.get(x)
+                        if not val:
+                            val = ""
+                        logger.info(">>> %s = %s" % (x, val))
 
 
 class ContactForm(MyFormBase):

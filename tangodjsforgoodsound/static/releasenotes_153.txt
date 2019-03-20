@@ -1,0 +1,5 @@
+Release notes 1.5.3
+Released: 2019-03-20
+------------------------------------------------------------------------
+
+Complete log entries when contact magic fails.
