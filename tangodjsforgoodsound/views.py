@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-14 06:03:34 rene>
+# Time-stamp: <2019-03-07 16:00:47 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -143,6 +143,12 @@ def contactfeedback(request):
     context = createDJContext(request, DJ)
     return render(request, "contactfeedback.html", context)
 
+def menu(request):
+    log()
+    url = request.META.get('HTTP_REFERER')
+    context = {"lasturl": url}
+    print ">>>>", context
+    return render(request, "menu.html", context)
 
 def mission(request):
     log()

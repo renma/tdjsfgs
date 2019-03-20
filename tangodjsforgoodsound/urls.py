@@ -1,4 +1,4 @@
-# Time-stamp: <2018-12-08 17:43:50 rene>
+# Time-stamp: <2019-03-07 15:41:51 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
 
     # example: /5/
+    url(r"^menu/$", views.menu, name="menu"),
     url(r"^(?P<dj_id>[0-9]+)/$", views.djdetail, name="djdetail"),
     url(r"^contact/$", views.contact, name="contact"),
     url(r"^contactfeedback/$", views.contactfeedback, name="contactfeedback"),

@@ -1,59 +1,109 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Tango DJs for good sound</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="René Maurer, Albert Alt" />
-    <meta name="description" content="A list with Tango DJs providing good sound" />
-    <meta name="keywords" content="Tango,DJ,DJs,Good Sound,Sound" />
-  <link rel="stylesheet" href="{% static 'style_20190221145925.css' %}" type="text/css">
-    <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
-    <script> <!--
-            function gugus(usr, srvr, txt) {
-                if ((txt.length == 0) || (txt.indexOf('@')+1)) {
-                    document.write("<a href=" + "'mai" + "lto:" + usr + "@" + srvr + "'>" + usr + "@" + srvr + "</a>"); }
-                else {
-                    document.write("<a href=" + "'mai" + "lto:" + usr + "@" + srvr + "'>" + txt + "</a>"); }
-            }
-     //-->
-    </script>
-</head>
+    <head>
+        <title>Tango DJs for good sound</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="author" content="René Maurer, Albert Alt" />
+        <meta name="description" content="A list with Tango DJs providing good sound" />
+        <meta name="keywords" content="Tango,DJ,DJs,Good Sound,Sound" />
+  <link rel="stylesheet" href="{% static 'style_20190314102043.css' %}" type="text/css">
+        <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
+        <script> <!--
+                function gugus(usr, srvr, txt) {
+                    if ((txt.length == 0) || (txt.indexOf('@')+1)) {
+                        document.write("<a href=" + "'mai" + "lto:" + usr + "@" + srvr + "'>" + usr + "@" + srvr + "</a>"); }
+                    else {
+                        document.write("<a href=" + "'mai" + "lto:" + usr + "@" + srvr + "'>" + txt + "</a>"); }
+                }
+         //-->
+        </script>
+    </head>
 
-<body>
+    <body>
 
-<div id="banner"></div>
+        <div id="banner">
+            <h1>TANGO DJS FOR GOOD SOUND</h1>
+        </div>
 
-<ul id="menu">
-    <li><a href="/" target="_self">DJs</a></li>
-    <li><a href ="{% url 'technology' %}">Player+DAC</a></li>
-    <li><a href ="{% url 'mission' %}">Mission</a></li>
-    <li><a href ="{% url 'contact' %}">Contact</a></li>
-    {% if user.is_authenticated %}
-    {% if user.get_username == "admin" %}
-    <li><a href ="/admin">Admin</a></li>
-    {% else %}
-    {% if dj %}
-    <li><a href="{% url 'djdetail' user.dj.id %}">{{ user.dj.name|truncatechars:14 }}</a></li>
-    {% endif %}
-    {% endif %}
-    {% else %}
-    <li><a href="{% url 'register'%}?next={{request.path}}">Register</a></li>
-    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-    {% endif %}
-    <li><a href="/linkpage">Links</a></li>
-    {% if user.is_authenticated %}
-    {% if user.last_name == "Maurer" and user.first_name == "Rene" or user.last_name == "Alt" and user.first_name == "Albert" %}
-    <li><a href ="{% url 'more' %}">More</a></li>
-    {% endif %}
-    {% endif %}
-</ul>
-</div>
+        <div id="menu-button">
+            <a href="/" target="_self"><img src="{% static 'dj.svg' %}" height="30" width="30" style="margin: 12px 50px 13px 0"/></a>
+            <a href="javascript:void(0);"><img src="{% static 'burger.svg' %}" height="45" width="45" style="margin: 9px 0 11px 0" onclick="myFunction()"/></a>
+        </div>
 
-<div id="content">
-    {% block content %}
-    {% endblock %}
-</div>
+        <div id="myLinks">
+            <ul>
+                <li><a href="/" target="_self">DJs</a></li>
+                <li><a href ="{% url 'technology' %}">Player+DAC</a></li>
+                <li><a href ="{% url 'mission' %}">Mission</a></li>
+                <li><a href ="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                {% if user.get_username == "admin" %}
+                <li><a href ="/admin">Admin</a></li>
+                {% else %}
+                {% if dj %}
+                <li><a href="{% url 'djdetail' user.dj.id %}">{{ user.dj.name|truncatechars:14 }}</a></li>
+                {% endif %}
+                {% endif %}
+                {% else %}
+                <li><a href="{% url 'register'%}?next={{request.path}}">Register</a></li>
+                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                {% endif %}
+                <li><a href="/linkpage">Links</a></li>
+                {% if user.is_authenticated %}
+                {% if user.last_name == "Maurer" and user.first_name == "Rene" or user.last_name == "Alt" and user.first_name == "Albert" %}
+                <li><a href ="{% url 'more' %}">More</a></li>
+                {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+
+        <script>
+         function myFunction() {
+             var x = document.getElementById("myLinks");
+             var y = document.getElementById("content");
+             if (x.style.display === "block") {
+                 x.style.display = "none";
+                 y.style.display = "block";
+             } else {
+                 x.style.display = "block";
+                 y.style.display = "none";
+             }
+         }
+        </script>
+
+        <!--
+             <ul id="menu">
+             <li><a href="/" target="_self">DJs</a></li>
+             <li><a href ="{% url 'technology' %}">Player+DAC</a></li>
+             <li><a href ="{% url 'mission' %}">Mission</a></li>
+             <li><a href ="{% url 'contact' %}">Contact</a></li>
+             {% if user.is_authenticated %}
+             {% if user.get_username == "admin" %}
+             <li><a href ="/admin">Admin</a></li>
+             {% else %}
+             {% if dj %}
+             <li><a href="{% url 'djdetail' user.dj.id %}">{{ user.dj.name|truncatechars:14 }}</a></li>
+             {% endif %}
+             {% endif %}
+             {% else %}
+             <li><a href="{% url 'register'%}?next={{request.path}}">Register</a></li>
+             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+             {% endif %}
+             <li><a href="/linkpage">Links</a></li>
+             {% if user.is_authenticated %}
+             {% if user.last_name == "Maurer" and user.first_name == "Rene" or user.last_name == "Alt" and user.first_name == "Albert" %}
+             <li><a href ="{% url 'more' %}">More</a></li>
+             {% endif %}
+             {% endif %}
+             </ul>
+             </div>
+        -->
+
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
 
 <div id="footer"></div>
 
