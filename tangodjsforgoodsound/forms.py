@@ -1,4 +1,4 @@
-# Time-stamp: <2019-03-20 10:05:09 rene>
+# Time-stamp: <2020-11-05 20:47:46 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -284,16 +284,14 @@ class DJEditForm(forms.ModelForm):
             anyError = True
 
         userEmail = cleaned_data.get("useremail")
-        print "%s, known: %s" % (userEmail, doesEmailExist(self.request,
-                                                           userEmail))
+        logger.info("%s, known: %s" % (userEmail, doesEmailExist(self.request, userEmail)))
         if userEmail and doesEmailExist(self.request, userEmail):
             msg = "Email already known in the system"
             self.add_error("useremail", msg)
             anyError = True
 
         publicEmail = cleaned_data.get("email")
-        print "%s, known: %s" % (publicEmail, doesEmailExist(self.request,
-                                                             publicEmail))
+        logger.info("%s, known: %s" % (publicEmail, doesEmailExist(self.request, publicEmail)))
         if publicEmail and doesEmailExist(self.request, publicEmail):
             msg = "Email already known in the system"
             self.add_error("email", msg)

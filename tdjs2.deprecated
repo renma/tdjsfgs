@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2018-12-11 05:46:15 rene>
+# Time-stamp: <2020-11-02 13:52:11 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,7 +19,9 @@
 #
 # ----------------------------------------------------------------------
 
-localdir=/home/rene/mysite
+UBERSPACE=uberspace3
+# localdir=~/mysite
+localdir=~/Data/tangodjsforgoodsound.info/tdjsfgs
 remotedir=/home/tdjsfgs/ALL/mysite
 if [ -d $remotedir ]; then
     PYTHON=/usr/local/bin/python2.7
@@ -129,7 +131,7 @@ if [ "$1" = "getdb" ]; then
 	DBF=db.sqlite3
 	now=$(date +"%y%m%d%H%M%S")
 	cp $localdir/$DBF $localdir/$DBF.$now
-	scp uberspace2:$remotedir/$DBF $localdir/$DBF
+	scp $UBERSPACE:$remotedir/$DBF $localdir/$DBF
         echo "backup created: $localdir/$DBF.$now"
 	echo "$localdir/$DBF ready"
     fi
@@ -139,24 +141,24 @@ fi
 
 if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
     if [ -d $localdir ]; then
-	ssh uberspace2 "$remotedir/tdjs kill"
-	echo "ssh uberspace2 $remotedir/tdjs kill DONE"
-	echo "rsync $localdir/* => uberspace2:$remotedir"
+	ssh $UBERSPACE "$remotedir/tdjs kill"
+	echo "ssh $UBERSPACE $remotedir/tdjs kill DONE"
+	echo "rsync $localdir/* => $UBERSPACE:$remotedir"
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *style.css --exclude tdjsfgs.log \
                   --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                 $localdir/*  uberspace2:$remotedir
+                 $localdir/* $$UBERSPACE:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css --exclude tdjsfgs.log \
                   --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                  $localdir/* uberspace2:$remotedir
+                  $localdir/* $UBERSPACE:$remotedir
         fi
         echo
         date +"%Y-%m-%d %H:%M:%S"
-        echo "login to uberspace2 and start the server"
-        ssh uberspace2
+        echo "login to $UBERSPACE and start the server"
+        ssh $UBERSPACE
 	echo
     fi
     exit 0

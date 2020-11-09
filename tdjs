@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2019-03-20 10:08:37 rene>
+# Time-stamp: <2020-11-09 08:02:51 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,21 +19,6 @@
 #
 # ----------------------------------------------------------------------
 
-RELEASE=153
-
-localdir=/home/rene/mysite
-remotedir=/home/rem/ALL/mysite
-if [ -d $remotedir ]; then
-    PYTHON=/usr/local/bin/python2.7
-    WORKDIR=$remotedir
-    PORT=63762
-else
-    PYTHON=python2.7
-    WORKDIR=$localdir
-    PORT=8000
-fi
-
-
 help() {
     echo
     echo "restart server or rsync sources and restart server"
@@ -44,17 +29,56 @@ help() {
     echo "             getdb   -> get database from remote"
     echo "             dist    -> rsync sources (if local without database)"
     echo "             distall -> rsync sources (if local with database)"
-    echo "             newcss  -> creatre new css"
+    echo "             newcss  -> create new css"
     echo "             clearsessions -> clear expired sessions"
     echo "             doc     -> copy doc to static"
     echo
-    echo "Parameter 2: silent"
+    echo "Parameter 2: test       -> test-server or local"
+    echo "             testsilent -> test-server silent or local silent" 
+    echo "             prod       -> productive-server"
+    echo "             prodsilent -> productive-server silent"
     echo
     exit 1
 }
 
 
-SILENT="$2"
+if ([ ! "$1" = "start" ] && [ ! "$1" = "kill" ] && [ ! "$1" = "restart" ] && [ ! "$1" = "getdb" ] && \
+       [ ! "$1" = "dist" ] && [ ! "$1" = "distall" ] && [ ! "$1" = "newcss" ] && [ ! "$1" = "doc" ] && \
+       [ ! "$1" = "clearsessions" ]) || \
+       ([ ! "$2" = "test" ] && [ ! "$2" = "prod" ] && [ ! "$2" = "testsilent" ] && [ ! "$2" = "prodsilent" ]); then
+    help
+fi
+
+
+RELEASE=153
+
+
+localdir=~/Data/tangodjsforgoodsound.info/tdjsfgs 
+if [ "$2" = "prod"  ] || [ "$2" = "prodsilent" ]; then
+    remotedir=/home/tdjsfgs/ALL/mysite
+    UBERSPACE=uberspace3
+else
+    remotedir=/home/rem/ALL/mysite
+    UBERSPACE=uberspace1
+fi
+
+
+if [ "$2" = "testsilent"  ] || [ "$2" = "prodsilent" ]; then
+    SILENT=silent
+else
+    SILENT=
+fi
+
+
+if [ -d $remotedir ]; then
+    PYTHON=/usr/bin/python2.7
+    WORKDIR=$remotedir
+    PORT=63762
+else
+    PYTHON=python2.7
+    WORKDIR=$localdir
+    PORT=8000
+fi
 
 
 info() {
@@ -69,19 +93,35 @@ info() {
 
 startserver() {
     cd $WORKDIR
-    if [ -d $remotedir ]; then
-	X=$(netstat -tulpen | grep $PORT)
-	if [ "$X" ]; then
-	    echo "Server already started"
+    if [ ! -d $remotedir ]; then
+	info "Server start"
+        cp settings.py.topsecret mysite/settings.py
+        $PYTHON manage.py runserver 0.0.0.0:$PORT
+	exit 0
+    fi
+    SERVER_STARTED=$(netstat -tulpen | grep $PORT)
+    if [ -d /home/rem ]; then
+	REMOTE=tdjsfgs@centaurus.uberspace.de:.qmail-cumparsita
+	FILE=/home/rem/ALL/mysite/qmail-cumparsita
+	rm -f $FILE
+	scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE > /dev/null 2>&1
+	if [ ! -f $FILE ]; then
+	    info "$FILE not found - kill server"
+	    if [ "$SERVER_STARTED" ]; then
+		killserver
+	    else
+		info "Server already killed"
+	    fi
 	    exit 0
 	fi
-        cp settings.py.topsecret mysite/settings.py
-        $PYTHON manage.py runserver $PORT --noreload &
-    else
-        cp settings.py.topsecret mysite/settings.py
-        $PYTHON manage.py runserver $PORT
     fi
-    info "Server started"
+    if [ ! "$SERVER_STARTED" ]; then
+	info "Server start"
+	cp settings.py.topsecret mysite/settings.py
+	$PYTHON manage.py runserver 0.0.0.0:$PORT --noreload &
+    else
+	info "Server already started"
+    fi
 }
 
 
@@ -151,7 +191,7 @@ if [ "$1" = "getdb" ]; then
 	DBF=db.sqlite3
 	now=$(date +"%y%m%d%H%M%S")
 	cp $localdir/$DBF $localdir/$DBF.$now
-	scp uberspace:$remotedir/$DBF $localdir/$DBF
+	scp $UBERSPACE:$remotedir/$DBF $localdir/$DBF
 	echo "backup created: $localdir/$DBF.$now"
 	echo "$localdir/$DBF ready"
     fi
@@ -162,24 +202,22 @@ fi
 if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
 
     if [ -d $localdir ]; then
-	ssh uberspace "$remotedir/tdjs kill"
-	echo "ssh uberspace $remotedir/tdjs kill DONE"
-	echo "rsync $localdir/* => uberspace:$remotedir"
+	echo "rsync $localdir/* => $UBERSPACE:$remotedir"
         if [ "$1" = "distall" ] ; then
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *style.css --exclude tdjsfgs.log \
                   --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                  $localdir/* uberspace:$remotedir
+                  $localdir/* $UBERSPACE:$remotedir
         else
             rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
 	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css --exclude tdjsfgs.log \
                   --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                  $localdir/* uberspace:$remotedir
+                  $localdir/* $UBERSPACE:$remotedir
         fi
         echo
         date +"%Y-%m-%d %H:%M:%S"
-        echo "login to uberspace and start the server"
-        ssh uberspace
+        echo "login to $UBERSPACE and start the server"
+        ssh $UBERSPACE
 	echo
     fi
     exit 0
@@ -202,6 +240,4 @@ if [ "$1" = "newcss" ]; then
     exit 0
 fi
 
-
 help
-exit 1

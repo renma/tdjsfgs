@@ -1,5 +1,5 @@
 ################################################################
-# Note that this file is overwritten with topsecret            #
+# Note that this file should overwrite mysite/settings.py      #
 ################################################################
 
 """
@@ -15,7 +15,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 ################################################################
-# Note that this file is overwritten with topsecret            #
+# Note that this file should overwrite mysite/settings.py      #
 ################################################################
 
 import os
@@ -30,15 +30,18 @@ LOGIN_REDIRECT_URL = 'loginredirect'
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = '*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["tangodjsforgoodsound.info",
+                 "www.tangodjsforgoodsound.info",
+                 "tdjsfgs.uber.space",
+		 "localhost", "127.0.0.1",
+                 "tangodjsforgoodsound.cumparsita.ch"]
 
 # Application definition
-
 INSTALLED_APPS = [
     'tangodjsforgoodsound.apps.TangodjsforgoodsoundConfig',
     'django.contrib.admin',
@@ -117,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Zurich'
 
 USE_I18N = True
 
@@ -133,11 +136,43 @@ STATIC_URL = '/static/'
 
 # SMTP
 EMAIL_USE_TLS = True
-EMAIL_HOST = ''
-EMAIL_PORT = 0
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = ''
+EMAIL_HOST = "*uberspace.de"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "*"
+EMAIL_HOST_PASSWORD = "*"
+DEFAULT_FROM_EMAIL = "contact@tangodjsforgoodsound.info"
 
 # Session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Logging (one tdjsfgs logger for all)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(asctime)s :: %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'simple',
+            'filename': os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     os.pardir, "tdjsfgs.log"),
+            'maxBytes': 1024*1024,  # 1 MB
+            'backupCount': 2,
+        },
+    },
+    'loggers': {
+        'tdjsfgs': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}

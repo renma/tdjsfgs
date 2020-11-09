@@ -1,0 +1,28 @@
+Release notes 1.5.4
+Released: 2020-11-08
+------------------------------------------------------------------------
+
+All changes to make the application executable on Uberspace7:
+
+- tdjs-script (python path and server address)
+- settings.py (added: list of allowed hosts and new mail server address)
+- tdjs2-script deleted as it is no longer used
+
+All changes to make the application executable on cumparsita.ch again:
+
+- tdjs-script (use .qmail-cumparsita from
+  tdjsfgs@centaurus.uberspace.de for starting and stopping the
+  application. Note, that this must be adjusted to tdjsfgs@uber.space
+  once the old account is gone).
+
+Fixed issues:
+
+#110 Timestamps in Logfile should be in local time.
+
+#111 Password Reset fails (sometimes).
+
+Outside the application:
+
+- DNS entries adjusted.
+- Cronjobs adjusted and improved.
+- Mail settings simplified as much as possible.
