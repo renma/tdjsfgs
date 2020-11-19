@@ -7,7 +7,7 @@
   <meta name="author" content="René Maurer, Albert Alt" />
   <meta name="description" content="A list with Tango DJs providing good sound" />
   <meta name="keywords" content="Tango,DJ,DJs,Good Sound,Sound" />
-  <link rel="stylesheet" href="{% static 'style_20190131000950.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'style_20201111_0808.css' %}" type="text/css" />
   <link rel="shortcut icon" type="image/x-icon" href="{%  static 'favicon.ico' %}" />
   <script> <!--
       function gugus(usr, srvr, txt) {
@@ -24,7 +24,7 @@
   <div id="menubar">
     <ul id="menu">
       <li><a href="/" target="_self">DJs</a>
-      <li><a href ="{% url 'mission' %}">Mission</a></li>
+      <li><a href ="{% url 'project' %}">Project</a></li>
       <li><a href ="{% url 'technology' %}">Player+DAC</a></li>
       <li><a href ="{% url 'contact' %}">Contact</a></li>
       {% if user.is_authenticated %}
@@ -39,7 +39,7 @@
         <li><a href="{% url 'register'%}?next={{request.path}}">Register</a></li>
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
      {% endif %}
-      <li><a href="/linkpage">Links</a></li>
+      <li><a href="/linkpage">Knowledge</a></li>
       {% if user.is_authenticated %}
       {% if user.last_name == "Maurer" and user.first_name == "Rene" or user.last_name == "Alt" and user.first_name == "Albert" %}
      <li><a href ="{% url 'more' %}">More</a></li>

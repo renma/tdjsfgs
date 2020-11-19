@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-05 20:47:46 rene>
+# Time-stamp: <2020-11-10 14:07:08 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -104,10 +104,8 @@ class RegisterForm(MyFormBase):
     register_lastname = forms.CharField(required=True)
     register_djname = forms.CharField(required=True)
     register_email = forms.EmailField(required=True)
-    register_password1 = forms.CharField(widget=forms.PasswordInput,
-                                         required=True)
-    register_password2 = forms.CharField(widget=forms.PasswordInput,
-                                         required=True)
+    register_password1 = forms.CharField(widget=forms.PasswordInput(render_value=True), required=True)
+    register_password2 = forms.CharField(widget=forms.PasswordInput(render_value=True), required=True)
     register_magic = TrickyField(required=True)
 
     def __init__(self, *args, **kwargs):

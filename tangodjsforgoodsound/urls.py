@@ -1,4 +1,4 @@
-# Time-stamp: <2018-12-08 17:43:50 rene>
+# Time-stamp: <2020-11-13 19:16:44 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -33,7 +33,7 @@ urlpatterns = [
     url(r"^contact/$", views.contact, name="contact"),
     url(r"^contactfeedback/$", views.contactfeedback, name="contactfeedback"),
     url(r"^djedit/$", views.djedit, name="djedit"),
-    url(r"^mission/$", views.mission, name="mission"),
+    url(r"^project/$", views.project, name="project"),
     url(r"^more/$", views.more, name="more"),
     url(r"^copyright/$", views.copyright, name="copyright"),
     url(r"^linkpage/$", views.linkpage, name="linkpage"),
@@ -58,6 +58,6 @@ urlpatterns = [
     url(r"^logfile/$", views.logfile, name="logfile"),
 
     # Support old urls (google-search)
-    url(r"^about/$", RedirectView.as_view(url="/mission")),
+    url(r"^about/$", RedirectView.as_view(url="/project")),
 
 ]

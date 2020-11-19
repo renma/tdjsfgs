@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Time-stamp: <2020-11-05 12:12:50 rene>
+# Time-stamp: <2020-11-12 20:59:10 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -24,10 +24,11 @@ import os
 
 
 x = os.curdir
-srcFile = os.path.join(x, "RESOURCES", "linkpage.csv")
+srcFile = os.path.join(x, "RESOURCES", "knowledge-links.csv")
 dstFile = os.path.join(x, "tangodjsforgoodsound", "templates", "linkpage.html")
-template = "<p class=\"linkpage\">" \
+template1 = "<p class=\"linkpage\">" \
     "<a target=\"_blank\" href=\"%s\">%s</a><br />%s"
+template2 = "<h2>%s</h2>"
 
 
 if __name__ == "__main__":
@@ -38,20 +39,25 @@ if __name__ == "__main__":
         xreader = csv.reader(csvfile)
         for row in xreader:
             links.append(row)
+    print("%d lines read from %s" % (len(links), srcFile))
     if links:
         content = []
         content.append("{% extends 'base.html' %}")
         content.append("{% block content %}")
-        content.append("<h1>Links</h1>")
+        content.append("<h1>Knowledge</h1>")
         content.append("<div class=\"linkpage\">")
         for link, linkName, linkDesc in links:
-            if link:
-                content.append(template % (link, linkName, linkDesc))
+            if linkName:
+                if not linkDesc:
+                    linkDesc = "-"
+                content.append(template1 % (link, linkName, linkDesc))
+            else:
+                content.append(template2 % link)
         content.append("</div>")
         content.append("{% endblock %}")
         with open(dstFile, "w") as f:
             f.write(os.linesep.join(content))
-        print "%d link entries created" % (len(links))
-        print "%s READY!" % dstFile[2:]
+        print("%d entries created" % (len(links)))
+        print("%s READY!" % dstFile[2:])
     else:
-        print "%s not written" % dstFile[2:]
+        print("%s not written" % dstFile[2:])

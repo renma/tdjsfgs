@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-14 06:03:34 rene>
+# Time-stamp: <2020-11-13 19:15:42 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -144,10 +144,10 @@ def contactfeedback(request):
     return render(request, "contactfeedback.html", context)
 
 
-def mission(request):
+def project(request):
     log()
     context = createDJContext(request, DJ)
-    return render(request, "mission.html", context)
+    return render(request, "project.html", context)
 
 
 def more(request):
@@ -346,10 +346,14 @@ def logfile(request):
     name = "%s %s" % (request.user.first_name, request.user.last_name)
     if name in ["Rene Maurer", "Albert Alt"]:
         lines = []
+        """
         import codecs
         with codecs.open("tdjsfgs.log", "r", encoding="utf-8") as f:
             lines = f.readlines()
             lines.reverse()
-        content = stripAccents("".join(lines))
+        """
+        lines.append(u"\n\n    The logfile is only available on the server.")
+        lines.append(u"\n\n    Location: ~/ALL/mysite/log.txt")
+        content = stripAccents(u"".join(lines))
         return HttpResponse(content, content_type="text/plain")
     return HttpResponse("", content_type="text/plain")

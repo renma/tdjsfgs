@@ -6,9 +6,17 @@
 <p class="margin-bottom">
   <a href="{% url 'djdetail' dj.id %}"><button type="button">&laquo Back</button></a>
 
-  <p class="margin-bottom">
+  <p class="margin-bottom-small">
     Please note that your data is not visible on the website as long as <b>Number of
     Milongas</b> is set to zero.
+  <p class="margin-bottom-small">
+    Please name your tools precisely, so that readers can find
+    information about them on the Internet.
+    <br />
+  <p class="margin-bottom">
+    To ensure the quality of our website, we have to exclude DJs with
+    insufficient entries in relation to our <b>minimum sound
+    requirement statement</b> (see below on this page).
 
   <form role="form" action="" method="post" novalidate>
   {% csrf_token %}
@@ -313,6 +321,9 @@
   <ul>
     <li class="first">We use good quality transfers of the original recordings.
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
-    <li>We use good quality audio tools and software (e.g. interfaces, sound cards, DACs, sound processors).
+    <li>We use good quality audio tools and software: e.g. interfaces,
+      external sound cards, external DACs, sound processors. We
+      consider internal sound cards of mobile computers as not good
+      enough.
   </ul>
 {% endblock %}

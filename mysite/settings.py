@@ -1,7 +1,3 @@
-################################################################
-# Note that this file should overwrite mysite/settings.py      #
-################################################################
-
 """
 Django settings for mysite project.
 
@@ -14,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-################################################################
-# Note that this file should overwrite mysite/settings.py      #
-################################################################
-
 import os
+import topsecret  # b e  c a r e f u l l !
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,16 +23,17 @@ LOGIN_REDIRECT_URL = 'loginredirect'
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*'
+SECRET_KEY = topsecret._SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["tangodjsforgoodsound.info",
-                 "www.tangodjsforgoodsound.info",
-                 "tdjsfgs.uber.space",
-		 "localhost", "127.0.0.1",
-                 "tangodjsforgoodsound.cumparsita.ch"]
+ALLOWED_HOSTS = [
+    "tangodjsforgoodsound.info",
+    "www.tangodjsforgoodsound.info",
+    "tdjsfgs.uber.space",
+    "localhost", "127.0.0.1",
+    "tangodjsforgoodsound.cumparsita.ch"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -122,7 +116,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Zurich'
 
-USE_I18N = True
+Use_I18N = True
 
 USE_L10N = True
 
@@ -136,10 +130,10 @@ STATIC_URL = '/static/'
 
 # SMTP
 EMAIL_USE_TLS = True
-EMAIL_HOST = "*uberspace.de"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "*"
-EMAIL_HOST_PASSWORD = "*"
+EMAIL_HOST = topsecret._EMAIL_HOST
+EMAIL_PORT = topsecret._EMAIL_PORT
+EMAIL_HOST_USER = topsecret._EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = topsecret._EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = "contact@tangodjsforgoodsound.info"
 
 # Session

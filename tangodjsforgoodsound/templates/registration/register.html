@@ -10,7 +10,10 @@
   <ul>
     <li class="first">We use good quality transfers of the original recordings.
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
-    <li>We use good quality audio tools and software (e.g. interfaces, sound cards, DACs, sound processors).
+    <li>We use good quality audio tools and software: e.g. interfaces,
+      external sound cards, external DACs, sound processors. We
+      consider internal sound cards of mobile computers as not good
+      enough.
   </ul>
 
 <p class="margin-top">
@@ -82,7 +85,7 @@
       {{ form.register_email.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_email }}</td>
 
     </tr><tr>
-      {% if form.any_error.errors.as_text %}
+      {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
         <td class="errorcell">
       {% else %}
         <td>
@@ -90,7 +93,7 @@
       {{ form.register_password1.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_password1 }}</td>
 
     </tr><tr>
-      {% if  form.any_error.errors.as_text %}
+      {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
         <td class="errorcell">
       {% else %}
         <td>

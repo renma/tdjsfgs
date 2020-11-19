@@ -1,4 +1,4 @@
-/* Time-stamp: <2019-01-31 00:09:24 rene>                               */
+/* Time-stamp: <2020-11-10 15:15:08 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -280,6 +280,10 @@ p {
 
 p.margin-bottom {
     margin-bottom: 24px;
+}
+
+p.margin-bottom-small {
+    margin-bottom: 12px;
 }
 
 p.error {

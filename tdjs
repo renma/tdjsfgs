@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2020-11-09 08:02:51 rene>
+# Time-stamp: <2020-11-13 07:28:14 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -23,66 +23,72 @@ help() {
     echo
     echo "restart server or rsync sources and restart server"
     echo
-    echo "Parameter 1: start   -> start server"
+    echo "Parameter 1: REQUIRED"
+    echo "             start   -> start server"
     echo "             kill    -> kill server"
     echo "             restart -> restart server"
-    echo "             getdb   -> get database from remote"
-    echo "             dist    -> rsync sources (if local without database)"
-    echo "             distall -> rsync sources (if local with database)"
-    echo "             newcss  -> create new css"
     echo "             clearsessions -> clear expired sessions"
+    echo "             getdb   -> get database from remote"
+    echo "             dist    -> rsync sources (without database)"
+    echo "             newcss  -> create new css"
     echo "             doc     -> copy doc to static"
+    echo "             push    -> push things to github"
     echo
-    echo "Parameter 2: test       -> test-server or local"
-    echo "             testsilent -> test-server silent or local silent" 
-    echo "             prod       -> productive-server"
-    echo "             prodsilent -> productive-server silent"
+    echo "Parameter 2: OPTIONAL"
+    echo "             test    -> test-server"
+    echo "             prod    -> productive-server"
+    echo "             silent  -> silent operation"
+    echo
+    echo "Parameter 3: OPTIONAL"
+    echo "             silent  -> silent operation"
     echo
     exit 1
 }
 
 
-if ([ ! "$1" = "start" ] && [ ! "$1" = "kill" ] && [ ! "$1" = "restart" ] && [ ! "$1" = "getdb" ] && \
-       [ ! "$1" = "dist" ] && [ ! "$1" = "distall" ] && [ ! "$1" = "newcss" ] && [ ! "$1" = "doc" ] && \
-       [ ! "$1" = "clearsessions" ]) || \
-       ([ ! "$2" = "test" ] && [ ! "$2" = "prod" ] && [ ! "$2" = "testsilent" ] && [ ! "$2" = "prodsilent" ]); then
-    help
-fi
-
-
-RELEASE=153
-
-
 localdir=~/Data/tangodjsforgoodsound.info/tdjsfgs 
-if [ "$2" = "prod"  ] || [ "$2" = "prodsilent" ]; then
-    remotedir=/home/tdjsfgs/ALL/mysite
-    UBERSPACE=uberspace3
-else
-    remotedir=/home/rem/ALL/mysite
-    UBERSPACE=uberspace1
-fi
+remotedir=hgajgfdsajgfajshgfahsg
+UBERSPACE=
+SILENT=
+NAM=
 
 
-if [ "$2" = "testsilent"  ] || [ "$2" = "prodsilent" ]; then
-    SILENT=silent
-else
-    SILENT=
-fi
+# check if we are remote
+for x in /home/tdjsfgs/ALL/mysite /home/rem/ALL/mysite; do
+    if [ -e $x ]; then
+	remotedir=$x
+	WORKDIR=$remotedir
+	PYTHON=/usr/bin/python2.7
+	PORT=63762
+	break
+    fi
+done
 
 
-if [ -d $remotedir ]; then
-    PYTHON=/usr/bin/python2.7
-    WORKDIR=$remotedir
-    PORT=63762
-else
+if [ ! -e $remotedir ]; then
     PYTHON=python2.7
     WORKDIR=$localdir
     PORT=8000
+    if [ "$2" = "prod"  ]; then
+	remotedir=/home/tdjsfgs/ALL/mysite
+	UBERSPACE=uberspace3
+	NAM=PROD
+    fi
+    if [ "$2" = "test"  ]; then
+	remotedir=/home/rem/ALL/mysite
+	UBERSPACE=uberspace1
+	NAM=TEST
+    fi
+fi
+
+
+if [ "$2" = "silent" ] || [ "$3" = "silent" ]; then
+    SILENT=silent
 fi
 
 
 info() {
-    if [ ! "$SILENT" ]; then
+    if [ ! "$SILENT" = "silent" ]; then
         date "+%Y-%m-%d %H:%M:%S $1"
     fi
     if [ -d $remotedir ]; then
@@ -95,15 +101,15 @@ startserver() {
     cd $WORKDIR
     if [ ! -d $remotedir ]; then
 	info "Server start"
-        cp settings.py.topsecret mysite/settings.py
         $PYTHON manage.py runserver 0.0.0.0:$PORT
 	exit 0
     fi
     SERVER_STARTED=$(netstat -tulpen | grep $PORT)
     if [ -d /home/rem ]; then
-	REMOTE=tdjsfgs@centaurus.uberspace.de:.qmail-cumparsita
+	REMOTE=tdjsfgs@tdjsfgs.uber.space:.qmail-cumparsita
 	FILE=/home/rem/ALL/mysite/qmail-cumparsita
 	rm -f $FILE
+	# echo "scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE"
 	scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE > /dev/null 2>&1
 	if [ ! -f $FILE ]; then
 	    info "$FILE not found - kill server"
@@ -117,7 +123,6 @@ startserver() {
     fi
     if [ ! "$SERVER_STARTED" ]; then
 	info "Server start"
-	cp settings.py.topsecret mysite/settings.py
 	$PYTHON manage.py runserver 0.0.0.0:$PORT --noreload &
     else
 	info "Server already started"
@@ -161,83 +166,72 @@ fi
 if [ "$1" = "doc" ]; then
     cd RESOURCES
     DST=tangodjsforgoodsound/static
-    for f in Kontakte_zu_Usern_o_Publik_2019-01-12.pdf \
-                 Kontakte_und_Reaktiokion_nach_Release_1.3.6.pdf \
-                 releasenotes_$RELEASE.txt; do
-        cp $f ../$DST/.
-        echo "$f copied to $DST"
-    done
-    for f in tdjsfgs_testing_current tdjsfgs_testing_$RELEASE; do
-        f1=$f.xls
-        f2=../$DST/$f.pdf
-        if [[ $f1 -nt $f2 ]]; then
-            rm -f $f.pdf
-            libreoffice --headless --convert-to pdf $f.xls > /dev/null 2>&1
-            cp $f.* ../$DST/.
-            rm -f $f.pdf
-            echo "../$DST/$f.pdf created"
-        else
-            echo "$f1 nothing to do"
-        fi
-    done
+    rsync -avz --delete  --exclude *~ Kontakte_zu_Usern_o_Publik* ../$DST
+    rsync -avz --delete  --exclude *~ releasenotes_* ../$DST
+    rsync -avz --delete  --exclude *~ tdjsfgs_testing* ../$DST
+    rsync -avz --delete  --exclude *~ tdjsfgs.docx tdjsfgs.pdf ../$DST
     echo "$DST READY"
     exit 0
 fi
 
 
-if [ "$1" = "getdb" ]; then
+if [ "$1" = "push" ]; then
+    git push origin master
+    exit 0
+fi
 
+
+if [ "$1" = "getdb" ] && ([ "$2" = "prod"  ] || [ "$2" = "test"  ]); then
     if [ -d $localdir ]; then
 	DBF=db.sqlite3
-	now=$(date +"%y%m%d%H%M%S")
-	cp $localdir/$DBF $localdir/$DBF.$now
-	scp $UBERSPACE:$remotedir/$DBF $localdir/$DBF
-	echo "backup created: $localdir/$DBF.$now"
-	echo "$localdir/$DBF ready"
+	now=$(date +"%y%m%d%H%M")
+	scp $UBERSPACE:$remotedir/$DBF $localdir/$NAM.$DBF
+	echo "$DBF read from $UBERSPACE:$remotedir => $NAM.$DBF"
+	cp $localdir/$NAM.$DBF $localdir/$NAM.$DBF.$now
+	echo "Copy $NAM.$DBF.$now created"
+    else
+	echo "$localdir not found"
     fi
     exit 0
 fi
 
 
-if [ "$1" = "dist" ] || [ "$1" = "distall" ] ; then
-
+if [ "$1" = "dist" ] && ([ "$2" = "prod"  ] || [ "$2" = "test"  ]); then
     if [ -d $localdir ]; then
 	echo "rsync $localdir/* => $UBERSPACE:$remotedir"
-        if [ "$1" = "distall" ] ; then
-            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *style.css --exclude tdjsfgs.log \
-                  --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                  $localdir/* $UBERSPACE:$remotedir
-        else
-            rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	          --exclude *db.sqlite3.1* --exclude *db.sqlite3* --exclude *style.css --exclude tdjsfgs.log \
-                  --exclude RESOURCES --exclude tmp* --exclude olddbs* \
-                  $localdir/* $UBERSPACE:$remotedir
-        fi
+        rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
+	      --exclude --exclude *db.sqlite3* --exclude *style.css --exclude tdjsfgs.log \
+              --exclude RESOURCES --exclude tmp* --exclude olddbs* \
+              $localdir/* $UBERSPACE:$remotedir
         echo
         date +"%Y-%m-%d %H:%M:%S"
         echo "login to $UBERSPACE and start the server"
         ssh $UBERSPACE
 	echo
+    else
+	echo "$localdir not found"
     fi
     exit 0
 fi
 
 
 if [ "$1" = "newcss" ]; then
-
     if [ -d $localdir ]; then
         STYLE_DIR=$WORKDIR/tangodjsforgoodsound/static
         rm -f $STYLE_DIR/style_20*.css
-        now=$(date +"%Y%m%d%H%M%S")
+        now=$(date +"%Y%m%d_%H%M")
 	newcss=$STYLE_DIR/style_$now.css
 	cp $STYLE_DIR/style.css $newcss
         echo "$newcss created"
 	F=$WORKDIR/tangodjsforgoodsound/templates/base.html
-	sed -i "/.*stylesheet.*/c\  <link rel=\"stylesheet\" href=\"{% static 'style_$now.css\' %}\" type=\"text/css\">" $F
+	$WORKDIR/replacecss.py -c "$F" "style_$now.css"
         echo "$F adjusted"
+    else
+	echo "$localdir not found"
     fi
     exit 0
 fi
 
+
+# wrong input parameters
 help

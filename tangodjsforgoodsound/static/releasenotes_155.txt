@@ -1,0 +1,38 @@
+Release notes 1.5.5
+Released: 2020-11-19
+------------------------------------------------------------------------
+
+
+We have deleted the old uberspace-6 account.
+
+Topsecret changed. We have now mysite/topsecret.py which is NEVER
+comitted and NEVER added to GitHub. This file is included in
+mysite/settings.py which now can be comitted and added to GitHub.
+
+replacecss.py created. In contrast to the previous sed-based version,
+this solution is more platform-independent.
+
+
+Fixed requirements:
+
+#96 Improvement of the link page (now called Knowledge)
+#99 Deactivate log data in the user interface
+#103 Good sound more concrete
+#105 Minimal Sound Requirement Statement
+#106 Notes on entering DJ data
+#107 Rename Field 'Audio Interface/DAC'
+#109 Modify Error Message
+#114 Yellow Marks enhancement (don't delete passwords)
+#118 Actions after deleting the old account
+#119 Rename Mission to project
+
+
+Fixed bugs:
+
+#110 Timestamps in Logfile should be in local time
+
+
+Closed without fix:
+
+#104 closed as it is a dulicate of #106
+#111 closed as password reset works properly!
