@@ -1,4 +1,4 @@
-# Time-stamp: <2019-01-17 12:12:49 rene>
+# Time-stamp: <2020-11-21 18:37:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -197,9 +197,9 @@ class DJ(models.Model):
                                               max_length=LENGTH_1,
                                               default='', blank=True)
 
-    # Last changed ------------------------------------------------------------
-    last_changed = models.DateField(_("Last changed"),
-                                    auto_now=True)
+    # Last change -------------------------------------------------------------
+    last_changed = models.DateField(_("Last change"),
+                                   auto_now=True)
 
     def __str__(self):
         return self.name

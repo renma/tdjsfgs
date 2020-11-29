@@ -1,4 +1,4 @@
-# Time-stamp: <2018-09-20 09:17:36 rene>
+# Time-stamp: <2020-11-23 06:50:03 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -51,15 +51,15 @@ MOSTLY_CHOICES = (
 
 AUDIO_FORMAT_CHOICES = (
     ("AIFF", _("AIFF Audio Interchange File Format (.aiff, aif)")),
+    ("FLAC", _("FLAC Free Lossless Audio Codec (.flac, .fla)")),
     ("WAV", _("WAV Resource Interchange File Format (.wav)")),
     ("ADA", _("ADA Advanced Digital Audio (.ada)")),
     ("ALAC", _("ALAC Apple Lossless Audio Codec (.m4a, .mp4)")),
     ("APE", _("APE Monkey's Audio (.ape, .mac)")),
-    ("FLAC", _("FLAC Free Lossless Audio Codec (.flac, .fla)")),
     ("SHN", _("SHN Shorten (.shn)")),
     ("TTA", _("TTA The True Audio (.tta)")),
-    # ("WMA", _("WMA Windows Media Audio LOSSLESS (.wma)")),
     ("WV", _("WV WavPack LOSSLESS (.wv)")),
+    ("ANALOG", _("ANALOG Playback of LPs/Shellacs")),
 )
 
 

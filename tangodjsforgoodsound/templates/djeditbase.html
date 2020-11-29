@@ -2,7 +2,68 @@
 {% block content %}
 {% block djeditbase %}
 {% endblock %}
-<p>
+
+<div id="info-box-account-data">
+  <b class="info-box">Account data</b><br />
+  The email address you enter here will be used for login and password
+  Reset (it can be an advantage if this address does not match the one
+  displayed on the website).
+  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-account-data')">x</button>
+</div>
+
+<div id="info-box-personal">
+  <b>Personal</b><br />
+  Your personal data that you want to publish. The email address
+  (optional) you enter here will be published on the website. We
+  protect the address against SPAM with some simple tricks.
+  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-personal')">x</button>
+</div>
+
+<div id="info-box-musica">
+  <b>Musica</b><br />
+  Here you can say something about your sources, your preferences and
+  your style.
+  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-musica')">x</button>
+</div>
+
+<div id="info-box-equipment">
+  <b>Equipment</b><br />
+  These are probably the most important data for the site. A valuable
+  support for new DJs getting their first gear and an inspiration for
+  advanced DJs looking for better and proven tools.
+  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-equipment')">x</button>
+</div>
+
+<div id="info-box-rescue-equipment">
+  <b>Rescue equipment</b><br />
+  These tools you will need if one or more of your main devices
+  fail. So it is logical, that their names must not be identical to
+  the main devices (unless you have second identical devices at
+  hand).
+  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-rescue-equipment')">x</button>
+</div>
+
+<script>
+  function infotoggle(x) {
+      var item = document.getElementById(x);
+      if (item.style.display == "block") {
+	  item.style.display = "none";
+      } else {
+	  item2 = document.getElementById("info-box-account-data");
+	  item2.style.display = "none";
+	  item2 = document.getElementById("info-box-personal");
+	  item2.style.display = "none";
+	  item2 = document.getElementById("info-box-musica");
+	  item2.style.display = "none";
+	  item2 = document.getElementById("info-box-equipment");
+	  item2.style.display = "none";
+	  item2 = document.getElementById("info-box-rescue-equipment");
+	  item2.style.display = "none";
+	  item.style.display = "block";
+      }
+}
+</script>
+
 <p class="margin-bottom">
   <a href="{% url 'djdetail' dj.id %}"><button type="button">&laquo Back</button></a>
 
@@ -33,7 +94,8 @@
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
 
     </tr><tr>
-      <td><b>Account data<b></td><td>&nbsp;</td>
+      <td><b>Account data<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+	  onclick="infotoggle('info-box-account-data')" /></td>
 
     </tr><tr>
       {% if form.useremail.errors.as_text %}
@@ -44,13 +106,17 @@
 
     </tr><tr>
       <td><p><a href="password"><button type="button">Change password</button></a></p></td>
+
+    <!--
       <td></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br />&nbsp; &nbsp; best if not identical with address on website.</td>
+    -->
 
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Personal<b></td><td>&nbsp;</td>
+      <td><b>Personal<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+	  onclick="infotoggle('info-box-personal')" /></td>
 
     </tr><tr>
       {% if form.name.errors.as_text %} 
@@ -122,13 +188,20 @@
       <td>Email:</td><td></td><td>{{ form.email }}</td>
       {% endif %}
 
-    </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
+    <!-- </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
         &nbsp; &nbsp; will be obfuscated - against SPAM.</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    -->
+
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Musica<b></td><td>&nbsp;</td>
+      <td><b>Musica<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+	  onclick="infotoggle('info-box-musica')" /></td>
 
     </tr><tr>
       {% if form.style.errors.as_text %}
@@ -150,7 +223,6 @@
       {% else %}
       <td>Audio format:</td><td class="xsmall">&lowast;</td><td>{{ form.audioformat }}</td>
       {% endif %}
-
 
     </tr><tr>
       {% if form.audioformat2.errors.as_text %}
@@ -189,9 +261,12 @@
 
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Equipment<b></td><td>&nbsp;</td>
+      <td><b>Equipment<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+	  onclick="infotoggle('info-box-equipment')" /></td>
 
     </tr><tr>
       {% if form.computer.errors.as_text %}
@@ -265,9 +340,12 @@
 
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
+    </tr><tr>
+      <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Rescue equipment<b></td><td>&nbsp;</td>
+      <td><b>Rescue equipment<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+	  onclick="infotoggle('info-box-rescue-equipment')" /></td>
 
     </tr><tr>
       {% if form.backup_computer.errors.as_text %}

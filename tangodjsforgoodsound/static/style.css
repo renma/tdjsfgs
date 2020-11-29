@@ -1,4 +1,4 @@
-/* Time-stamp: <2020-11-10 15:15:08 rene>                               */
+/* Time-stamp: <2020-11-28 07:14:41 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -70,6 +70,7 @@ html {
 
 body {
     /* height: 100%; */
+    width: 100%;
     font-size: 18px;
     font-family: "Helvetica", "sans-serif";
     /* Don't reduce the 18px as this doesn't work with W10/Edge */
@@ -419,6 +420,52 @@ textarea {
 #djedit input[type="url"] {
     width: 370px;
 }
+
+#djedit button.info-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: url(info-icon_orange_24x24.png) no-repeat;
+    border: none;
+}
+
+button.info-box {
+    margin-top: 3px;
+    margin-left: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    border: none;
+    background-color: #dfd;
+    border-radius: 4px;
+}
+
+#info-box-account-data, #info-box-personal, #info-box-musica, #info-box-equipment, #info-box-rescue-equipment {
+    width: 300px;
+    height: auto;
+    text-align: center;
+    padding: 10px 25px 20px 25px;
+    border: 2px solid #393;
+    border-radius: 10px;
+    color: #666;
+    display: none;
+    position:fixed;
+    left: 50%;
+    top: 30%;
+    -ms-transform: translate(-50%,-30%);
+    -moz-transform:translate(-50%,-30%);
+    -webkit-transform: translate(-50%,-30%);
+    transform: translate(-50%,-30%);
+    z-index: 1;
+    margin: auto;
+    background: #dfd;
+}
+
+#info-box-account-data b, #info-box-personal b, #info-box-musica b, #info-box-equipment b, #info-box-rescue-equipment b {
+    line-height: 2.0;
+}
+
 
 /* -------------------------------------------------------------------- */
 /* tango djs for good sound                                             */

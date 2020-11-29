@@ -69,8 +69,8 @@
     </tr><tr>
       <td>Audio format:</td><td>{{ dj.get_audioformat_display }}</td>
     </tr><tr>
-    {% if dj.audiofromat2 %}
-      <td>Alternative audio format:</td><td>{{ dj.get_audiofromat2_display }}</td>
+    {% if dj.audioformat2 %}
+    <td>Alternative audio format:</td><td>{{ dj.get_audioformat2_display }}</td>
     {% else %}
       <td>Alternative audio format:</td><td>-</td>
     {% endif %}
@@ -155,7 +155,7 @@
     </tr><tr>
     <td><b>&nbsp;<b></td><td></td>
     </tr></tr>
-    <td>Last changed:</td><td>{{ dj.last_changed }}</td>
+    <td>Last change:</td><td>{{ dj.last_changed }}</td>
   </tr>
   </table>
 {% endblock %}

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2020-11-13 07:28:14 rene>
+# Time-stamp: <2020-11-22 17:08:52 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -20,8 +20,7 @@
 # ----------------------------------------------------------------------
 
 help() {
-    echo
-    echo "restart server or rsync sources and restart server"
+    echo $(basename "$0")
     echo
     echo "Parameter 1: REQUIRED"
     echo "             start   -> start server"
@@ -33,6 +32,11 @@ help() {
     echo "             newcss  -> create new css"
     echo "             doc     -> copy doc to static"
     echo "             push    -> push things to github"
+    echo
+    echo "             dbc     -> check if database must be migrated"
+    echo "             dbm     -> create/make database migrations"
+    echo "             dba     -> apply database migrations"
+    echo "             dbba    -> make a copy of the database => db.sqlite3.$(date +%Y-%m-%d)"
     echo
     echo "Parameter 2: OPTIONAL"
     echo "             test    -> test-server"
@@ -52,13 +56,13 @@ UBERSPACE=
 SILENT=
 NAM=
 
+PYTHON=$(which python2)
 
 # check if we are remote
 for x in /home/tdjsfgs/ALL/mysite /home/rem/ALL/mysite; do
     if [ -e $x ]; then
 	remotedir=$x
 	WORKDIR=$remotedir
-	PYTHON=/usr/bin/python2.7
 	PORT=63762
 	break
     fi
@@ -66,7 +70,6 @@ done
 
 
 if [ ! -e $remotedir ]; then
-    PYTHON=python2.7
     WORKDIR=$localdir
     PORT=8000
     if [ "$2" = "prod"  ]; then
@@ -229,6 +232,32 @@ if [ "$1" = "newcss" ]; then
     else
 	echo "$localdir not found"
     fi
+    exit 0
+fi
+
+
+if [ "$1" = "dbc" ]; then
+    $PYTHON manage.py makemigrations --check --dry-run
+    exit 0
+fi
+
+
+if [ "$1" = "dbm" ]; then
+    $PYTHON manage.py makemigrations
+    exit 0
+fi
+
+
+if [ "$1" = "dba" ]; then
+    cp $WORKDIR/db.sqlite3 $WORKDIR/dbsaves/db.tmp.beforemigration.sqlite3.$(date +'%Y-%m-%d')
+    echo "Database backup created: $WORKDIR/dbsaves/db.sqlite3.tmp.beforemigration.$(date +'%Y-%m-%d')"
+    $PYTHON manage.py migrate
+    exit 0
+fi
+
+if [ "$1" = "dbba" ]; then
+    cp $WORKDIR/db.sqlite3 $WORKDIR/dbsaves/db.sqlite3.$(date +'%Y-%m-%d')
+    echo "Database backup created: $WORKDIR/dbsaves/db.sqlite3.$(date +'%Y-%m-%d')"
     exit 0
 fi
 

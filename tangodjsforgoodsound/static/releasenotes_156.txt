@@ -1,0 +1,33 @@
+Release notes 1.5.6
+Released: 2020-11-28
+------------------------------------------------------------------------
+
+The most important change in this release is the partial revision of
+the DJ edit page. Users can now get help from of a popup for each
+input category. This is the first time that colors (green and orange)
+are used on the page.
+
+Amazingly, we found a bug (#125) that was already in version 1.0 ;-)
+
+DJs with Vinyl/Shellac now have their own audio format (ANALOG).
+
+Test instructions overworked.
+
+Database migration helpers implemented in tdjs script.
+
+This release requires a database migration.
+
+Fixed requirements:
+
+#117 djedit: Notes on entering Data
+#123 Rename Field "Last changed" to "Last change"
+#124 Rearrange links 
+
+Fixed bugs:
+
+#120 DJs using Vinyl 
+#125 Alternative audio format not displayed (anymore) 
+
+Closed without fix:
+
+#126 Improve Testing => until further notice we will do nothing
