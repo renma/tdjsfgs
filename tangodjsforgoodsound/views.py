@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-13 19:15:42 rene>
+# Time-stamp: <2021-01-14 16:40:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -107,6 +107,9 @@ def index(request):
             if dj.name.lower().startswith("dj ") \
                or dj.name.lower().startswith("tj "):
                 dj.name = dj.name[3:]
+            # HACK!
+            djFullLocation = "%s, %s" % (dj.country.name, dj.province)
+            dj.province = djFullLocation
             djL.append(D[k])
         # for dj in djL:
         #     print dj, dj.country, dj.province, dj.country.name
@@ -353,7 +356,7 @@ def logfile(request):
             lines.reverse()
         """
         lines.append(u"\n\n    The logfile is only available on the server.")
-        lines.append(u"\n\n    Location: ~/ALL/mysite/log.txt")
+        lines.append(u"\n\n    Location: ~/ALL/mysite/tdjsfgs.log [.*]")
         content = stripAccents(u"".join(lines))
         return HttpResponse(content, content_type="text/plain")
     return HttpResponse("", content_type="text/plain")

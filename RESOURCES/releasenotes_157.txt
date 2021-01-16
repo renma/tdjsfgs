@@ -1,0 +1,30 @@
+Release notes 1.5.7
+Released: 2021-01-15
+------------------------------------------------------------------------
+
+The most important change in this release is a search field on the DJ
+page. This makes it possible to filter DJs by name, country or style.
+
+For the DJ table in the Django admin interface we have added an admin
+helper, so that the database fields 'name', 'number_of_milongas',
+'last_changed' and 'useremail' are displayed per default.
+
+As always <style.css> was improved a litlle.
+
+The python code checker now accepts very long lines (created by the
+database migration script).
+
+Fixed requirements:
+
+#096 Link page adjusted
+#100 Added a search function to the DJ page
+#121 Show last changed field (beside others) in Django admin interface
+#122 Modification of DJ Site (added table headers and last changed field)
+
+Fixed bugs:
+
+The technology site has now its own id (not user visible).
+
+Closed without fix:
+
+None.

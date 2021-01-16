@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Time-stamp: <2020-11-05 12:11:45 rene>
+# Time-stamp: <2021-01-13 22:17:48 rene>
 #
 # Copyright (C) 2010 - 2020 Rene Maurer <rene@cumparsita.ch>
 #
@@ -20,7 +20,7 @@
 #
 # ----------------------------------------------------------------------
 
-flake8 --max-line-length 300 $1
+flake8 --max-line-length 1000 $1
 if [ $? = 0 ]; then
     echo "$(basename $1) passed"
 fi

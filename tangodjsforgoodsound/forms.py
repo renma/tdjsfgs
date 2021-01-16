@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-10 14:07:08 rene>
+# Time-stamp: <2021-01-13 22:19:50 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -232,7 +232,7 @@ class DJEditForm(forms.ModelForm):
         for field in self.fields:
             if field not in nonRequiredFields:
                 self.fields[field].required = True
-        self.fields["province"].widget.attrs["pattern"] = "\D*"
+        self.fields["province"].widget.attrs["pattern"] = r"\D*"
         if DISABLE_AUTOCOMPLETE:
             for field in ["name",
                           "province",

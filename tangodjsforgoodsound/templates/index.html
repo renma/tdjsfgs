@@ -1,6 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!--
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
+-->
+<script>
+function djindexSearchFunction() {
+  var i, input, filter, table, tr, td0, td1, td2, txtValue0, txtValue1, txtValue2;
+  input = document.getElementById("djindexSearch");
+  filter = input.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  table = document.getElementById("djindex");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td0 = tr[i].getElementsByTagName("td")[0];
+    td1 = tr[i].getElementsByTagName("td")[1];
+    td2 = tr[i].getElementsByTagName("td")[2];
+    if ((td0) && (td1) && (td2)) {
+      txtValue0 = (td0.textContent || td0.innerText).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      txtValue1 = (td1.textContent || td1.innerText).toLowerCase();
+      txtValue2 = (td2.textContent || td2.innerText).toLowerCase();
+      if ((txtValue0.indexOf(filter) > -1) || (txtValue1.indexOf(filter) > -1) || (txtValue2.indexOf(filter) > -1)) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
 <h1>We provide good sound!</h1>
 <p class="margin-bottom">
   Out of respect for the Tango Music, the musicians, the orchestras and
@@ -25,25 +53,35 @@
 
 {% if djList %}
 <h2>Registered DJs:</h2>
-<table id="index">
+
+<input type="text" id="djindexSearch" onkeyup="djindexSearchFunction()"
+       placeholder="Search for DJs or countries or styles" title="">
+
+<table id="djindex">
+
+<tr>
+  <th class="djindex-col1">DJ</th>
+  <th class="djindex-col2">Country</th>
+  <th class="djindex-col3">Style</th>
+  <th class="djindex-col">DJ since</th>
+  <th class="djindex-col">Update</th>
+</tr>
+
 {% for dj in djList %}
 <tr>
-  <td><a href="/{{ dj.id }}/">{{ dj.name|truncatechars:28 }}</a></td>
-  <td>&nbsp;&nbsp;</td>
+  <td><a href="/{{ dj.id }}/">{{ dj.name|truncatechars:30 }}</a></td>
   {% if dj.province.strip %}
+    <!--
     <td>{{ dj.country.name }}, {{ dj.province|truncatechars:20 }}</td>
-  {% else %}
+    Province contain salso the country -->
+    <td>{{ dj.province|truncatechars:40 }}</td>
+   {% else %}
     <td>{{ dj.country.name }}</td>
   {% endif %}
-  <td>&nbsp;&nbsp;</td>
   <td>{{ dj.get_style_display }}</td>
-  <td>&nbsp;&nbsp;</td>
-  {% if dj.gender == "MAL" %}
-  <td>DJ since {{ dj.since }}</td>
-  {% else %}
-  <td>DJ since {{ dj.since }}</td>
-  {% endif %}
-  </tr>
+  <td>{{ dj.since }}</td>
+  <td>{{ dj.last_changed|date:'Y' }}</td>
+</tr>
 {% endfor %}
 </table>
 {% endif %}

@@ -1,4 +1,4 @@
-# Time-stamp: <2019-02-08 06:42:04 rene>
+# Time-stamp: <2021-01-13 21:39:39 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -35,11 +35,13 @@ logger = logging.getLogger("tdjsfgs")
 
 
 def stripAccents(val, encoding='utf-8'):
+    """
     try:
         assert(unicode(val, encoding))
         val = unicode(val, encoding)
     except TypeError:
         pass
+    """
     nkfd = unicodedata.normalize('NFKD', val)
     val = nkfd.encode('ASCII', 'ignore')
     return val
