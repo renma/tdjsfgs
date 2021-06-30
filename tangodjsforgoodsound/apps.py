@@ -1,4 +1,4 @@
-# Time-stamp: <2018-01-19 15:17:12 rene>
+# Time-stamp: <2021-06-29 06:37:32 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,9 +19,32 @@
 # ----------------------------------------------------------------------
 
 from __future__ import unicode_literals
-
 from django.apps import AppConfig
+from django.conf import settings
+
+import hashlib
+import logging
+import os
+import version
+
+
+logger = logging.getLogger("tdjsfgs")
 
 
 class TangodjsforgoodsoundConfig(AppConfig):
+
     name = "tangodjsforgoodsound"
+
+    def ready(self):
+        if not os.environ.get("RUN_MAIN"):
+            logger.info("Server start, Version %s" % version.VERSION)
+            try:
+                dbname = "db.sqlite3"
+                x = hashlib.md5(open(dbname, "rb").read()).hexdigest()
+                logger.info("DB=%s, MD5=%s" % (dbname, x))
+            except Exception as e:
+                logger.info(e)
+            # Create a media directory
+            if settings.MEDIA_ROOT and not os.path.exists(settings.MEDIA_ROOT):
+                logger.info("create %s" % settings.MEDIA_ROOT)
+                os.makedirs(settings.MEDIA_ROOT)
