@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Time-stamp: <2020-11-12 20:59:10 rene>
+# Time-stamp: <2022-03-24 10:26:48 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -38,7 +38,8 @@ if __name__ == "__main__":
         print("%s found" % srcFile[2:])
         xreader = csv.reader(csvfile)
         for row in xreader:
-            links.append(row)
+            if len(row) > 1:
+                links.append(row)
     print("%d lines read from %s" % (len(links), srcFile))
     if links:
         content = []
