@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2021-06-29 09:16:55 rene>
+# Time-stamp: <2022-04-24 06:58:12 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -62,7 +62,7 @@ SILENT=
 NAM=
 PYTHON=$(which python2)
 PORT=
-
+DBSAVEDIR=dbsaves
 
 # check if we are remote
 for h in /home/tdjsfgs /home/rem; do
@@ -205,8 +205,7 @@ if [ "$1" = "getdb" ]; then
 	DBF=db.sqlite3
 	now=$(date +"%y%m%d%H%M")
 	scp $UBERSPACE:$remotedir/$DBF ./$NAM.$DBF.$now
-	echo "$DBF read from $UBERSPACE:$remotedir => ./$NAM.$DBF.$now"
-	echo "Copy ./$NAM.$DBF.$now created"
+	echo "$NAM.$DBF.$now created"
     else
 	echo "$localdir not found"
     fi

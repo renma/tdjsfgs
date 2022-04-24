@@ -1,4 +1,4 @@
-# Time-stamp: <2021-01-13 21:37:48 rene>
+# Time-stamp: <2022-04-23 09:03:59 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -136,6 +136,10 @@ class DJ(models.Model):
     computermodel = models.CharField(_("Computer model"),
                                      max_length=LENGTH_1,
                                      default='', blank=True)
+
+    musiclibrarymanagement = models.CharField(_("Music library management"),
+                                              max_length=LENGTH_1,
+                                              default='', blank=True)
 
     player = models.CharField(_("Player"),
                               max_length=LENGTH_1,

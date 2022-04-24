@@ -1,0 +1,33 @@
+Release notes 1.5.8
+Released: 2021-06-29
+------------------------------------------------------------------------
+
+This release comes with some changes for easier maintenance:
+- implement cron table as file
+- tdjs-script: apply cron file
+- tdjs-script: show last commit or last staged
+- tdjs-script: reserve uberspace port 63762 on startup
+- manage.py: remove import warning (with assert)
+
+#128 Startup message improved (shows now database hash)
+#130 Maintenance improvements
+
+Fixed bugs:
+
+None.
+
+Closed without fix:
+
+None.
+
+Statisic:
+
+ crontab                                          | 16 ++++++++++
+ manage.py                                        |  1 +
+ tangodjsforgoodsound/apps.py                     | 27 +++++++++++++++--
+ tangodjsforgoodsound/static/releasenotes_158.txt | 31 +++++++++++++++++++
+ tangodjsforgoodsound/templates/more.html         |  4 +++
+ tangodjsforgoodsound/version.py                  |  4 +--
+ tdjs                                             | 80 +++++++++++++++++++++++++++++++++++++++----------
+ 7 files changed, 143 insertions(+), 20 deletions(-)
+

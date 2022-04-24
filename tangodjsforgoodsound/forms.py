@@ -1,4 +1,4 @@
-# Time-stamp: <2021-01-13 22:19:50 rene>
+# Time-stamp: <2022-04-23 12:33:37 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -196,6 +196,7 @@ class DJEditForm(forms.ModelForm):
             "music_remark",
             "computer",
             "computermodel",
+            "musiclibrarymanagement",
             "player",
             "audiointerface",
             "equalization",
@@ -244,6 +245,7 @@ class DJEditForm(forms.ModelForm):
                           "sources",
                           "favorites",
                           "computermodel",
+                          "musiclibrarymanagement",
                           "player",
                           "audiointerface",
                           "soundprocessor",

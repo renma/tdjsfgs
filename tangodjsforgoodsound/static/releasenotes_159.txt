@@ -1,0 +1,50 @@
+Release notes 1.5.9
+Released: 2022-04-24
+------------------------------------------------------------------------
+
+The following important changes are included in this release:
+
+- Alberto in a great effort completely edited the knowledge page, corrected all
+  errors and also added new links.
+
+- We have defined a new database field that allows DJs to announce their
+  library management software. This change required a database migration.
+
+- As always, some smaller updates, improvements and cleanups have also been
+  made.
+
+Fixed requirements:
+
+#128 Startup message
+#130 Maintenance improvements
+#132 New Link: tangonotes.com
+#133 Equipment with note
+#134 New Field for Music Library (=> database migration)
+
+Fixed bugs:
+
+#131 Link broken
+
+Closed without fix:
+
+None.
+
+Statistic:
+
+>>> git --no-pager diff 04e945c37e7fa7560a3ea21e6ce9747495207005 --stat --cached
+
+ RESOURCES/knowledge-links.csv                          |  5 ++-
+ RESOURCES/releasenotes_158.txt                         | 33 +++++++++++++++
+ RESOURCES/releasenotes_159.txt                         | 49 +++++++++++++++++++++++
+ createlinkpage.py                                      |  5 ++-
+ tangodjsforgoodsound/forms.py                          |  4 +-
+ .../migrations/0008_auto_20220423_0909.py              | 25 ++++++++++++
+ tangodjsforgoodsound/models.py                         |  6 ++-
+ tangodjsforgoodsound/templates/djdetail.html           |  4 +-
+ tangodjsforgoodsound/templates/djeditbase.html         | 11 ++++-
+ tangodjsforgoodsound/templates/linkpage.html           |  4 +-
+ tangodjsforgoodsound/templates/more.html               |  4 ++
+ tangodjsforgoodsound/version.py                        |  4 +-
+ tdjs                                                   |  7 ++--
+ 13 files changed, 144 insertions(+), 17 deletions(-)
+ 

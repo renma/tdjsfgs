@@ -283,6 +283,13 @@
       {% endif %}
 
     </tr><tr>
+      {% if form.musiclibrarymanagement.errors.as_text %}
+      <td class="errorcell">Music library management:</td><td class="xsmall">&lowast;</td><td>{{ form.musiclibrarymanagement }}</td>
+      {% else %}
+      <td>Music library management:</td><td class="xsmall">&lowast;</td><td>{{ form.musiclibrarymanagement }}</td>
+      {% endif %}
+
+    </tr><tr>
       {% if form.player.errors.as_text %}
       <td class="errorcell">Player:</td><td class="xsmall">&lowast;</td><td>{{ form.player }}</td>
       {% else %}
