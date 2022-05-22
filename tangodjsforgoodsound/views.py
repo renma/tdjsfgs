@@ -1,4 +1,4 @@
-# Time-stamp: <2021-01-14 16:40:17 rene>
+# Time-stamp: <2022-05-01 07:03:49 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -29,7 +29,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
+from .forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
 from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
     sendRegistrationDeletedEmail, sendWelcomeEmail
@@ -99,8 +99,8 @@ def index(request):
             # TODO use the namesort field for this
             s = dj.name.lower().split()
             x = s[1] if s[0] in ["dj", "tj"] and len(s) > 1 else s[0]
-            D[dj.country.name.lower() + x] = dj
-        keys = D.keys()
+            D[dj.country.name.lower() + x + str(dj.id)] = dj
+        keys = list(D.keys())
         keys.sort()
         for k in keys:
             dj = D[k]
@@ -161,7 +161,7 @@ def more(request):
 
 def loginredirect(request):
     log()
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         user = request.user
         logger.info("%s logged in" % user)
         if user.id == 1:
@@ -193,7 +193,7 @@ def djdetail(request, dj_id):
 
 def djedit(request):
     log()
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         html = "djedit.html"
         user = request.user
         djobject = DJ.objects.get(user=user)
@@ -245,7 +245,7 @@ def djedit(request):
 
 def djdelete(request):
     log()
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         user = request.user
         try:
             theUser = User.objects.all().filter(id=user.id)[0]
@@ -343,7 +343,7 @@ def logfile(request):
 
     def stripAccents(val, encoding="utf-8"):
         nfkd_form = unicodedata.normalize('NFKD', val)
-        return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+        return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
     log()
     name = "%s %s" % (request.user.first_name, request.user.last_name)
@@ -355,8 +355,8 @@ def logfile(request):
             lines = f.readlines()
             lines.reverse()
         """
-        lines.append(u"\n\n    The logfile is only available on the server.")
-        lines.append(u"\n\n    Location: ~/ALL/mysite/tdjsfgs.log [.*]")
-        content = stripAccents(u"".join(lines))
+        lines.append("\n\n    The logfile is only available on the server.")
+        lines.append("\n\n    Location: ~/ALL/mysite/tdjsfgs.log [.*]")
+        content = stripAccents("".join(lines))
         return HttpResponse(content, content_type="text/plain")
     return HttpResponse("", content_type="text/plain")

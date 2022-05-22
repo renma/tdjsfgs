@@ -1,4 +1,4 @@
-/* Time-stamp: <2021-01-13 21:42:00 rene>                               */
+/* Time-stamp: <2022-05-10 14:19:51 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -89,7 +89,7 @@ body {
 @media (min-device-width: 1px) {
     #banner {
         height: 128px;
-        background: #000 url(banner_900.png);
+        background: #000 url(/static/banner_900.png);
         min-width: 1400px;
     }
 }
@@ -98,7 +98,7 @@ body {
 @media (min-device-width: 1281px) {
     #banner {
         height: 128px;
-        background: #000 url(banner_1280.png);
+        background: #000 url(/static/banner_1280.png);
         min-width: 1400px;
     }
 }
@@ -107,7 +107,7 @@ body {
 @media (min-device-width: 1601px) {
     #banner {
         height: 128px;
-        background: #000 url(banner.png);
+        background: #000 url(/static/banner.png);
     }
 }
 

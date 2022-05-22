@@ -18,14 +18,14 @@
 #
 # ----------------------------------------------------------------------
 
-from __future__ import unicode_literals
+
 from django.apps import AppConfig
 from django.conf import settings
 
 import hashlib
 import logging
 import os
-import version
+from . import version
 
 
 logger = logging.getLogger("tdjsfgs")

@@ -1,4 +1,4 @@
-# Time-stamp: <2022-04-23 09:03:59 rene>
+# Time-stamp: <2022-05-10 05:58:20 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,13 +18,11 @@
 #
 # ----------------------------------------------------------------------
 
-from __future__ import unicode_literals
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
-from choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
+from .choices import AUDIO_FORMAT_CHOICES, COMPUTER_CHOICES, GENDER_CHOICES, \
     MOSTLY_CHOICES, STYLE_CHOICES, YEAR_CHOICES, YESNO_CHOICES, \
     NUM_MILONGA_CHOICES
 
@@ -34,7 +32,7 @@ LENGTH_2 = 50
 LENGTH_CHOICES = 100
 
 
-@python_2_unicode_compatible
+# @python_2_unicode_compatible
 class DJ(models.Model):
 
     # Person Data -------------------------------------------------------------

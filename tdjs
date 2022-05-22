@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2022-04-24 06:58:12 rene>
+# Time-stamp: <2022-05-22 19:45:01 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,8 +19,7 @@
 #
 # ----------------------------------------------------------------------
 
- help() {
-    echo $(basename "$0")
+help() {
     echo
     echo "Parameter 1: REQUIRED"
     echo "             start   -> start server"
@@ -51,16 +50,25 @@
     echo "Parameter 3: OPTIONAL"
     echo "             silent  -> silent operation"
     echo
+    VERSIONFILE="tangodjsforgoodsound/version.py"
+    if [ -f $VERSIONFILE ]; then
+        echo "Version:     $(python $VERSIONFILE)"
+        echo
+    fi
     exit 1
 }
 
 
-localdir=~/Data/tangodjsforgoodsound.info/tdjsfgs 
+localdir=~/Data/tangodjsforgoodsound.info/tdjsfgs
 remotedir=hgajgfdsajgfajshgfahsg
 UBERSPACE=
 SILENT=
 NAM=
-PYTHON=$(which python2)
+if [ ! -e /home/rene ]; then
+    PYTHON=$(which python3.9)    
+else
+    PYTHON=$(which python3)
+fi
 PORT=
 DBSAVEDIR=dbsaves
 
@@ -120,9 +128,13 @@ startserver() {
 	REMOTE=tdjsfgs@tdjsfgs.uber.space:.qmail-cumparsita
 	FILE=/home/rem/ALL/mysite/qmail-cumparsita
 	rm -f $FILE
-	# echo "scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE"
-	scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE > /dev/null 2>&1
-	if [ ! -f $FILE ]; then
+        # echo "scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE"
+        scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE > /dev/null 2>&1
+        if [ -f /home/rem/tdjsfgs_force_start ]; then
+	    touch $FILE
+            echo "/home/rem/tdjsfgs_force_start found"
+        fi
+        if [ ! -f $FILE ]; then
 	    info "$FILE not found - kill server"
 	    if [ "$SERVER_STARTED" ]; then
 		killserver
@@ -224,7 +236,7 @@ if [ "$1" = "dist" ] && ([ "$2" = "prod"  ] || [ "$2" = "test"  ]); then
 	fi
         echo "rsync $localdir/* => $UBERSPACE:$remotedir"
         rsync -avz --delete --exclude *~ --exclude *pyc --exclude .git --exclude *info.log* \
-	      --exclude *db.sqlite3* --exclude dbsaves --exclude *style.css \
+	      --exclude *db.sqlite3* --exclude dbsaves --exclude *style.css --exclude *pycache__ \
               --exclude tdjsfgs.log --exclude RESOURCES --exclude tmp* \
               $localdir/* $UBERSPACE:$remotedir
         echo

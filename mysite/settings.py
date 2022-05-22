@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-import topsecret  # b e  c a r e f u l l !
+import sys
+from . import topsecret  # b e  c a r e f u l l !
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +26,15 @@ LOGIN_REDIRECT_URL = 'loginredirect'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = topsecret._SECRET_KEY
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# TODO don't run with debug turned on in production!
+DEBUG = os.path.exists("/home/rene")
+
+print("Python Version %s" % (sys.version.split()[0]))
+print("mysite.settings.DEBUG=%s" % DEBUG)
+
+# Do not use LongAutoField
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 
 ALLOWED_HOSTS = [
     "tangodjsforgoodsound.info",
@@ -34,6 +42,12 @@ ALLOWED_HOSTS = [
     "tdjsfgs.uber.space",
     "localhost", "127.0.0.1",
     "tangodjsforgoodsound.cumparsita.ch"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://tangodjsforgoodsound.info",
+    "https://www.tangodjsforgoodsound.info",
+    "https://tdjsfgs.uber.space",
+    "https://tangodjsforgoodsound.cumparsita.ch"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -124,9 +138,9 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/static/'
+# Note, that correct deployment of static files is TODO
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'tangodjsforgoodsound/static')
 
 # SMTP
 EMAIL_USE_TLS = True

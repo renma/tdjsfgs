@@ -1,0 +1,100 @@
+Release notes 1.6.0
+Released: 2022-05-22
+------------------------------------------------------------------------
+
+Technically, this realease is a real milestone.
+We have left Python2 behind us and ported the whole project to Python3 and the
+new django version 4.0. During the necessary tests, we also found two bugs that
+no one has noticed yet...
+
+So the release includes:
+
+- Port to Python3.
+
+- django version 4.0.4.
+
+- Database migrations for the new django version.
+
+- Improved text for the password reset email.
+
+- On PROD the application is now started without DEBUG. To serve the static
+  files and images, we use the serve method of django (still not completely
+  safe and perfect, but better than nothing).
+  We copied the .css files of the admin pages into the application area, so that
+  these files are also available without DEBUG.
+￼
+Fixed requirements:
+
+#95  Python3 port
+#139 django version 4
+#140 PW Reset
+
+Fixed bugs:
+
+#135 Lost DJ (not displayed)
+#136 DJ list displayed incomplete
+#138 Do not start PROD with debug
+
+Closed without fix:
+
+None.
+
+Statistic:
+
+>>> git --no-pager diff 63e6430ccea4120cee9e7cb0d026d81c2e2ff317 --stat --cached
+
+ RESOURCES/releasenotes_160.txt                         |   44 +
+ RESOURCES/tdjsfgs_testing_157.xlsx                     |  Bin 0 -> 17430 bytes
+ RESOURCES/tdjsfgs_testing_160.pdf                      |  Bin 0 -> 52889 bytes
+ RESOURCES/tdjsfgs_testing_160.xlsx                     |  Bin 0 -> 13071 bytes
+ countdjs.sh                                            |   31 +
+ createlinkpage.py                                      |   14 +-
+ manage.py                                              |    2 +-
+ mysite/settings.py                                     |   26 +-
+ mysite/urls.py                                         |    5 +-
+ tangodjsforgoodsound/apps.py                           |    4 +-
+ tangodjsforgoodsound/choices.py                        |    4 +-
+ tangodjsforgoodsound/common.py                         |   22 +-
+ tangodjsforgoodsound/context_processors.py             |    2 +-
+ tangodjsforgoodsound/forms.py                          |    2 +-
+ tangodjsforgoodsound/migrations/0001_initial.py        |    2 +-
+ .../migrations/0002_auto_20180303_0955.py              |    2 +-
+ .../migrations/0003_auto_20180918_1051.py              |    2 +-
+ .../migrations/0004_auto_20181001_0750.py              |    2 +-
+ .../migrations/0005_dj_last_changed.py                 |    2 +-
+ .../migrations/0006_auto_20190114_0503.py              |    2 +-
+ .../migrations/0007_auto_20201124_0704.py              |    2 +-
+ .../migrations/0008_auto_20220423_0909.py              |    2 +-
+ ...er_dj_audioformat_alter_dj_audioformat2_and_more.py |   58 ++
+ tangodjsforgoodsound/models.py                         |   10 +-
+ tangodjsforgoodsound/static/admin/css/README           |    4 +
+ tangodjsforgoodsound/static/admin/css/autocomplete.css |  275 ++++++
+ tangodjsforgoodsound/static/admin/css/base.css         | 1052 +++++++++++++++++++++
+ tangodjsforgoodsound/static/admin/css/changelists.css  |  355 +++++++
+ tangodjsforgoodsound/static/admin/css/dashboard.css    |   26 +
+ tangodjsforgoodsound/static/admin/css/fonts.css        |   20 +
+ tangodjsforgoodsound/static/admin/css/forms.css        |  527 +++++++++++
+ tangodjsforgoodsound/static/admin/css/login.css        |   61 ++
+ tangodjsforgoodsound/static/admin/css/nav_sidebar.css  |  139 +++
+ tangodjsforgoodsound/static/admin/css/responsive.css   | 1004 ++++++++++++++++++++
+ .../static/admin/css/responsive_rtl.css                |   80 ++
+ tangodjsforgoodsound/static/admin/css/rtl.css          |  227 +++++
+ .../static/admin/css/vendor/select2/LICENSE-SELECT2.md |   21 +
+ .../static/admin/css/vendor/select2/select2.css        |  481 ++++++++++
+ .../static/admin/css/vendor/select2/select2.min.css    |    1 +
+ tangodjsforgoodsound/static/admin/css/widgets.css      |  574 +++++++++++
+ tangodjsforgoodsound/static/releasenotes_160.txt       |   44 +
+ tangodjsforgoodsound/static/style.css                  |    8 +-
+ ...style_20210113_2142.css => style_20220510_1445.css} |    8 +-
+ tangodjsforgoodsound/static/tdjsfgs_testing_157.xlsx   |  Bin 0 -> 17430 bytes
+ tangodjsforgoodsound/static/tdjsfgs_testing_160.pdf    |  Bin 0 -> 52889 bytes
+ tangodjsforgoodsound/static/tdjsfgs_testing_160.xlsx   |  Bin 0 -> 13071 bytes
+ tangodjsforgoodsound/templates/base.html               |    4 +-
+ tangodjsforgoodsound/templates/more.html               |    5 +-
+ .../templates/registration/password_reset_email.html   |    3 +
+ tangodjsforgoodsound/urls.py                           |   17 +-
+ tangodjsforgoodsound/version.py                        |    8 +-
+ tangodjsforgoodsound/views.py                          |   22 +-
+ tdjs                                                   |   38 +-
+ 53 files changed, 5158 insertions(+), 86 deletions(-)
+ 

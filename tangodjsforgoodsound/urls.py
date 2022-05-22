@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-13 19:16:44 rene>
+# Time-stamp: <2022-05-18 13:40:02 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,10 +18,14 @@
 #
 # ----------------------------------------------------------------------
 
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView
 from . import views, forms
+
+from django.conf import settings
+from django.views.static import serve
+from django.urls import re_path
 
 
 urlpatterns = [
@@ -40,14 +44,14 @@ urlpatterns = [
     url(r"^loginredirect/$", views.loginredirect, name="loginredirect"),
     url(r"^customlogout/$", views.customlogout, name="customlogout"),
 
-    url("^accounts/password_reset/$", auth_views.password_reset,
+    url("^accounts/password_reset/$", auth_views.PasswordResetView.as_view(),
         {"password_reset_form": forms.EmailValidationOnForgotPassword},
         name="password_reset"),
 
     url(r"^djedit/password/$", views.change_password,
         name="change_password"),
 
-    url(r"^login/$", auth_views.login, name="login"),
+    url(r"^login/$", auth_views.LoginView.as_view(), name="login"),
     url(r"^djdelete/$", views.djdelete, name="djdelete"),
     url(r"^djdeleted/$", views.djdeleted, name="djdeleted"),
 
@@ -60,4 +64,9 @@ urlpatterns = [
     # Support old urls (google-search)
     url(r"^about/$", RedirectView.as_view(url="/project")),
 
+]
+
+# Note, that correct deployment of static files is TODO
+urlpatterns += [
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT, }),
 ]

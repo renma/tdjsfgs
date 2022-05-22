@@ -1,4 +1,4 @@
-# Time-stamp: <2021-01-13 21:39:39 rene>
+# Time-stamp: <2022-05-09 18:36:38 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -34,22 +34,14 @@ FILE_WELCOME_EMAIL = "welcome_email.txt"
 logger = logging.getLogger("tdjsfgs")
 
 
-def stripAccents(val, encoding='utf-8'):
-    """
-    try:
-        assert(unicode(val, encoding))
-        val = unicode(val, encoding)
-    except TypeError:
-        pass
-    """
-    nkfd = unicodedata.normalize('NFKD', val)
-    val = nkfd.encode('ASCII', 'ignore')
-    return val
+def stripAccents(val, encoding="utf-8"):
+    nfkd_form = unicodedata.normalize('NFKD', val)
+    return u''.join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def createDJContext(request, DJModel, context={}):
     context["dj"] = None
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         try:
             dj = DJModel.objects.get(user=request.user.id)
             context["dj"] = dj
@@ -210,7 +202,9 @@ class TrickyField(forms.Field):
     def _createAz(self, val):
         val = stripAccents(val)
         val = "".join([c if c.isalnum() else '' for c in val])
-        return val.strip()
+        val = val.strip()
+        logger.info("Normalized input: '%s'" % val)
+        return val
 
     def validate(self, value):
         super(TrickyField, self).validate(value)

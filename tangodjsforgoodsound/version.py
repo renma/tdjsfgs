@@ -1,2 +1,6 @@
-VERSION = "1.5.9 2022-04-24"
-TIMESTAMP = "Time-stamp: <2022-04-24 13:02:32 rene>"
+VERSION = "1.6.0 2022-05-22"
+TIMESTAMP = "Time-stamp: <2022-05-22 09:23:31 rene>"
+
+
+if __name__ == '__main__':
+    print(VERSION)

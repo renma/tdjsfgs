@@ -1,4 +1,5 @@
-# Time-stamp: <2017-11-18 17:12:41 rene>
+#!/bin/bash
+# Time-stamp: <2022-05-11 08:01:12 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,15 +19,13 @@
 #
 # ----------------------------------------------------------------------
 
-import datetime
-from .version import VERSION, TIMESTAMP
+DB=db.sqlite3
 
-
-def appData(request):
-    version = VERSION
-    lastupdate = TIMESTAMP.split("<")[1].split()[0]
-    y, m, d = lastupdate.split("-")
-    return {"APP_VERSION": version,
-            "APP_DATE": lastupdate,
-            "APP_YEAR": y,
-            "CURRENT_YEAR": datetime.datetime.now().year}
+echo "Count all DJs in $DB"
+sqlite3 $DB <<'END_SQL'
+SELECT COUNT(*) FROM tangodjsforgoodsound_dj;
+END_SQL
+echo "Count DJs with 'milongas > 0' in $DB"
+sqlite3 $DB <<'END_SQL'
+SELECT COUNT(*) FROM tangodjsforgoodsound_dj WHERE number_of_milongas > 0;
+END_SQL

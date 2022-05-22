@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-23 06:50:03 rene>
+# Time-stamp: <2022-05-10 05:57:57 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------
 
 import datetime
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 GENDER_CHOICES = (
