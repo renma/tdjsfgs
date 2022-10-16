@@ -1,4 +1,4 @@
-# Time-stamp: <2017-11-18 17:12:41 rene>
+# Time-stamp: <2022-10-13 08:08:20 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,12 +19,12 @@
 # ----------------------------------------------------------------------
 
 import datetime
-from .version import VERSION, TIMESTAMP
+from .version import __version__, __date__
 
 
 def appData(request):
-    version = VERSION
-    lastupdate = TIMESTAMP.split("<")[1].split()[0]
+    version = __version__
+    lastupdate = __date__.split(" ")[0]
     y, m, d = lastupdate.split("-")
     return {"APP_VERSION": version,
             "APP_DATE": lastupdate,

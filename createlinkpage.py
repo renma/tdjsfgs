@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Time-stamp: <2022-04-26 09:34:58 rene>
+# Time-stamp: <2022-10-15 21:37:52 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -27,14 +27,16 @@ x = os.curdir
 srcFile = os.path.join(x, "RESOURCES", "knowledge-links.csv")
 dstFile = os.path.join(x, "tangodjsforgoodsound", "templates", "linkpage.html")
 template1 = "<p class=\"linkpage\">" \
-    "<a target=\"_blank\" href=\"%s\">%s</a><br />%s"
+    "<a target=\"_blank\" href=\"%s\">%s</a><br>%s"
 template2 = "<h2>%s</h2>"
 
 
 if __name__ == "__main__":
 
     links = []
-    with open(srcFile, "rb") as csvfile:
+    with open(srcFile, "r
+
+    ") as csvfile:
         print(("%s found" % srcFile[2:]))
         xreader = csv.reader(csvfile)
         for row in xreader:
@@ -56,6 +58,7 @@ if __name__ == "__main__":
                 content.append(template2 % link)
         content.append("</div>")
         content.append("{% endblock %}")
+        content.append('')
         with open(dstFile, "w") as f:
             f.write(os.linesep.join(content))
         print(("%d entries created" % (len(links))))

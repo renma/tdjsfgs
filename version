@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Time-stamp: <2022-04-20 08:54:26 rene>
+#
+# Copyright (C) 2014 Rene Maurer <rene@cumparsita.ch>.
+#
+# This file is part of rpystart.
+#
+# rpystart is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License Version 2 as
+# published by the Free Software Foundation.
+#
+# rpystart is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PRPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with pydtas. If not, see <http://gnu.org/licenses/>.
+#
+# ----------------------------------------------------------------------
+
+if [ "$1" ]; then
+    if [ "$2" ]; then
+        rpyversion.py -vV $1 --project $2
+    else
+        rpyversion.py -vV $1
+    fi
+else
+    V=$(rpyversion.py --version)
+    if [ "$V" = "0.0.0" ]; then
+	rpyversion.py -vV "0.0.0"
+    else
+	echo "$V"
+    fi
+    echo "Use $0 a.b.c to update to a.b.c (or a.b or a)"
+    echo "$0 a.b.c <projectname> for non standard project layouts"
+fi

@@ -1,4 +1,4 @@
-# Time-stamp: <2022-05-09 18:36:38 rene>
+# Time-stamp: <2022-10-13 07:04:51 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -22,6 +22,7 @@ import codecs
 import logging
 import os
 import unicodedata
+import threading
 from django import forms
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
@@ -32,6 +33,33 @@ USEREMAIL_NOT_REGISTERED = "USEREMAIL_NOT_REGISTERED"
 EMAIL_CONTACT = "contact@tangodjsforgoodsound.info"
 FILE_WELCOME_EMAIL = "welcome_email.txt"
 logger = logging.getLogger("tdjsfgs")
+
+
+class EmailThread(threading.Thread):
+
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        retval = self.email.send()
+        msg = "Email sent to: %s (threaded=%s, retval=%s)"
+        logger.info(msg % (self.email.recipients(), True, retval))
+
+
+def sendEmail(emailSubject, emailContent, emailFrom, emailTo, emailReplyTo, useThreaded):
+    email = EmailMessage(emailSubject,
+                         emailContent,
+                         emailFrom,
+                         emailTo,
+                         reply_to=emailReplyTo)
+    if useThreaded:
+        t = EmailThread(email)
+        t.start()
+    else:
+        retval = email.send()
+        msg = "Email sent to: %s (threaded=%s, retval=%s)"
+        logger.info(msg % (email.recipients(),  useThreaded, retval))
 
 
 def stripAccents(val, encoding="utf-8"):
@@ -102,15 +130,11 @@ def sendAnEmail(first, last, emailFrom, content, magic,
     if content:
         emailContent.extend([content, ""])
     emailContent.append("This message was sent to: %s" % emailTo)
+    emailContent = "\n".join(emailContent)
     replyTo = emailFrom if setReplyTo else EMAIL_CONTACT
     emailFrom = EMAIL_CONTACT
-    email = EmailMessage(subject,
-                         "\n".join(emailContent),
-                         emailFrom,
-                         emailTo,
-                         reply_to=[replyTo])
-    retval = email.send()
-    logger.info("Email sent to: %s (retval=%s)" % (emailTo, retval))
+    useThreaded = True
+    sendEmail(subject, emailContent, emailFrom, emailTo, [replyTo], useThreaded)
 
 
 def sendContactEmail(first, last, emailFrom, content, magic):

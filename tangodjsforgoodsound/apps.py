@@ -1,4 +1,4 @@
-# Time-stamp: <2021-06-29 06:37:32 rene>
+# Time-stamp: <2022-10-16 07:56:09 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -37,7 +37,7 @@ class TangodjsforgoodsoundConfig(AppConfig):
 
     def ready(self):
         if not os.environ.get("RUN_MAIN"):
-            logger.info("Server start, Version %s" % version.VERSION)
+            logger.info("Server start, Version %s" % version.__version__)
             try:
                 dbname = "db.sqlite3"
                 x = hashlib.md5(open(dbname, "rb").read()).hexdigest()

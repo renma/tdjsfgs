@@ -4,43 +4,43 @@
 {% endblock %}
 
 <div id="info-box-account-data">
-  <b class="info-box">Account data</b><br />
+  <b class="info-box">Account data</b><br>
   The email address you enter here will be used for login and password
   Reset (it can be an advantage if this address does not match the one
   displayed on the website).
-  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-account-data')">x</button>
+  <br><button type="button" class="info-box" onclick="infotoggle('info-box-account-data')">x</button>
 </div>
 
 <div id="info-box-personal">
-  <b>Personal</b><br />
+  <b>Personal</b><br>
   Your personal data that you want to publish. The email address
   (optional) you enter here will be published on the website. We
   protect the address against SPAM with some simple tricks.
-  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-personal')">x</button>
+  <br><button type="button" class="info-box" onclick="infotoggle('info-box-personal')">x</button>
 </div>
 
 <div id="info-box-musica">
-  <b>Musica</b><br />
+  <b>Musica</b><br>
   Here you can say something about your sources, your preferences and
   your style.
-  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-musica')">x</button>
+  <br><button type="button" class="info-box" onclick="infotoggle('info-box-musica')">x</button>
 </div>
 
 <div id="info-box-equipment">
-  <b>Equipment for live use</b><br />
+  <b>Equipment for live use</b><br>
   These are probably the most important data for the site. A valuable
   support for new DJs getting their first gear and an inspiration for
   advanced DJs looking for better and proven tools.
-  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-equipment')">x</button>
+  <br><button type="button" class="info-box" onclick="infotoggle('info-box-equipment')">x</button>
 </div>
 
 <div id="info-box-rescue-equipment">
-  <b>Rescue equipment</b><br />
+  <b>Rescue equipment</b><br>
   These tools you will need if one or more of your main devices
   fail. So it is logical, that their names must not be identical to
   the main devices (unless you have second identical devices at
   hand).
-  <br /><button type="button" class="info-box" onclick="infotoggle('info-box-rescue-equipment')">x</button>
+  <br><button type="button" class="info-box" onclick="infotoggle('info-box-rescue-equipment')">x</button>
 </div>
 
 <script>
@@ -73,7 +73,7 @@
   <p class="margin-bottom-small">
     Please name your tools precisely, so that readers can find
     information about them on the Internet.
-    <br />
+    <br>
   <p class="margin-bottom">
     To ensure the quality of our website, we have to exclude DJs with
     insufficient entries in relation to our <b>minimum sound
@@ -83,7 +83,7 @@
   {% csrf_token %}
   {% if form.namesort.errors.as_text %}
     {% if form.useremail.errors.as_text == "* Email already known in the system" or form.email.errors.as_text == "* Email already known in the system" %}
-      <p class="error">Please correct wrong or missing information<br />Email address already known in the system.</p>
+      <p class="error">Please correct wrong or missing information<br>Email address already known in the system.</p>
     {% else %}
       <p class="margin-bottom-error">Please correct wrong or missing information.</p>
     {% endif %}
@@ -95,7 +95,7 @@
 
     </tr><tr>
       <td><b>Account data<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
-	  onclick="infotoggle('info-box-account-data')" /></td>
+	  onclick="infotoggle('info-box-account-data')"></td>
 
     </tr><tr>
       {% if form.useremail.errors.as_text %}
@@ -108,7 +108,7 @@
       <td><p><a href="password"><button type="button">Change password</button></a></p></td>
 
     <!--
-      <td></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br />&nbsp; &nbsp; best if not identical with address on website.</td>
+      <td></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br>&nbsp; &nbsp; best if not identical with address on website.</td>
     -->
 
     </tr><tr>
@@ -116,7 +116,7 @@
 
     </tr><tr>
       <td><b>Personal<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
-	  onclick="infotoggle('info-box-personal')" /></td>
+	  onclick="infotoggle('info-box-personal')"></td>
 
     </tr><tr>
       {% if form.name.errors.as_text %} 
@@ -188,7 +188,7 @@
       <td>Email:</td><td></td><td>{{ form.email }}</td>
       {% endif %}
 
-    <!-- </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br />
+    <!-- </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br>
         &nbsp; &nbsp; will be obfuscated - against SPAM.</td>
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
@@ -201,7 +201,7 @@
 
     </tr><tr>
       <td><b>Musica<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
-	  onclick="infotoggle('info-box-musica')" /></td>
+	  onclick="infotoggle('info-box-musica')"></td>
 
     </tr><tr>
       {% if form.style.errors.as_text %}
@@ -266,7 +266,7 @@
 
     </tr><tr>
       <td><b>Equipment</b> for live use</td><td>&nbsp;</td><td><button type="button" class="info-icon"
-	  onclick="infotoggle('info-box-equipment')" /></td>
+	  onclick="infotoggle('info-box-equipment')"></td>
 
     </tr><tr>
       {% if form.computer.errors.as_text %}
@@ -352,7 +352,7 @@
 
     </tr><tr>
       <td><b>Rescue equipment<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
-	  onclick="infotoggle('info-box-rescue-equipment')" /></td>
+	  onclick="infotoggle('info-box-rescue-equipment')"></td>
 
     </tr><tr>
       {% if form.backup_computer.errors.as_text %}
@@ -401,7 +401,7 @@
     <a href="{% url 'djdetail' dj.id %}"><button type="button">Abort</button></a>
     <button type="submit">Save</button>
 </form>
-<h2><br />Minimal sound requirement statement</h2>
+<h2><br>Minimal sound requirement statement</h2>
 <p>
   <ul>
     <li class="first">We use good quality transfers of the original recordings.

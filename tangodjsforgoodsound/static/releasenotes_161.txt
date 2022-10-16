@@ -1,0 +1,64 @@
+Release notes 1.6.1
+Released: 2022-10-16
+------------------------------------------------------------------------
+
+The following changes are included in this release:
+
+- Trailing slashes in void elements removed
+  Using trailing slashes in void elements promotes a misleading mental model of
+  HTML where the trailing slash looks like it has some special significance -
+  when in fact, as the HTML standard says, it’s "unnecessary and has no effect
+  of any kind".
+
+- Send emails in the background
+  If someone wants to send us an e-mail or request a password reset, it often
+  takes a long time for the page to respond after pressing the corresponding
+  button. The reason for this is not us, but a "malfunction" of the email
+  server at uberspace.de. The server simply does not respond for a long time
+  (up to 9 seconds!) after the request to send. In the end a simple background
+  task was 100% sufficient to solve this issue.
+
+- As always, some smaller updates, improvements and cleanups have also been
+  made. This time we have integrated the version tool from rpystart.
+
+Fixed requirements:
+
+None.
+
+Fixed bugs:
+
+#144 HTML validator is no longer quiet
+#143 Sending e-mails goes long
+
+Closed without fix:
+
+None.
+
+Statistic:
+
+>>> git --no-pager diff  17049a17cbb9c0623d6f0df472869d4ae459e00b --stat --cached
+
+ RESOURCES/pure.html                                    | 18 +++----
+ RESOURCES/releasenotes_161.txt                         | 63 +++++++++++++++++++++++
+ createlinkpage.py                                      |  9 ++--
+ tangodjsforgoodsound/apps.py                           |  4 +-
+ tangodjsforgoodsound/common.py                         | 40 +++++++++++---
+ tangodjsforgoodsound/context_processors.py             |  8 +--
+ tangodjsforgoodsound/static/releasenotes_161.txt       | 63 +++++++++++++++++++++++
+ tangodjsforgoodsound/templates/base.html               | 12 ++---
+ tangodjsforgoodsound/templates/change_password.html    |  2 +-
+ tangodjsforgoodsound/templates/contact.html            |  2 +-
+ tangodjsforgoodsound/templates/djdetail.html           |  4 +-
+ tangodjsforgoodsound/templates/djeditbase.html         | 40 +++++++-------
+ tangodjsforgoodsound/templates/index_empty.html        |  4 +-
+ tangodjsforgoodsound/templates/linkpage.html           | 38 +++++++-------
+ tangodjsforgoodsound/templates/more.html               | 13 +++--
+ tangodjsforgoodsound/templates/project.html            | 10 ++--
+ tangodjsforgoodsound/templates/registration/login.html |  4 +-
+ .../templates/registration/password_reset_confirm.html |  2 +-
+ .../templates/registration/password_reset_done.html    |  2 +-
+ .../templates/registration/password_reset_form.html    |  2 +-
+ .../templates/registration/register.html               |  4 +-
+ tangodjsforgoodsound/version.py                        | 29 +++++++++--
+ version                                                | 38 ++++++++++++++
+ 23 files changed, 313 insertions(+), 98 deletions(-)
