@@ -7,7 +7,7 @@ The following changes are included in this release:
 - Trailing slashes in void elements removed
   Using trailing slashes in void elements promotes a misleading mental model of
   HTML where the trailing slash looks like it has some special significance -
-  when in fact, as the HTML standard says, it’s "unnecessary and has no effect
+  when in fact, as the HTML standard says, it's "unnecessary and has no effect
   of any kind".
 
 - Send emails in the background

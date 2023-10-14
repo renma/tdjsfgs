@@ -1,4 +1,4 @@
-# Time-stamp: <2022-05-10 05:58:20 rene>
+# Time-stamp: <2023-10-10 11:21:02 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -126,7 +126,7 @@ class DJ(models.Model):
                                     default='', blank=True)
 
     # Tech Data ---------------------------------------------------------------
-    computer = models.CharField(_("Computer"),
+    computer = models.CharField(_("Computer/Device"),
                                 max_length=LENGTH_CHOICES,
                                 choices=COMPUTER_CHOICES,
                                 default='', blank=True)
@@ -174,7 +174,7 @@ class DJ(models.Model):
                                         default='', blank=True)
 
     # Tech Data backup --------------------------------------------------------
-    backup_computer = models.CharField(_("Computer"),
+    backup_computer = models.CharField(_("Computer/Device"),
                                        max_length=LENGTH_CHOICES,
                                        choices=COMPUTER_CHOICES,
                                        default='', blank=True)

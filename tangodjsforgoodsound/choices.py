@@ -1,4 +1,4 @@
-# Time-stamp: <2022-05-10 05:57:57 rene>
+# Time-stamp: <2023-10-10 11:23:26 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -68,6 +68,7 @@ COMPUTER_CHOICES = (
     ("PCL", _("PC Linux")),
     ("MAC", _("MAC")),
     ("MOB", _("Mobile device (Tablet, Smartphone, iPhone, iPad, ...)")),
+    ("TTA", _("Turntable(s)")),  # Yes, we already know that this is not a computer ;-)
 )
 
 

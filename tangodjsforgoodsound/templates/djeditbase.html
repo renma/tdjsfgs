@@ -31,6 +31,8 @@
   These are probably the most important data for the site. A valuable
   support for new DJs getting their first gear and an inspiration for
   advanced DJs looking for better and proven tools.
+  <br>DJs working with turntable(s) please write in unnecessary or
+  inappropriate fields: "Not required for analog DJing".
   <br><button type="button" class="info-box" onclick="infotoggle('info-box-equipment')">x</button>
 </div>
 
@@ -270,9 +272,9 @@
 
     </tr><tr>
       {% if form.computer.errors.as_text %}
-      <td class="errorcell">Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
+      <td class="errorcell">Computer/Device:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
       {% else %}
-      <td>Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
+      <td>Computer/Device:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
       {% endif %}
 
     </tr><tr>
@@ -356,9 +358,9 @@
 
     </tr><tr>
       {% if form.backup_computer.errors.as_text %}
-      <td class="errorcell">Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
+      <td class="errorcell">Computer/Device:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
       {% else %}
-      <td>Computer:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
+      <td>Computer/Device:</td><td class="xsmall">&lowast;</td><td>{{ form.backup_computer }}</td>
       {% endif %}
 
     </tr><tr>

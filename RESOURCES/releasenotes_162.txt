@@ -1,0 +1,44 @@
+Release notes 1.6.2
+Released: 2023-10-15
+------------------------------------------------------------------------
+
+This release includes the implementation of a new requirement:
+
+- More support for analog DJs
+  It is now possible to specify a turntable as a device (until now, only
+  computers or computer-like devices were possible). This requirement was
+  brought to us by an "analog DJ".
+
+- Unlike the usual practice, no additional corrections or small changes have
+  been made.
+
+Fixed requirements:
+
+#146 More support for analog DJs
+
+Fixed bugs:
+
+None
+
+Closed without fix:
+
+None.
+
+Statistic:
+
+>>> git --no-pager diff 6415af43f0048e553d15159cdd373cae27ccfc62 --stat --cached ':!*releaseno*162*'
+ RESOURCES/releasenotes_161.txt                               |   2 +-
+ RESOURCES/tdjsfgs_testing_162.pdf                            | Bin 0 -> 119303 bytes
+ RESOURCES/tdjsfgs_testing_162.xlsx                           | Bin 0 -> 17450 bytes
+ tangodjsforgoodsound/choices.py                              |   3 ++-
+ ...10_alter_dj_backup_computer_alter_dj_computer_and_more.py |  28 ++++++++++++++++++++++++++
+ tangodjsforgoodsound/models.py                               |   6 +++---
+ tangodjsforgoodsound/static/releasenotes_161.txt             |   2 +-
+ tangodjsforgoodsound/static/tdjsfgs_testing_162.pdf          | Bin 0 -> 119303 bytes
+ tangodjsforgoodsound/static/tdjsfgs_testing_162.xlsx         | Bin 0 -> 17450 bytes
+ tangodjsforgoodsound/templates/djdetail.html                 |   4 ++--
+ tangodjsforgoodsound/templates/djeditbase.html               |  10 +++++----
+ tangodjsforgoodsound/templates/more.html                     |   3 +++
+ tangodjsforgoodsound/templates/technology.html               |   2 +-
+ tangodjsforgoodsound/version.py                              |   6 +++---
+ 14 files changed, 50 insertions(+), 16 deletions(-)
