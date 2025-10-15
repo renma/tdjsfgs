@@ -1,0 +1,55 @@
+Release notes 1.6.3
+Released: 2025-10-15
+------------------------------------------------------------------------
+
+With this release, we are switching to the latest version of Python (3.13) and
+Django (5.2.7).
+
+There should be no changes to functionality. However, we have made a few minor
+adjustments:
+
+- The version is now displayed correctly, and the Python and Django versions
+  are also displayed on the project page.
+
+- The file for maintenance mode is now called <maintenancemode>.
+
+- The file for starting the test server on cumparsita is now called
+  <testservermode>.
+
+- The link page was modified long time ago and is being added to the Git
+  repository with this release.
+
+- After more than a year the <dj_since> database field can be migrated (without
+  any effect).
+
+Fixed requirements:
+
+#150 Miantenance Mode 
+#152 Upgrade to Python 3.13 and Django 5.2.7 !
+
+Fixed bugs:
+
+#153 Incorrect version string since 1.6.1
+
+Closed without fix:
+
+None.
+
+Statistic:
+>>> git --no-pager diff 15da29ea578ef6d01825dd491d0c314dfd79def2 --stat --cached ':!*releaseno*163*'
+ RESOURCES/knowledge-links.csv                 |  15 +++++++--------
+ RESOURCES/tdjsfgs.docx                        | Bin 30607 -> 9864 bytes
+ RESOURCES/tdjsfgs.pdf                         | Bin 71748 -> 55601 bytes
+ RESOURCES/tdjsfgs_testing_163.pdf             | Bin 0 -> 116552 bytes
+ RESOURCES/tdjsfgs_testing_163.xlsx            | Bin 0 -> 14103 bytes
+ createlinkpage.py                             |   6 ++----
+ tangodjsforgoodsound/context_processors.py    |   9 ++++++---
+ tangodjsforgoodsound/static/tdjsfgs.docx      | Bin 30607 -> 9864 bytes
+ tangodjsforgoodsound/static/tdjsfgs.pdf       | Bin 71748 -> 55601 bytes
+ tangodjsforgoodsound/templates/copyright.html |   4 ++--
+ tangodjsforgoodsound/templates/linkpage.html  |  14 +++++++-------
+ tangodjsforgoodsound/templates/project.html   |   3 ++-
+ tangodjsforgoodsound/version.py               |   8 ++++----
+ tangodjsforgoodsound/views.py                 |   4 ++--
+ tdjs                                          |  12 ++++++------
+ 15 files changed, 38 insertions(+), 37 deletions(-)

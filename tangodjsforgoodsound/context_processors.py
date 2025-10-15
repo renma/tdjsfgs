@@ -1,4 +1,4 @@
-# Time-stamp: <2022-10-13 08:08:20 rene>
+# Time-stamp: <2025-10-13 14:39:52 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -19,14 +19,17 @@
 # ----------------------------------------------------------------------
 
 import datetime
+import django
+import platform
 from .version import __version__, __date__
 
 
 def appData(request):
-    version = __version__
     lastupdate = __date__.split(" ")[0]
     y, m, d = lastupdate.split("-")
-    return {"APP_VERSION": version,
+    return {"PYTHON_VERSION": platform.python_version(),
+            "DJANGO_VERSION": django.get_version(),
+            "APP_VERSION": __version__,
             "APP_DATE": lastupdate,
             "APP_YEAR": y,
             "CURRENT_YEAR": datetime.datetime.now().year}

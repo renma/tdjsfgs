@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Time-stamp: <2022-10-15 21:37:52 rene>
+# Time-stamp: <2024-09-10 07:16:00 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -34,9 +34,7 @@ template2 = "<h2>%s</h2>"
 if __name__ == "__main__":
 
     links = []
-    with open(srcFile, "r
-
-    ") as csvfile:
+    with open(srcFile, "r") as csvfile:
         print(("%s found" % srcFile[2:]))
         xreader = csv.reader(csvfile)
         for row in xreader:

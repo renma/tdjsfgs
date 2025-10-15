@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2022-05-22 19:45:01 rene>
+# Time-stamp: <2025-10-13 22:38:15 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -65,7 +65,7 @@ UBERSPACE=
 SILENT=
 NAM=
 if [ ! -e /home/rene ]; then
-    PYTHON=$(which python3.9)    
+    PYTHON=$(which python3.13)
 else
     PYTHON=$(which python3)
 fi
@@ -125,7 +125,7 @@ startserver() {
     fi
     SERVER_STARTED=$(netstat -tulpen | grep $PORT)
     if [ -d /home/rem ]; then
-	REMOTE=tdjsfgs@tdjsfgs.uber.space:.qmail-cumparsita
+	REMOTE=tdjsfgs@tdjsfgs.uber.space:testservermode
 	FILE=/home/rem/ALL/mysite/qmail-cumparsita
 	rm -f $FILE
         # echo "scp -i /home/rem/.ssh/id_rsa_3072_uberspace3 $REMOTE $FILE"
@@ -215,9 +215,9 @@ if [ "$1" = "getdb" ]; then
     fi
     if [ -d $localdir ]; then
 	DBF=db.sqlite3
-	now=$(date +"%y%m%d%H%M")
-	scp $UBERSPACE:$remotedir/$DBF ./$NAM.$DBF.$now
-	echo "$NAM.$DBF.$now created"
+        NAM2=$DBF.${NAM}$(date +"%Y%m%d%H%M")
+        scp $UBERSPACE:$remotedir/$DBF ./$NAM2
+	echo "$DBF stored as $NAM2"
     else
 	echo "$localdir not found"
     fi

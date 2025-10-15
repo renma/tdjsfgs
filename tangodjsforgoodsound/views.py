@@ -1,4 +1,4 @@
-# Time-stamp: <2022-05-01 07:03:49 rene>
+# Time-stamp: <2024-09-12 08:30:08 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -35,7 +35,7 @@ from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
     sendRegistrationDeletedEmail, sendWelcomeEmail
 
 
-SHOW_MAINTENANCE_PAGE = ".qmail-maintenance"
+SHOW_MAINTENANCE_PAGE = "maintenancemode"
 logger = logging.getLogger("tdjsfgs")
 
 
