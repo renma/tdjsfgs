@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Time-stamp: <2025-10-15 08:17:01 rene>
+
 import os
 import sys
 

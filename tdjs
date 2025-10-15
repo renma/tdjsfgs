@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2025-10-13 22:38:15 rene>
+# Time-stamp: <2025-10-15 08:01:13 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -203,6 +203,7 @@ fi
 
 
 if [ "$1" = "push" ]; then
+    # requires entry in ~/.ssh/config
     git push origin master
     exit 0
 fi

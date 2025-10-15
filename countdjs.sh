@@ -1,5 +1,5 @@
 #!/bin/bash
-# Time-stamp: <2022-05-11 08:01:12 rene>
+# Time-stamp: <2025-10-15 08:17:17 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
