@@ -29,8 +29,12 @@ SECRET_KEY = topsecret._SECRET_KEY
 # TODO don't run with debug turned on in production!
 DEBUG = os.path.exists("/home/rene")
 
+# Enaable full console loggers
+ENABLE_EXISTING_LOGGERS = os.path.join(BASE_DIR, "enable_existing_loggers")
+
 print("Python Version %s" % (sys.version.split()[0]))
-print("mysite.settings.DEBUG=%s" % DEBUG)
+print("mysite.settings.DEBUG=%s, exceptions to console=%s" %
+      (DEBUG, os.path.isfile(ENABLE_EXISTING_LOGGERS)))
 
 # Do not use LongAutoField
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
@@ -156,7 +160,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Logging (one tdjsfgs logger for all)
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': not os.path.isfile(ENABLE_EXISTING_LOGGERS),
     'formatters': {
         'simple': {
             'format': '%(levelname)s %(asctime)s :: %(message)s',
