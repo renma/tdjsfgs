@@ -1,4 +1,4 @@
-# Time-stamp: <2022-10-16 07:56:09 rene>
+# Time-stamp: <2025-12-21 06:59:11 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -25,6 +25,7 @@ from django.conf import settings
 import hashlib
 import logging
 import os
+import sys
 from . import version
 
 
@@ -38,10 +39,13 @@ class TangodjsforgoodsoundConfig(AppConfig):
     def ready(self):
         if not os.environ.get("RUN_MAIN"):
             logger.info("Server start, Version %s" % version.__version__)
+            logger.info("Python Version %s" % (sys.version.split()[0]))
             try:
                 dbname = "db.sqlite3"
                 x = hashlib.md5(open(dbname, "rb").read()).hexdigest()
                 logger.info("DB=%s, MD5=%s" % (dbname, x))
+                x = os.path.isfile(settings.ENABLE_EXISTING_LOGGERS)
+                logger.info("DEBUG=%s, exceptions to console=%s" % (settings.DEBUG, x))
             except Exception as e:
                 logger.info(e)
             # Create a media directory

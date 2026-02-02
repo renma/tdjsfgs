@@ -1,4 +1,4 @@
-# Time-stamp: <2022-05-18 13:40:02 rene>
+# Time-stamp: <2026-02-01 08:13:28 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -59,10 +59,12 @@ urlpatterns = [
     url(r"^registered/$", views.registered, name="registered"),
 
     url(r"^technology/$", views.technology, name="technology"),
-    url(r"^logfile/$", views.logfile, name="logfile"),
 
     # Support old urls (google-search)
     url(r"^about/$", RedirectView.as_view(url="/project")),
+
+    # Protected files in more
+    url(r"^more/(?P<filename>[^/]+)/$", views.protected, name="protected"),
 
 ]
 

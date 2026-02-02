@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Time-stamp: <2020-09-06 07:43:28 rene>
+# Time-stamp: <2026-02-01 22:58:58 rene>
 #
 # Copyright (C) 2010 - 2014 Rene Maurer <rene@cumparsita.ch>
 #
@@ -23,5 +23,6 @@
 clear
 echo "We are on $(uname)"
 ./clean > /dev/null
-find . -name '*.py' -exec ./checkcode-helper '{}' \;
+# find . -name '*.py' -exec ./checkcode-helper '{}' \;
+find . -path "*migrations/*" -prune -o -name '*.py' -exec ./checkcode-helper '{}' \;
 echo done

@@ -16,6 +16,6 @@ MAILTO=""
 # 10 0 * * * /home/tdjsfgs/ALL/mysite/tdjs start prod >> /home/tdjsfgs/ALL/mysite/log.txt 2>&1
 # 10 12 * * * /home/tdjsfgs/ALL/mysite/tdjs start prod >> /home/tdjsfgs/ALL/mysite/log.txt 2>&1
 
-# restart application server if it is not running every 5 minutes
+# restart application server if it is not running every minute
 MAILTO="contact@tangodjsforgoodsound.info"
-*/5 * * * * /home/tdjsfgs/ALL/mysite/checkserver.sh
+*/1 * * * * /home/tdjsfgs/ALL/mysite/checkserver.sh

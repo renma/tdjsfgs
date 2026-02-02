@@ -1,4 +1,4 @@
-# Time-stamp: <2024-09-12 08:30:08 rene>
+# Time-stamp: <2026-02-01 08:21:36 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -18,16 +18,17 @@
 #
 # ----------------------------------------------------------------------
 
-import unicodedata
 import inspect
 import logging
+import mimetypes
 import os
 
+from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ContactForm, RegisterForm, DJEditForm, SubscriberPasswordForm
 from .models import DJ
@@ -36,6 +37,7 @@ from .common import createDJContext, sendContactEmail, sendRegistrationEmail, \
 
 
 SHOW_MAINTENANCE_PAGE = "maintenancemode"
+ADMIN_USERS = (2, 4)  # 2=René, 4=Alberto
 logger = logging.getLogger("tdjsfgs")
 
 
@@ -155,8 +157,32 @@ def project(request):
 
 def more(request):
     log()
+    if not request.user.is_authenticated:
+        raise Http404
+    if request.user.id not in ADMIN_USERS:
+        raise Http404
     context = createDJContext(request, DJ)
     return render(request, "more.html", context)
+
+
+def protected(request, filename):
+    log()
+    if not request.user.is_authenticated:
+        raise Http404
+    if request.user.id not in ADMIN_USERS:
+        raise Http404
+    if "/" in filename or "\\" in filename:  # Security check againts ../
+        raise Http404
+    path = os.path.join(settings.MEDIA_ROOT, filename)
+    logger.info("filename = %s " % path)
+    if not os.path.exists(path):
+        raise Http404
+
+    contentType, _ = mimetypes.guess_type(path)
+
+    if contentType in ("application/pdf", "text/plain"):
+        return FileResponse(open(path, "rb"), content_type=contentType, as_attachment=False)  # show
+    return FileResponse(open(path, "rb"), as_attachment=True)  # download
 
 
 def loginredirect(request):
@@ -187,7 +213,9 @@ def customlogout(request):
 def djdetail(request, dj_id):
     log()
     dj = get_object_or_404(DJ, pk=dj_id)
-    logger.info("DJ details: %s" % dj.name)
+    if dj.number_of_milongas < 1:
+        raise Http404
+    logger.info("DJ details: %s (number_of_milongas=%d)" % (dj.name, dj.number_of_milongas))
     return render(request, "djdetail.html", {"dj": dj})
 
 
@@ -336,27 +364,3 @@ def technology(request):
         context = createDJContext(request, DJ, context)
         return render(request, "technology.html", context)
     return render(request, "index_empty.html")
-
-
-@login_required
-def logfile(request):
-
-    def stripAccents(val, encoding="utf-8"):
-        nfkd_form = unicodedata.normalize('NFKD', val)
-        return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
-
-    log()
-    name = "%s %s" % (request.user.first_name, request.user.last_name)
-    if name in ["Rene Maurer", "Albert Alt"]:
-        lines = []
-        """
-        import codecs
-        with codecs.open("tdjsfgs.log", "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            lines.reverse()
-        """
-        lines.append("\n\n    The logfile is only available on the server.")
-        lines.append("\n\n    Location: ~/ALL/mysite/tdjsfgs.log [.*]")
-        content = stripAccents("".join(lines))
-        return HttpResponse(content, content_type="text/plain")
-    return HttpResponse("", content_type="text/plain")

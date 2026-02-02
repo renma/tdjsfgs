@@ -1,0 +1,157 @@
+Release notes 1.6.4
+Released: 2026-02-02
+------------------------------------------------------------------------
+
+The main focus of this release is a change in the /more section and an update
+regarding DJs with a Milonga count of 0 (hidden DJs).
+
+For both cases, it is now guaranteed that the data is never publicly
+accessible, even if someone obtains direct links to the resources. The data has
+been moved to the /media directory (which is excluded from the web server) and
+is only delivered when an ADMIN_USER (DJ Albero or DJ René) is logged in. For
+all other cases, the application server responds with error 404.
+
+As part of this update, some cleanup and improvements were also made:
+
+- <tdjs> script simplified (removed obsolete <doc> parameter).
+- Used data (png, pdf, etc.) moved from RESOURCES to /static and /media.
+- Logfile view removed (now only availabe after ssh-login to uberspace).
+- force_disable_debug allows starting the local server without debug mode.
+- Updated cron job. It now checks every minute whether the application needs to
+  be restarted and sends an email notification if this occurs (see
+  <checkserver.sh>).
+
+Fixed requirements:
+
+#159 Visibility of the m.o.r.e page needs revision 
+#154 Application crashes silently
+#155 Enable console logging 
+
+Fixed bugs:
+
+#159 Visibility of the m.o.r.e page needs revision 
+#154 Application crashes silently
+
+Closed without fix:
+
+None.
+
+Statistic:
+>>> git --no-pager diff ddceb80f598626d80891b9beb9e8d559e8afb678 --stat --cached ':!*releaseno*164*'
+RESOURCES/tdjsfgs_testing_163.xlsx                 | Bin 14103 -> 0 bytes
+ _force_disable_debug                               |   0
+ checkcode                                          |   5 +-
+ checkserver.sh                                     |  31 +++++++
+ countdjs.sh                                        |   2 +-
+ crontab                                            |  17 ++--
+ manage.py                                          |   2 +
+ ...Kontakte_und_Reaktiokion_nach_Release_1.3.6.pdf | Bin
+ media/Kontakte_zu_Usern_2026-01-28.pdf             | Bin 0 -> 83642 bytes
+ media/Kontakte_zu_Usern_2026-01-28.xlsx            | Bin 0 -> 31332 bytes
+ .../Kontakte_zu_Usern_o_Publik_2019-01-12.pdf      | Bin
+ {RESOURCES => media}/releasenotes_140.txt          |   0
+ {RESOURCES => media}/releasenotes_144.txt          |   0
+ {RESOURCES => media}/releasenotes_145.txt          |   0
+ {RESOURCES => media}/releasenotes_150.txt          |   0
+ {RESOURCES => media}/releasenotes_152.txt          |   0
+ {RESOURCES => media}/releasenotes_153.txt          |   0
+ {RESOURCES => media}/releasenotes_154.txt          |   0
+ {RESOURCES => media}/releasenotes_155.txt          |   0
+ {RESOURCES => media}/releasenotes_156.txt          |   0
+ {RESOURCES => media}/releasenotes_157.txt          |   0
+ {RESOURCES => media}/releasenotes_158.txt          |   0
+ {RESOURCES => media}/releasenotes_159.txt          |   0
+ {RESOURCES => media}/releasenotes_160.txt          |   0
+ {RESOURCES => media}/releasenotes_161.txt          |   0
+ {RESOURCES => media}/releasenotes_162.txt          |   0
+ {RESOURCES => media}/releasenotes_163.txt          |   0
+ {RESOURCES => media}/tdjsfgs.docx                  | Bin
+ {RESOURCES => media}/tdjsfgs.pdf                   | Bin
+ media/tdjsfgs_testing_066.pdf                      | Bin 0 -> 62516 bytes
+ {RESOURCES => media}/tdjsfgs_testing_066.xls       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_10a.xls       | Bin
+ media/tdjsfgs_testing_112.pdf                      | Bin 0 -> 67550 bytes
+ {RESOURCES => media}/tdjsfgs_testing_112.xls       | Bin
+ media/tdjsfgs_testing_118.pdf                      | Bin 0 -> 69717 bytes
+ {RESOURCES => media}/tdjsfgs_testing_118.xls       | Bin
+ .../static => media}/tdjsfgs_testing_127.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_127.xls       | Bin
+ .../static => media}/tdjsfgs_testing_133.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_133.xls       | Bin
+ .../static => media}/tdjsfgs_testing_136.pdf       | Bin
+ .../static => media}/tdjsfgs_testing_140.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_140.xls       | Bin
+ .../static => media}/tdjsfgs_testing_144.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_144.xls       | Bin
+ .../static => media}/tdjsfgs_testing_145.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_145.xls       | Bin
+ .../static => media}/tdjsfgs_testing_150.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_150.xls       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_153.1108.pdf  | Bin
+ {RESOURCES => media}/tdjsfgs_testing_153.1108.xlsx | Bin
+ {RESOURCES => media}/tdjsfgs_testing_156.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_156.xlsx      | Bin
+ {RESOURCES => media}/tdjsfgs_testing_157.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_157.xlsx      | Bin
+ {RESOURCES => media}/tdjsfgs_testing_160.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_160.xlsx      | Bin
+ {RESOURCES => media}/tdjsfgs_testing_162.pdf       | Bin
+ {RESOURCES => media}/tdjsfgs_testing_162.xlsx      | Bin
+ {RESOURCES => media}/tdjsfgs_testing_163.pdf       | Bin 116552 -> 117454 bytes
+ media/tdjsfgs_testing_163.xlsx                     | Bin 0 -> 16538 bytes
+ mysite/settings.py                                 |  17 ++--
+ mysite/urls.py                                     |   1 +
+ tangodjsforgoodsound/apps.py                       |   6 +-
+ ...Kontakte_und_Reaktiokion_nach_Release_1.3.6.pdf | Bin 19021 -> 0 bytes
+ .../Kontakte_zu_Usern_o_Publik_2019-01-12.pdf      | Bin 45228 -> 0 bytes
+ tangodjsforgoodsound/static/releasenotes_140.txt   |  33 -------
+ tangodjsforgoodsound/static/releasenotes_144.txt   |  21 -----
+ tangodjsforgoodsound/static/releasenotes_145.txt   |  10 ---
+ tangodjsforgoodsound/static/releasenotes_150.txt   |  16 ----
+ tangodjsforgoodsound/static/releasenotes_152.txt   |   7 --
+ tangodjsforgoodsound/static/releasenotes_153.txt   |   5 --
+ tangodjsforgoodsound/static/releasenotes_154.txt   |  28 ------
+ tangodjsforgoodsound/static/releasenotes_155.txt   |  38 --------
+ tangodjsforgoodsound/static/releasenotes_156.txt   |  33 -------
+ tangodjsforgoodsound/static/releasenotes_157.txt   |  30 -------
+ tangodjsforgoodsound/static/releasenotes_158.txt   |  33 -------
+ tangodjsforgoodsound/static/releasenotes_159.txt   |  50 -----------
+ tangodjsforgoodsound/static/releasenotes_160.txt   | 100 ---------------------
+ tangodjsforgoodsound/static/releasenotes_161.txt   |  64 -------------
+ tangodjsforgoodsound/static/releasenotes_162.txt   |  44 ---------
+ tangodjsforgoodsound/static/releasenotes_163.txt   |  55 ------------
+ tangodjsforgoodsound/static/tdjsfgs.docx           | Bin 9864 -> 0 bytes
+ tangodjsforgoodsound/static/tdjsfgs.pdf            | Bin 55601 -> 0 bytes
+ .../static/tdjsfgs_testing_066.pdf                 | Bin 32031 -> 0 bytes
+ .../static/tdjsfgs_testing_066.xls                 | Bin 12800 -> 0 bytes
+ .../static/tdjsfgs_testing_10a.pdf                 | Bin 32410 -> 0 bytes
+ .../static/tdjsfgs_testing_10a.xls                 | Bin 12800 -> 0 bytes
+ .../static/tdjsfgs_testing_112.pdf                 | Bin 33467 -> 0 bytes
+ .../static/tdjsfgs_testing_112.xls                 | Bin 13312 -> 0 bytes
+ .../static/tdjsfgs_testing_118.pdf                 | Bin 33314 -> 0 bytes
+ .../static/tdjsfgs_testing_118.xls                 | Bin 14336 -> 0 bytes
+ .../static/tdjsfgs_testing_127.xls                 | Bin 16384 -> 0 bytes
+ .../static/tdjsfgs_testing_133.xls                 | Bin 15872 -> 0 bytes
+ .../static/tdjsfgs_testing_140.xls                 | Bin 16384 -> 0 bytes
+ .../static/tdjsfgs_testing_144.xls                 | Bin 17408 -> 0 bytes
+ .../static/tdjsfgs_testing_145.xls                 | Bin 17408 -> 0 bytes
+ .../static/tdjsfgs_testing_150.xls                 | Bin 17408 -> 0 bytes
+ .../static/tdjsfgs_testing_153.1108.pdf            | Bin 62581 -> 0 bytes
+ .../static/tdjsfgs_testing_153.1108.xlsx           | Bin 14104 -> 0 bytes
+ .../static/tdjsfgs_testing_156.pdf                 | Bin 48881 -> 0 bytes
+ .../static/tdjsfgs_testing_156.xlsx                | Bin 12452 -> 0 bytes
+ .../static/tdjsfgs_testing_157.pdf                 | Bin 90807 -> 0 bytes
+ .../static/tdjsfgs_testing_157.xlsx                | Bin 17430 -> 0 bytes
+ .../static/tdjsfgs_testing_160.pdf                 | Bin 52889 -> 0 bytes
+ .../static/tdjsfgs_testing_160.xlsx                | Bin 13071 -> 0 bytes
+ .../static/tdjsfgs_testing_162.pdf                 | Bin 119303 -> 0 bytes
+ .../static/tdjsfgs_testing_162.xlsx                | Bin 17450 -> 0 bytes
+ .../static/tdjsfgs_testing_163.pdf                 | Bin 116552 -> 0 bytes
+ .../static/tdjsfgs_testing_163.xlsx                | Bin 14103 -> 0 bytes
+ tangodjsforgoodsound/templates/404.html            |  24 +++++
+ tangodjsforgoodsound/templates/more.html           |  97 ++++++++++----------
+ tangodjsforgoodsound/urls.py                       |   6 +-
+ tangodjsforgoodsound/version.py                    |   8 +-
+ tangodjsforgoodsound/views.py                      |  60 +++++++------
+ tdjs                                               |  28 ++----
+ 116 files changed, 188 insertions(+), 683 deletions(-)
