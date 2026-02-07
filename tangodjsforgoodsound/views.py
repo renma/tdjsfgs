@@ -1,4 +1,4 @@
-# Time-stamp: <2026-02-01 08:21:36 rene>
+# Time-stamp: <2026-02-04 23:22:46 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -22,6 +22,7 @@ import inspect
 import logging
 import mimetypes
 import os
+import re
 
 from django.conf import settings
 from django.contrib.auth import logout
@@ -46,6 +47,11 @@ def log():
     if caller == "index":
         caller = "DJs"
     logger.info("%s" % caller)
+
+
+def adjustDjName(djName):
+    pattern = r"^(djvj|tdj|dj|tj)\b|\b(djvj|tdj|dj|tj)\b"
+    return re.sub(pattern, '', djName, flags=re.IGNORECASE).strip()
 
 
 @login_required
@@ -99,22 +105,19 @@ def index(request):
         for dj in DJ.objects.filter(number_of_milongas__gte=1):
             # TODO handle exception like Rene Maurer "El firulete"
             # TODO use the namesort field for this
-            s = dj.name.lower().split()
-            x = s[1] if s[0] in ["dj", "tj"] and len(s) > 1 else s[0]
-            D[dj.country.name.lower() + x + str(dj.id)] = dj
+            x = adjustDjName(dj.name)
+            key = dj.country.name.lower() + x + str(dj.id)
+            D[key] = dj
         keys = list(D.keys())
         keys.sort()
         for k in keys:
             dj = D[k]
-            if dj.name.lower().startswith("dj ") \
-               or dj.name.lower().startswith("tj "):
-                dj.name = dj.name[3:]
+            x = adjustDjName(dj.name)
+            dj.name = x
             # HACK!
             djFullLocation = "%s, %s" % (dj.country.name, dj.province)
             dj.province = djFullLocation
             djL.append(D[k])
-        # for dj in djL:
-        #     print dj, dj.country, dj.province, dj.country.name
         context = {"djList": djL}
         context = createDJContext(request, DJ, context)
         return render(request, "index.html", context)
@@ -213,9 +216,13 @@ def customlogout(request):
 def djdetail(request, dj_id):
     log()
     dj = get_object_or_404(DJ, pk=dj_id)
-    if dj.number_of_milongas < 1:
-        raise Http404
     logger.info("DJ details: %s (number_of_milongas=%d)" % (dj.name, dj.number_of_milongas))
+    if dj.number_of_milongas < 1:
+        # DJs can always view their own data (even if number of milingas = 0)
+        userId = request.user  # if logged in = login email / if not logged in = AnonymousUser
+        djUser = dj.user  # registered login email
+        if not userId == djUser:
+            raise Http404
     return render(request, "djdetail.html", {"dj": dj})
 
 
@@ -350,6 +357,7 @@ def registered(request):
     return render(request, "registration/registered.html")
 
 
+"""
 def technology(request):
     log()
     home = os.path.expanduser("~")
@@ -357,10 +365,30 @@ def technology(request):
         orderBy = ["computer", "player", "namesort"]
         djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
         for dj in djL:
-            if dj.name.lower().startswith("dj ") \
-               or dj.name.lower().startswith("tj "):
-                dj.name = dj.name[3:]
+            x = adjustDjName(dj.name)
+            dj.name = x
         context = {"djList": djL}
         context = createDJContext(request, DJ, context)
         return render(request, "technology.html", context)
     return render(request, "index_empty.html")
+"""
+
+
+def technology(request):
+    log()
+    djL = []
+    D = {}
+    for dj in DJ.objects.filter(number_of_milongas__gte=1):
+        x = adjustDjName(dj.name)
+        key = dj.computer.lower() + dj.player.lower() + dj.audiointerface.lower() + x + str(dj.id)
+        D[key] = dj
+        keys = list(D.keys())
+        keys.sort()
+    for k in keys:
+        dj = D[k]
+        x = adjustDjName(dj.name)
+        dj.name = x
+        djL.append(dj)
+    context = {"djList": djL}
+    context = createDJContext(request, DJ, context)
+    return render(request, "technology.html", context)

@@ -1,0 +1,38 @@
+Release notes 1.6.5
+Released: 2026-02-07
+------------------------------------------------------------------------
+
+There were two more fixes to do for the last release (1.6.4):
+
+- If a DJ had a milonga count of 0, his/her data was no longer displayed when
+  logged-in.
+
+- In the DJ list the prefixes “dj”, “tdj”, “tj”, and “djvj” are removed from
+  the DJ name to improve the visual appearance. Done for the index page and the
+  technology page.
+
+- Minor adjustment when sorting the entries in the technology page.
+
+Fixed requirements:
+
+#53 DJ Liste harmonisieren?
+#160 New users were unable to enter data.
+
+Fixed bugs:
+
+#160 New users were unable to enter data
+
+Closed without fix:
+
+None.
+
+Statistic:
+>>> git --no-pager diff fbd67dd06217537a0c692cac8d3550538bcdb5ef --stat --cached ':!*releaseno*165*'
+ media/tdjsfgs_testing_165.pdf            | Bin 0 -> 118185 bytes
+ media/tdjsfgs_testing_165.xlsx           | Bin 0 -> 14474 bytes
+ tangodjsforgoodsound/templates/more.html |   7 +++++--
+ tangodjsforgoodsound/version.py          |   6 +++---
+ tangodjsforgoodsound/views.py            |  56 ++++++++++++++++++++++++++++++++++++++++++--------------
+ tdjs                                     |   4 ++--
+ test_number_djs.txt                      |  20 ++++++++++++++++++++
+ 7 files changed, 72 insertions(+), 21 deletions(-)

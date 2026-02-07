@@ -1,0 +1,20 @@
+# Time-stamp: <2026-02-06 08:59:16 rene>
+
+$ sqlite3 db.sqlite3
+
+sqlite> SELECT COUNT(*) FROM tangodjsforgoodsound_dj;
+161
+
+sqlite> SELECT COUNT(*) FROM tangodjsforgoodsound_dj where number_of_milongas > 0;
+111
+
+sqlite> SELECT COUNT(computer) FROM tangodjsforgoodsound_dj where number_of_milongas > 0;
+111
+
+sqlite> SELECT COUNT(soundprocessor) FROM tangodjsforgoodsound_dj where number_of_milongas > 0;
+111
+
+sqlite> SELECT COUNT(player) FROM tangodjsforgoodsound_dj where number_of_milongas > 0;
+111
+
+sqlite> .exit
