@@ -6,7 +6,17 @@
 <h1>Register</h1>
 
 <p class="margin-bottom">
-  By submitting your registration, you agree to our <b>minimal sound requirement statement</b>:
+  Before registering, please <a href="/project">read our project page thoroughly</a>.
+
+<p class="margin-bottom">
+    Can you identify with what is written there and are you willing to support
+    the project? Because it's not just about being on this DJ list. We expect
+    you to support the project by providing detailed information about your DJ
+    profile, the sound quality of the music you play, your equipment and your
+    working methods.
+
+<p class="margin-bottom">
+  And by submitting your registration, you agree to our <b>minimal sound requirement statement</b>:
   <ul>
     <li class="first">We use good quality transfers of the original recordings.
     <li>We don't play lossy formats (e.g. mp3, aac, youtube-downloads ...).
@@ -58,7 +68,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_firstname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_firstname }}</td>
+      {{ form.register_firstname.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_firstname }}</td>
 
     </tr><tr>
       {% if form.register_lastname.errors.as_text %}
@@ -66,7 +76,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_lastname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_lastname }}</td>
+      {{ form.register_lastname.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_lastname }}</td>
 
     </tr><tr>
       {% if form.register_djname.errors.as_text %}
@@ -74,7 +84,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_djname.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_djname }}</td>
+      {{ form.register_djname.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_djname }}</td>
 
     </tr><tr>
       {% if form.register_email.errors.as_text %}
@@ -82,7 +92,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_email.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_email }}</td>
+      {{ form.register_email.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_email }}</td>
 
     </tr><tr>
       {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
@@ -90,7 +100,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_password1.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_password1 }}</td>
+      {{ form.register_password1.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_password1 }}</td>
 
     </tr><tr>
       {% if form.register_password1.errors.as_text or form.register_password2.errors.as_text %}
@@ -98,7 +108,7 @@
       {% else %}
         <td>
       {% endif %}
-      {{ form.register_password2.label }}:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_password2 }}</td>
+      {{ form.register_password2.label }}:</td><td class="xsmall">&lowast;</td><td>{{ form.register_password2 }}</td>
 
     </tr><tr>
       {% if form.register_magic.errors.as_text %}
@@ -106,7 +116,7 @@
       {% else %}
         <td>
       {% endif %}
-      One of the big four orchestras:</td><td class="xsmall2">&lowast;</td><td>{{ form.register_magic }}</td>
+      One of the big four orchestras:</td><td class="xsmall">&lowast;</td><td>{{ form.register_magic }}</td>
 
     </tr>
   </table>

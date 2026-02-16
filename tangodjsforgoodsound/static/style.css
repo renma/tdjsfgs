@@ -1,4 +1,4 @@
-/* Time-stamp: <2022-05-10 14:19:51 rene>                               */
+/* Time-stamp: <2026-02-13 07:59:27 rene>                               */
 /*                                                                      */
 /* Copyright (C) 2017 René Maurer                                       */
 /* This file is part of tangodjsforgoodsound.                           */
@@ -159,15 +159,8 @@ td {
 td.xsmall {
     font-weight: normal;
     font-size: 0.9em;
-    text-align: center;
-    padding-right: 5px;
-}
-
-td.xsmall2 {
-    font-weight: normal;
-    font-size: 0.9em;
-    text-align: center;
-    padding-right: 10px;
+    text-align: right;
+    padding-right: 8px;
 }
 
 /* add margin to the bottom so that nothings scrolls when table shrinks to one element */
@@ -324,6 +317,10 @@ p.margin-top {
     margin-top: 24px;
 }
 
+p.margin-top-small {
+    margin-top: 10px;
+}
+
 p.margin-top-big {
     margin-top: 3em;
 }
@@ -418,7 +415,33 @@ textarea {
 /* tango djs for good sound                                             */
 /* djedit input styles                                                  */
 /* -------------------------------------------------------------------- */
-#djedit  textarea {
+
+#djedit table {
+    max-width: 850px;
+    table-layout: fixed;
+    width: auto;
+}
+
+#djedit td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#djedit td div {
+    max-width: 50%;
+    overflow-wrap: anywhere;
+    background-color: #dfd;
+    color: #666;
+    border: 1px solid #393;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 14px;
+    margin-bottom: 30px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+#djedit textarea {
     width: 370px;
     margin-top: 4px;
 }

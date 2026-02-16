@@ -1,4 +1,4 @@
-# Time-stamp: <2026-02-04 23:22:46 rene>
+# Time-stamp: <2026-02-11 12:10:02 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -23,6 +23,8 @@ import logging
 import mimetypes
 import os
 import re
+
+from datetime import date
 
 from django.conf import settings
 from django.contrib.auth import logout
@@ -98,26 +100,14 @@ def index(request):
     log()
     home = os.path.expanduser("~")
     if not os.path.exists(os.path.join(home, SHOW_MAINTENANCE_PAGE)):
-        # orderBy = ["country", "namesort"]
-        # djL = DJ.objects.order_by(*orderBy).filter(number_of_milongas__gte=1)
         djL = []
-        D = {}
         for dj in DJ.objects.filter(number_of_milongas__gte=1):
-            # TODO handle exception like Rene Maurer "El firulete"
-            # TODO use the namesort field for this
-            x = adjustDjName(dj.name)
-            key = dj.country.name.lower() + x + str(dj.id)
-            D[key] = dj
-        keys = list(D.keys())
-        keys.sort()
-        for k in keys:
-            dj = D[k]
-            x = adjustDjName(dj.name)
-            dj.name = x
-            # HACK!
-            djFullLocation = "%s, %s" % (dj.country.name, dj.province)
-            dj.province = djFullLocation
-            djL.append(D[k])
+            dj.name = adjustDjName(dj.name).replace("\"", '')
+            dj.province = "%s, %s" % (dj.country.name, dj.province)
+            dj.last_changed = date(int(dj.last_changed.strftime("%Y")), 1, 1)
+            djL.append(dj)
+        djL.sort(key=lambda dj: dj.name)  # first ascending by name
+        djL.sort(key=lambda dj: dj.last_changed, reverse=True)  # then descending by date
         context = {"djList": djL}
         context = createDJContext(request, DJ, context)
         return render(request, "index.html", context)

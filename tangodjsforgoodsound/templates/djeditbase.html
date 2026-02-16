@@ -21,27 +21,28 @@
 
 <div id="info-box-musica">
   <b>Musica</b><br>
-  Here you can say something about your sources, your preferences and
-  your style.
+    The quality of the music material is the most important factor for good
+    sound. Here please enter the names of the labels that you play most often
+    in the milongas. Information about your preferences and working methods is
+    also welcome.
   <br><button type="button" class="info-box" onclick="infotoggle('info-box-musica')">x</button>
 </div>
 
 <div id="info-box-equipment">
   <b>Equipment for live use</b><br>
-  These are probably the most important data for the site. A valuable
-  support for new DJs getting their first gear and an inspiration for
-  advanced DJs looking for better and proven tools.
-  <br>DJs working with turntable(s) please write in unnecessary or
-  inappropriate fields: "Not required for analog DJing".
+    Also very important data for the site. A valuable support for new DJs
+    getting their first gear and an inspiration for advanced DJs looking for
+    better and proven tools.  DJs working with turntable(s) please write in
+    unnecessary or inappropriate fields: <i>Not required for analog DJing</i>.
   <br><button type="button" class="info-box" onclick="infotoggle('info-box-equipment')">x</button>
 </div>
 
 <div id="info-box-rescue-equipment">
   <b>Rescue equipment</b><br>
-  These tools you will need if one or more of your main devices
-  fail. So it is logical, that their names must not be identical to
-  the main devices (unless you have second identical devices at
-  hand).
+  You will need these tools if one or more of your main devices fail. It
+    therefore makes sense that their names should not be identical to those of
+    the main devices (unless you have a second identical device to hand, in
+    this case, you could write <i>nameofdevice 1</i> and <i>nameofdevice 2</i>).
   <br><button type="button" class="info-box" onclick="infotoggle('info-box-rescue-equipment')">x</button>
 </div>
 
@@ -91,13 +92,25 @@
     {% endif %}
   {% endif %}
 
-  <table id="djedit">
+  <div id="djedit">
+  <table>
     <tr>
       <td>&nbsp;</td><td>{{ form.namesort.as_hidden }}</td>
 
     </tr><tr>
+      <!--
       <td><b>Account data<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
 	  onclick="infotoggle('info-box-account-data')"></td>
+      -->
+      <td><b>Account data</b></td><td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td colspan="3">
+        <div>
+          The email address you enter here will be used for login and password
+          Reset (it can be an advantage if this address does not match the one
+          displayed on the website).
+        </div>
+      </td>
 
     </tr><tr>
       {% if form.useremail.errors.as_text %}
@@ -107,18 +120,27 @@
       {% endif %}
 
     </tr><tr>
-      <td><p><a href="password"><button type="button">Change password</button></a></p></td>
-
-    <!--
-      <td></td><td class="infocell">&rarr; Used for login and password reset (not visible),<br>&nbsp; &nbsp; best if not identical with address on website.</td>
-    -->
+      <td><p class="margin-top-small" ><a href="password"><button type="button">Change password</button></a></p></td>
 
     </tr><tr>
       <td>&nbsp;</td><td>&nbsp;</td>
-
     </tr><tr>
-      <td><b>Personal<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+      <td>&nbsp;</td><td>&nbsp;</td>
+      
+    </tr><tr>
+      <!--
+      <td><b>Personal</b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
 	  onclick="infotoggle('info-box-personal')"></td>
+      -->
+      <td><b>Personal</b></td><td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td colspan="3">
+        <div>
+          Your personal data that you want to publish. The email address
+          (optional) you enter here will be published on the website. We
+          protect the address against SPAM with some simple tricks.
+      </div>
+      </td>
 
     </tr><tr>
       {% if form.name.errors.as_text %} 
@@ -192,8 +214,6 @@
 
     <!-- </tr><tr><td></td><td></td><td class="infocell">&rarr; Optional email address for contacting you,<br>
         &nbsp; &nbsp; will be obfuscated - against SPAM.</td>
-    </tr><tr>
-      <td>&nbsp;</td><td>&nbsp;</td>
     -->
 
     </tr><tr>
@@ -202,8 +222,21 @@
       <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Musica<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+      <!--
+          <td><b>Music for live use</b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
 	  onclick="infotoggle('info-box-musica')"></td>
+      -->
+      <td><b>Music for live use</b></td><td>&nbsp;</td><td></td>
+
+    </tr><tr>
+      <td colspan="3">
+        <div>
+          The quality of the music material is the most important factor for
+          good sound. Here please enter the names of the labels that you play
+          most often in the milongas. Information about your preferences and
+          working methods is also welcome.
+        </div>
+      </td>
 
     </tr><tr>
       {% if form.style.errors.as_text %}
@@ -267,10 +300,23 @@
       <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Equipment</b> for live use</td><td>&nbsp;</td><td><button type="button" class="info-icon"
+      <!--
+      <td><b>Equipment for live use</b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
 	  onclick="infotoggle('info-box-equipment')"></td>
-
+      -->
+      <td><b>Equipment for live use</b></td><td>&nbsp;</td><td></td>
     </tr><tr>
+      <td colspan="3">
+        <div>
+          Also very important data for the site. A valuable support for new DJs
+          getting their first gear and an inspiration for advanced DJs looking
+          for better and proven tools.<br>DJs working with turntable(s) please
+          write in unnecessary or inappropriate fields: <i>Not required for
+          analog DJing</i>.
+        </div>
+      </td>
+
+   </tr><tr>
       {% if form.computer.errors.as_text %}
       <td class="errorcell">Computer/Device:</td><td class="xsmall">&lowast;</td><td>{{ form.computer }}</td>
       {% else %}
@@ -353,8 +399,22 @@
       <td>&nbsp;</td><td>&nbsp;</td>
 
     </tr><tr>
-      <td><b>Rescue equipment<b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
+      <!--
+      <td><b>Rescue equipment</b></td><td>&nbsp;</td><td><button type="button" class="info-icon"
 	  onclick="infotoggle('info-box-rescue-equipment')"></td>
+      -->
+      <td><b>Rescue equipment</b></td><td>&nbsp;</td><td></td>
+    </tr><tr>
+      <td colspan="3">
+        <div>
+          You will need these tools if one or more of your main devices
+          fail. It therefore makes sense that their names should not be
+          identical to those of the main devices.<br>If you have a second
+          identical device available, you could name them <i>NameOfDevice 1</i>
+          and <i>NameOfDevice 2</i>.<br>For example: Computer/Device = MAC 1
+          and in rescue equipment Computer/Device = MAC 2.
+        </div>
+      </td>
 
     </tr><tr>
       {% if form.backup_computer.errors.as_text %}
@@ -397,6 +457,7 @@
       <td>&nbsp;</td><td>&nbsp;</td>
     </tr>
   </table>
+  </div>
 
   <p class="margin-top">
     <a href="{% url 'djdelete'%}"><button type="button">Delete your registration ...</button></a>

@@ -1,0 +1,57 @@
+Release notes 1.6.6
+Released: 2026-02-16
+------------------------------------------------------------------------
+
+This release updates and improves key content. Thanks to Alberto for refining
+and enhancing it.
+
+Summary:
+
+- On the index page, DJs are now sorted in a way that the most recently updated
+  one appears at the top.
+
+- The registration page has been supplemented with an explanatory text intended
+  to discourage DJs from signing up without carefully reading what it is about.
+
+- The DJ edit dialog now displays infoboxes permanently to make sure they are
+  noticed (and followed...).
+  
+- Finally, the tdjs script and the CSS file received further small
+  improvements, and the links page was updated as well.
+
+Fixed requirements:
+
+#137 Sort djList with namesort
+#162 Additions for Page Register
+#163 Edit - Info Windows
+#164 Change Title Musica in djedit and DJ Site 
+#165 Update Link Page 2026-02
+#166 New Text for Info Window Music
+#167 Change Text in Info Window Equipment for live use
+#168 Addition to Info Window Rescue Equipment
+
+Fixed bugs:
+
+None.
+
+Closed without fix:
+
+None.
+
+Statistic:
+>>> git --no-pager diff e7686bd1831a37a1a4d8e181cb6435728f4a5402 --stat --cached ':!*releaseno*166*'
+ RESOURCES/knowledge-links.csv                      |  42 ++++----
+ createlinkpage.py                                  |  18 +++-
+ tangodjsforgoodsound/static/style.css              |  45 ++++++--
+ ...e_20220510_1445.css => style_20260213_0759.css} |  45 ++++++--
+ tangodjsforgoodsound/templates/base.html           |   2 +-
+ tangodjsforgoodsound/templates/contact.html        |  10 +-
+ tangodjsforgoodsound/templates/djdetail.html       |   4 +-
+ tangodjsforgoodsound/templates/djeditbase.html     | 113 ++++++++++++++++-----
+ tangodjsforgoodsound/templates/linkpage.html       |  10 +-
+ tangodjsforgoodsound/templates/more.html           |   3 +
+ .../templates/registration/register.html           |  26 +++--
+ tangodjsforgoodsound/version.py                    |   6 +-
+ tangodjsforgoodsound/views.py                      |  28 ++---
+ tdjs                                               |  26 +++--
+ 14 files changed, 250 insertions(+), 128 deletions(-)

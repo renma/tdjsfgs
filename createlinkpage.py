@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Time-stamp: <2024-09-10 07:16:00 rene>
+# Time-stamp: <2026-02-14 13:27:55 rene>
 #
 # Copyright (C) 2017 Rene Maurer
 # This file is part of tangodjsforgoodsound.
@@ -21,6 +21,8 @@
 
 import csv
 import os
+import shutil
+import sys
 
 
 x = os.curdir
@@ -33,9 +35,21 @@ template2 = "<h2>%s</h2>"
 
 if __name__ == "__main__":
 
+    try:
+        newSrcFile = sys.argv[1]
+        shutil.copy(newSrcFile, srcFile)
+        print("%s created from %s" % (srcFile, newSrcFile))
+    except IndexError:
+        pass
+    with open(srcFile, "r") as f:
+        content = f.read()
+        if ";;" in content:  # from Alberto
+            content = content.replace(";", ",")
+    with open(srcFile, "w") as f:
+        f.write(content)
     links = []
     with open(srcFile, "r") as csvfile:
-        print(("%s found" % srcFile[2:]))
+        print("%s found" % srcFile[2:])
         xreader = csv.reader(csvfile)
         for row in xreader:
             if len(row) > 1:
